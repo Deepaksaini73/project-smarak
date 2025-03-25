@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import {bebas,inter,montserrat} from "./fonts"
+import type { Metadata } from 'next';
+import './globals.css';
+import { bebas, inter, montserrat } from './fonts';
 
 export const metadata: Metadata = {
-  title: "Smarak 2025",
-  description: "Annual Civil Engineering Fest of NIT Rourkela",
+  title: 'Smarak 2025',
+  description: 'Annual Civil Engineering Fest of NIT Rourkela',
 };
 
 export default function RootLayout({
@@ -14,10 +14,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${bebas.variable} ${inter.variable} ${montserrat.variable}  antialiased`}
-      >
-        {children}
+      <body className={`${bebas.variable} ${inter.variable} ${montserrat.variable}  antialiased`}>
+        <>{children}</>
       </body>
     </html>
   );
