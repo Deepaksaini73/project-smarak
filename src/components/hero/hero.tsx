@@ -3,7 +3,7 @@ import CountdownTimer from './countdown';
 import React, { useEffect } from 'react';
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Loader } from "lucide-react"; // Import Lucide icon
+import { Loader } from "lucide-react"; 
 
 interface HeroProps {
   className?: string;
@@ -14,13 +14,12 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
   targetDate.setMonth(3);
   targetDate.setDate(12);
   
-  // Animation variants with improved sequencing
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.8, // Increased stagger time to ensure proper sequencing
+        staggerChildren: 0.5,
         delayChildren: 0.3,
         when: "beforeChildren"
       }
@@ -35,7 +34,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
       transition: {
         duration: 0.8,
         ease: "easeOut",
-        delay: 1.5 // Delay after heading animation
+        delay: 1.2 
       }
     }
   };
@@ -47,7 +46,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
       y: 0,
       transition: {
         duration: 0.7,
-        delay: index * 0.8, // More delay between elements
+        delay: 2.8 + (index * 0.5), 
         ease: "easeOut"
       }
     })
@@ -62,7 +61,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
       opacity: 1, 
       clipPath: "inset(0 0% 0 0)",
       transition: { 
-        duration: 1.2, 
+        duration: 1.5, 
         ease: "easeOut"
       }
     }
@@ -148,9 +147,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
           className="relative flex flex-col items-center"
         >
           
-          <motion.div 
-            variants={headingVariants}
-            custom={0}
+          <div 
             className="flex justify-center mb-6"
           >
             <motion.h1 
@@ -161,7 +158,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
             >
               Get Ready for the Ultimate Civil Engineering Event of the Year!
             </motion.h1>
-          </motion.div>
+          </div>
 
           <motion.div 
             variants={titleVariants}
@@ -174,7 +171,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ 
                   duration: 0.5, 
-                  delay: 2.3, // Increased delay to appear after SMARAK
+                  delay: 2.3, // Appears shortly after SMARAK
                   ease: "easeOut" 
                 }}
                 className="absolute -top-5 -right-16 text-sm md:text-base font-montserrat font-medium text-construction-orange bg-black/70 px-2.5 py-1.5 rounded-md border border-construction-orange/30"
@@ -189,7 +186,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
          
           <motion.div 
             variants={headingVariants}
-            custom={2} // Changed from 3 to 2 for better sequencing
+            custom={0}
             className="mb-10 w-full"
           >
             <CountdownTimer targetDate={targetDate} />
@@ -197,11 +194,11 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
           
           <motion.div
             variants={headingVariants}
-            custom={3} // Changed from 4 to 3
+            custom={1} 
             className="flex items-center justify-center gap-2 py-3 px-6 bg-construction-orange/20 border border-construction-orange/30 rounded-md"
           >
             <motion.div animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 10, ease: "ease" }}>
+              transition={{ repeat: Infinity, duration: 2 }}>
             <Loader 
               className="text-construction-yellow"
             />
@@ -214,7 +211,6 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
         </motion.div>
       </div>
       
-      {/* Blueprint grid overlay */}
       <div className="absolute inset-0 pointer-events-none z-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,204,0,0.1)_0,rgba(0,0,0,0)_70%)]"></div>
       </div>
