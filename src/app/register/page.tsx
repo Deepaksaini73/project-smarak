@@ -38,8 +38,7 @@ export default function RegisterPage() {
 
   async function onSubmit(data: RegistrationFormValues) {
     if (step === TOTAL_STEPS) {
-      const result = await makeRequest('POST', '/register', data);
-      console.log(result);
+      await makeRequest('POST', '/register', data);
     } else {
       handleNext();
     }
