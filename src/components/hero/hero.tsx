@@ -1,38 +1,72 @@
 "use client"
 import CountdownTimer from './countdown';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { cn } from "@/lib/utils";
-
+import { motion } from "framer-motion";
+import { Loader } from "lucide-react"; // Import Lucide icon
 
 interface HeroProps {
   className?: string;
 }
 
 const Hero: React.FC<HeroProps> = ({ className }) => {
-const targetDate = new Date();
-targetDate.setMonth(3);
-targetDate.setDate(12);
+  const targetDate = new Date();
+  targetDate.setMonth(3);
+  targetDate.setDate(12);
   
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLHeadingElement>(null);
-  
-  useEffect(() => {
-    const titleElement = titleRef.current;
-    const subtitleElement = subtitleRef.current;
-    
-    if (titleElement) {
-      titleElement.classList.add('animate-typewriter');
-    }
-    
-    // Animate subtitle after title animation
-    const subtitleTimer = setTimeout(() => {
-      if (subtitleElement) {
-        subtitleElement.classList.add('animate-typewriter');
+  // Animation variants with improved sequencing
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.8, // Increased stagger time to ensure proper sequencing
+        delayChildren: 0.3,
+        when: "beforeChildren"
       }
-    }, 3000);
-    
-    return () => clearTimeout(subtitleTimer);
-  }, []);
+    }
+  };
+  
+  const titleVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+        delay: 1.5 // Delay after heading animation
+      }
+    }
+  };
+  
+  const headingVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (index: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+        delay: index * 0.8, // More delay between elements
+        ease: "easeOut"
+      }
+    })
+  };
+  
+  const clipRevealVariants = {
+    hidden: { 
+      opacity: 0, 
+      clipPath: "inset(0 100% 0 0)" 
+    },
+    visible: { 
+      opacity: 1, 
+      clipPath: "inset(0 0% 0 0)",
+      transition: { 
+        duration: 1.2, 
+        ease: "easeOut"
+      }
+    }
+  };
 
   return (
     <div className={cn(
@@ -42,57 +76,142 @@ targetDate.setDate(12);
       <div className="absolute inset-0 blueprint-bg opacity-10 z-0"></div>
       <div className="absolute inset-0 bg-gradient-to-b from-construction-grey/90 to-black/90 z-0"></div>
       
-      <div className="absolute top-0 left-0 w-24 h-24 construction-pattern"></div>
-      <div className="absolute bottom-0 right-0 w-24 h-24 construction-pattern"></div>
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }} 
+        animate={{ opacity: 1, scale: 1 }} 
+        transition={{ duration: 0.8 }}
+        className="absolute top-0 left-0 w-24 h-24 construction-pattern"
+      />
       
-      <div className="absolute -left-16 top-1/4 w-40 h-40 border-8 border-dashed rounded-full border-construction-yellow/20 animate-rotate-gear opacity-20"></div>
-      <div className="absolute -right-20 bottom-1/4 w-48 h-48 border-8 border-dashed rounded-full border-construction-orange/20 animate-rotate-gear-reverse opacity-20"></div>
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }} 
+        animate={{ opacity: 1, scale: 1 }} 
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="absolute bottom-0 right-0 w-24 h-24 construction-pattern"
+      />
+      
+      <motion.div 
+        initial="hidden"
+        animate={["visible", "animate"]}
+        variants={{
+          hidden: { opacity: 0, scale: 0.8 },
+          visible: {
+            opacity: 0.2,
+            scale: 1,
+            transition: {
+              duration: 1.2,
+              ease: "easeOut"
+            }
+          },
+          animate: {
+            rotate: 360,
+            transition: {
+              duration: 40,
+              repeat: Infinity,
+              ease: "linear"
+            }
+          }
+        }}
+        className="absolute -left-16 top-1/4 w-40 h-40 border-8 border-dashed rounded-full border-construction-yellow/20"
+      />
+      
+      <motion.div 
+        initial="hidden"
+        animate={["visible", "animate"]}
+        variants={{
+          hidden: { opacity: 0, scale: 0.8 },
+          visible: {
+            opacity: 0.2,
+            scale: 1,
+            transition: {
+              duration: 1.2,
+              ease: "easeOut"
+            }
+          },
+          animate: {
+            rotate: -360,
+            transition: {
+              duration: 40,
+              repeat: Infinity,
+              ease: "linear"
+            }
+          }
+        }}
+        className="absolute -right-20 bottom-1/4 w-48 h-48 border-8 border-dashed rounded-full border-construction-orange/20"
+      />
       
       <div className="container max-w-5xl mx-auto z-10 pt-10 pb-20">
-        <div className="relative flex flex-col items-center opacity-0 animate-fade-in">
-          <div className="relative mb-8 opacity-0 animate-build-in delay-100">
-            <div className="relative text-8xl font-bebas tracking-wider text-construction-yellow">
-              SMARAK
-              <span className="absolute -top-5 -right-16 text-base font-montserrat text-construction-orange bg-black/50 px-2 py-1 rounded">2025</span>
-            </div>
-            <div className="text-sm uppercase tracking-widest text-construction-white/70 mt-1">
-              NIT Rourkela
-            </div>
-          </div>
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="relative flex flex-col items-center"
+        >
           
-          <div className="flex justify-center mb-6">
-            <h1 
-              ref={titleRef}
-              className="typewriter text-4xl md:text-5xl font-bebas tracking-wide text-center text-white leading-tight"
+          <motion.div 
+            variants={headingVariants}
+            custom={0}
+            className="flex justify-center mb-6"
+          >
+            <motion.h1 
+              variants={clipRevealVariants}
+              initial="hidden"
+              animate="visible"
+              className="text-xl md:text-2xl lg:text-3xl font-bebas tracking-wider text-center text-white leading-tight mb-2"
             >
               Get Ready for the Ultimate Civil Engineering Event of the Year!
-              <span className="typewriter-cursor"></span>
-            </h1>
-          </div>
-          
-          <div className="flex justify-center mb-8">
-            <h2 
-              ref={subtitleRef}
-              className="typewriter text-xl md:text-2xl font-montserrat text-center text-construction-yellow/90 max-w-2xl"
-            >
-              SMARAK 2025 - Coming Soon to NIT Rourkela!
-              <span className="typewriter-cursor"></span>
-            </h2>
-          </div>
-          
-          <p className="text-lg text-center max-w-3xl mb-8 text-construction-white/80 opacity-0 animate-fade-in-up delay-400">
-            Prepare for three days of innovation, knowledge, and technical excellence! A vibrant fest celebrating the essence of Civil Engineering, with eminent scholars, hands-on workshops, and thought-provoking competitions. We are bringing together the best minds in the field to learn, collaborate, and push the boundaries of innovation.
-          </p>
-          
-          <div className="mb-10 w-full opacity-0 animate-fade-in-up delay-500">
+            </motion.h1>
+          </motion.div>
+
+          <motion.div 
+            variants={titleVariants}
+            className="relative mb-10 flex flex-col items-center"
+          >
+            <div className="relative text-7xl sm:text-8xl md:text-9xl font-bebas tracking-[0.05em] text-construction-yellow text-center drop-shadow-lg">
+              SMARAK
+              <motion.span 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: 2.3, // Increased delay to appear after SMARAK
+                  ease: "easeOut" 
+                }}
+                className="absolute -top-5 -right-16 text-sm md:text-base font-montserrat font-medium text-construction-orange bg-black/70 px-2.5 py-1.5 rounded-md border border-construction-orange/30"
+              >
+                2025
+              </motion.span>
+            </div>
+            <div className="text-sm md:text-base uppercase tracking-[0.15em] font-medium text-construction-white/80 mt-2 text-center">
+              NIT Rourkela
+            </div>
+          </motion.div>
+         
+          <motion.div 
+            variants={headingVariants}
+            custom={2} // Changed from 3 to 2 for better sequencing
+            className="mb-10 w-full"
+          >
             <CountdownTimer targetDate={targetDate} />
-          </div>
+          </motion.div>
           
-          <p className="text-xl font-montserrat font-semibold mb-6 text-white opacity-0 animate-fade-in-up delay-600">
-            Stay Tuned and Don't Miss Out!
-          </p>
+          <motion.div
+            variants={headingVariants}
+            custom={3} // Changed from 4 to 3
+            className="flex items-center justify-center gap-2 py-3 px-6 bg-construction-orange/20 border border-construction-orange/30 rounded-md"
+          >
+            <motion.div animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 10, ease: "ease" }}>
+            <Loader 
+              className="text-construction-yellow"
+            />
+            </motion.div>
+            <span className="text-md font-montserrat text-construction-yellow">
+              Website Under Construction - Coming Soon
+            </span>
+          </motion.div>
           
-        </div>
+        </motion.div>
       </div>
       
       {/* Blueprint grid overlay */}
