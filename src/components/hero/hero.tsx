@@ -1,6 +1,6 @@
 "use client"
 import CountdownTimer from './countdown';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Loader } from "lucide-react"; 
@@ -19,8 +19,8 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.5,
-        delayChildren: 0.3,
+        staggerChildren: 0.3,
+        delayChildren: 0.2,
         when: "beforeChildren"
       }
     }
@@ -32,9 +32,9 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.5,
         ease: "easeOut",
-        delay: 1.2 
+        delay: 0.8
       }
     }
   };
@@ -45,8 +45,8 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.7,
-        delay: 2.8 + (index * 0.5), 
+        duration: 0.5,
+        delay: 1.2 + (index * 0.3), 
         ease: "easeOut"
       }
     })
@@ -61,7 +61,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
       opacity: 1, 
       clipPath: "inset(0 0% 0 0)",
       transition: { 
-        duration: 1.5, 
+        duration: 0.8, 
         ease: "easeOut"
       }
     }
@@ -74,7 +74,6 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
     )}>
       <div className="absolute inset-0 blueprint-bg opacity-10 z-0"></div>
       <div className="absolute inset-0 bg-gradient-to-b from-construction-grey/90 to-black/90 z-0"></div>
-      
       <motion.div 
         initial={{ opacity: 0, scale: 0.9 }} 
         animate={{ opacity: 1, scale: 1 }} 
@@ -98,14 +97,14 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
             opacity: 0.2,
             scale: 1,
             transition: {
-              duration: 1.2,
+              duration: 0.8,
               ease: "easeOut"
             }
           },
           animate: {
             rotate: 360,
             transition: {
-              duration: 40,
+              duration: 30,
               repeat: Infinity,
               ease: "linear"
             }
@@ -123,14 +122,14 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
             opacity: 0.2,
             scale: 1,
             transition: {
-              duration: 1.2,
+              duration: 0.8,
               ease: "easeOut"
             }
           },
           animate: {
             rotate: -360,
             transition: {
-              duration: 40,
+              duration: 30,
               repeat: Infinity,
               ease: "linear"
             }
@@ -170,8 +169,8 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ 
-                  duration: 0.5, 
-                  delay: 2.3,
+                  duration: 0.4, 
+                  delay: 1.2,
                   ease: "easeOut" 
                 }}
                 className="absolute -top-5 -right-16 text-sm md:text-base font-montserrat font-medium text-construction-orange bg-black/70 px-2.5 py-1.5 rounded-md border border-construction-orange/30"
@@ -187,7 +186,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
           <motion.div 
             variants={headingVariants}
             custom={0}
-            className=" mb-10 w-full"
+            className="mb-10 w-full"
           >
             <CountdownTimer targetDate={targetDate} />
           </motion.div>
@@ -198,12 +197,12 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
             className="flex items-center justify-center gap-2 py-3 px-2 md:px-6 bg-construction-orange/20 border border-construction-orange/30 rounded-md"
           >
             <motion.div animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 2 }}>
+              transition={{ repeat: Infinity, duration: 1.5 }}>
             <Loader 
               className="text-construction-yellow"
             />
             </motion.div>
-            <span className="text-sm md:text-md font-montserrat text-construction-yellow">
+            <span className="text-sm text-center md:text-md font-montserrat text-construction-yellow">
               Website Under Construction - Coming Soon
             </span>
           </motion.div>
