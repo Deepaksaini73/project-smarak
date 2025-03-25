@@ -1,23 +1,19 @@
 import { useState } from 'react';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { toast } from 'sonner';
-
-interface ApiResponse {
-  message?: string;
-  [key: string]: any;
-}
+import { handleSuccess, handleError, ApiResponse } from '@/lib/api-handlers';
 
 export const useApi = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const makeRequest = async (
+  const makeRequest = async <T = any>(
     method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
     endpoint: string,
     data?: any,
     errorMessage: string = 'Request failed',
     tokenReq: boolean = false,
     showToast: boolean = true
-  ): Promise<ApiResponse | null> => {
+  ): Promise<ApiResponse<T>> => {
     setIsLoading(true);
 
     const API_URL = `/api`;
@@ -25,11 +21,12 @@ export const useApi = () => {
     const token = '';
 
     if (tokenReq && !token) {
-      toast.error('Please login again to continue!');
+      if (showToast) toast.error('Please login again to continue!');
       setIsLoading(false);
       return {
         status: 'error',
         data: null,
+        message: 'Authentication required',
       };
     }
 
@@ -39,35 +36,15 @@ export const useApi = () => {
     };
 
     try {
-      const response: AxiosResponse<ApiResponse> = await axios.request({
+      const response = await axios.request({
         method,
         url,
         data,
         headers,
       });
-
-      if (response.status !== 200 && response.status !== 201) {
-        console.error('API response error', response.data.message);
-        toast.error(response.data.message || errorMessage);
-        return {
-          status: 'error',
-          data: null,
-        };
-      }
-
-      if (showToast) toast.success(response.data.message || 'Request successful');
-      console.log(response.data);
-      return {
-        status: 'success',
-        data: response.data,
-      };
-    } catch (error: any) {
-      console.error('API catch error', error);
-      toast.error(error?.response?.data?.message ? error?.response?.data?.message : errorMessage);
-      return {
-        status: 'error',
-        data: null,
-      };
+      return handleSuccess<T>(response, undefined, showToast);
+    } catch (error) {
+      return handleError(error, errorMessage, showToast) as ApiResponse<T>;
     } finally {
       setIsLoading(false);
     }

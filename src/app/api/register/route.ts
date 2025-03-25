@@ -12,9 +12,25 @@ export async function POST(req: NextRequest) {
       data: validatedData,
     });
 
-    return NextResponse.json({ success: true, user }, { status: 201 });
+    return NextResponse.json(
+      {
+        status: 'success',
+        data: { user },
+        message: 'User registered successfully',
+      },
+      { status: 201 }
+    );
   } catch (error) {
     console.error('Registration error:', error);
-    return NextResponse.json({ success: false, error: 'Failed to register user' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Failed to register user';
+
+    return NextResponse.json(
+      {
+        status: 'error',
+        data: null,
+        message: errorMessage,
+      },
+      { status: 500 }
+    );
   }
 }
