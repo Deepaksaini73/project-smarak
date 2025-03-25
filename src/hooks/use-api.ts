@@ -1,0 +1,77 @@
+import { useState } from 'react';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { toast } from 'sonner';
+
+interface ApiResponse {
+  message?: string;
+  [key: string]: any;
+}
+
+export const useApi = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const makeRequest = async (
+    method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
+    endpoint: string,
+    data?: any,
+    errorMessage: string = 'Request failed',
+    tokenReq: boolean = false,
+    showToast: boolean = true
+  ): Promise<ApiResponse | null> => {
+    setIsLoading(true);
+
+    const API_URL = `/api`;
+    const url = `${API_URL}${endpoint}`;
+    const token = '';
+
+    if (tokenReq && !token) {
+      toast.error('Please login again to continue!');
+      setIsLoading(false);
+      return {
+        status: 'error',
+        data: null,
+      };
+    }
+
+    const headers: AxiosRequestConfig['headers'] = {
+      'Content-Type': 'application/json',
+      ...(tokenReq && { Authorization: `Bearer ${token ? token : ''}` }),
+    };
+
+    try {
+      const response: AxiosResponse<ApiResponse> = await axios.request({
+        method,
+        url,
+        data,
+        headers,
+      });
+
+      if (response.status !== 200 && response.status !== 201) {
+        console.error('API response error', response.data.message);
+        toast.error(response.data.message || errorMessage);
+        return {
+          status: 'error',
+          data: null,
+        };
+      }
+
+      if (showToast) toast.success(response.data.message || 'Request successful');
+      console.log(response.data);
+      return {
+        status: 'success',
+        data: response.data,
+      };
+    } catch (error: any) {
+      console.error('API catch error', error);
+      toast.error(error?.response?.data?.message ? error?.response?.data?.message : errorMessage);
+      return {
+        status: 'error',
+        data: null,
+      };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { makeRequest, isLoading };
+};
