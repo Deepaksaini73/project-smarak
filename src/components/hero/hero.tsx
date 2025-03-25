@@ -139,7 +139,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
         className="absolute -right-20 bottom-1/4 w-48 h-48 border-8 border-dashed rounded-full border-construction-orange/20"
       />
       
-      <div className="container max-w-5xl mx-auto z-10 pt-10 pb-20">
+      <div className="container max-w-6xl md:max-w-5xl mx-auto z-10 pt-10 pb-20">
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -171,7 +171,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ 
                   duration: 0.5, 
-                  delay: 2.3, // Appears shortly after SMARAK
+                  delay: 2.3,
                   ease: "easeOut" 
                 }}
                 className="absolute -top-5 -right-16 text-sm md:text-base font-montserrat font-medium text-construction-orange bg-black/70 px-2.5 py-1.5 rounded-md border border-construction-orange/30"
@@ -187,7 +187,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
           <motion.div 
             variants={headingVariants}
             custom={0}
-            className="mb-10 w-full"
+            className=" mb-10 w-full"
           >
             <CountdownTimer targetDate={targetDate} />
           </motion.div>
@@ -195,7 +195,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
           <motion.div
             variants={headingVariants}
             custom={1} 
-            className="flex items-center justify-center gap-2 py-3 px-6 bg-construction-orange/20 border border-construction-orange/30 rounded-md"
+            className="flex items-center justify-center gap-2 py-3 px-2 md:px-6 bg-construction-orange/20 border border-construction-orange/30 rounded-md"
           >
             <motion.div animate={{ rotate: 360 }}
               transition={{ repeat: Infinity, duration: 2 }}>
@@ -203,7 +203,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
               className="text-construction-yellow"
             />
             </motion.div>
-            <span className="text-md font-montserrat text-construction-yellow">
+            <span className="text-sm md:text-md font-montserrat text-construction-yellow">
               Website Under Construction - Coming Soon
             </span>
           </motion.div>

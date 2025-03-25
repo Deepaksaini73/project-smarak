@@ -36,9 +36,6 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate, className }
     return () => clearInterval(timer);
   }, [targetDate]);
   
-  const formatNumber = (num: number): string => {
-    return num < 10 ? `0${num}` : `${num}`;
-  };
   
   return (
     <div className={cn("flex justify-center items-center space-x-4 md:space-x-6", className)}>
@@ -47,7 +44,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate, className }
       <CountdownUnit value={timeLeft.hours} label="HOURS" />
       <div className="text-construction-yellow text-xl md:text-3xl font-bold animate-pulse-soft">:</div>
       <CountdownUnit value={timeLeft.minutes} label="MINS" />
-      <div className="text-construction-yellow text-xl md:text-3xl font-bold animate-pulse-soft">:</div>
+      <div className="text-construction-yellow text-xl md:text-3xl font-bold animate-pulse-soft xsmd:block hidden">:</div>
       <CountdownUnit value={timeLeft.seconds} label="SECS" />
     </div>
   );
@@ -55,7 +52,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate, className }
 
 const CountdownUnit: React.FC<{ value: number; label: string }> = ({ value, label }) => {
   return (
-    <div className="flex flex-col items-center">
+    <div className={`${label=="SECS" ? "hidden" : ""} xsmd:flex flex-col items-center `}>
       <div className="relative overflow-hidden bg-black/80 text-construction-yellow w-14 h-14 md:w-20 md:h-20 flex justify-center items-center rounded-md backdrop-blur-sm border border-construction-yellow/20">
         <span className="text-2xl md:text-4xl font-bebas tracking-wider">
           {value < 10 ? `0${value}` : value}
