@@ -1,6 +1,5 @@
 import { toast } from 'sonner';
 import { AxiosError, AxiosResponse } from 'axios';
-import { Prisma } from '@prisma/client';
 
 export interface ApiResponse<T = any> {
   status: 'success' | 'error';
