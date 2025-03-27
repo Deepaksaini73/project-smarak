@@ -12,7 +12,7 @@ type PaymentDetails = {
 
 export const createPaymentRecord = async (details: PaymentDetails) => {
   try {
-    return await prisma.transaction.create({
+    const payment = await prisma.transaction.create({
       data: {
         userId: details.userId,
         amount: details.amount,
@@ -22,6 +22,16 @@ export const createPaymentRecord = async (details: PaymentDetails) => {
         status: details.status,
       },
     });
+    await prisma.user.update({
+      where: {
+        id: details.userId,
+      },
+      data: {
+        hasPaid: true,
+      },
+    });
+
+    return payment;
   } catch (e) {
     console.error('Error creating payment record:', e);
     return null;

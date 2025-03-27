@@ -11,7 +11,7 @@ const REDIRECT_URL = process.env.PAYMENT_REDIRECT_URI;
 export async function POST(request: NextRequest) {
   const { name, mobileNumber, userId } = await request.json();
   const orderId = uuidv4();
-  const amount = 999;
+  const amount = 6000; // Amount in INR (6000 INR = 6000 * 100 paise)
 
   const paymentPayload = {
     merchantId: MERCHANT_ID,
