@@ -9,7 +9,7 @@ export const useApi = () => {
     endpoint: string,
     data?: any,
     errorMessage: string = 'Request failed',
-    showToast: boolean = true
+    showToast: boolean = method !== 'GET'
   ): Promise<ApiResponse<T>> => {
     setIsLoading(true);
 
