@@ -1,27 +1,28 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import { Form } from '@/components/ui/form';
-import { RegistrationFormLayout } from '@/components/register/RegistrationFormLayout';
-import { PersonalInfoStep } from '@/components/register/PersonalInfoStep';
-import { AcademicInfoStep } from '@/components/register/AcademicInfoStep';
-import { ReviewStep } from '@/components/register/ReviewStep';
-import { FormNavigation } from '@/components/register/FormNavigation';
+
 import { registrationSchema, type RegistrationFormValues } from '@/config/register/schema';
 import { useApi } from '@/hooks/use-api';
+import { FormLayout } from '@/components/register/FormLayout';
+import { PersonalInfoSection } from '@/components/register/PersonalInfoSection';
+import { AcademicInfoSection } from '@/components/register/AcademicInfoSection';
+import { SubmitButton } from '@/components/register/SubmitButton';
 
 export default function RegisterPage() {
+  const session = useSession();
+  const email = session.data?.user?.email || '';
+  const name = session.data?.user?.name || '';
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const email = searchParams.get('email') || '';
-  const name = searchParams.get('name') || '';
 
-  const [step, setStep] = useState<1 | 2 | 3>(1);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>('');
-  const TOTAL_STEPS = 3;
+  const [isUploading, setIsUploading] = useState(false);
   const { makeRequest, isLoading } = useApi();
 
   const form = useForm<RegistrationFormValues>({
@@ -30,7 +31,7 @@ export default function RegisterPage() {
       name: name,
       email: email,
       phone: '',
-      gender: 'other',
+      gender: 'male',
       age: 18,
       institute: '',
       idCardImage: '',
@@ -39,7 +40,6 @@ export default function RegisterPage() {
     },
   });
 
-  // Set the form values when query params change
   useEffect(() => {
     if (email) {
       form.setValue('email', email);
@@ -50,53 +50,37 @@ export default function RegisterPage() {
   }, [email, name, form]);
 
   async function onSubmit(data: RegistrationFormValues) {
-    if (step === TOTAL_STEPS) {
-      // Register the user
-      const result = await makeRequest('POST', '/api/register', {
-        ...data,
-        idCardImage: uploadedImageUrl || data.idCardImage,
-      });
-      console.log(result);
-    } else {
-      handleNext();
+    const result = await makeRequest('POST', '/user/register', {
+      ...data,
+      idCardImage: uploadedImageUrl || data.idCardImage,
+    });
+
+    if (result.status === 'success') {
+      toast.success('Registration successful!');
+      router.push('/profile');
     }
   }
 
-  function handleNext() {
-    if (step === 1) setStep(2);
-    else if (step === 2) setStep(3);
-  }
-
-  function handleBack() {
-    if (step === 2) setStep(1);
-    else if (step === 3) setStep(2);
-  }
-
   return (
-    <RegistrationFormLayout step={step} totalSteps={TOTAL_STEPS} title="Registration Form">
+    <FormLayout
+      title="Registration Form"
+      description="Please complete all fields to finalize your registration"
+    >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          {step === 1 && <PersonalInfoStep form={form} />}
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <PersonalInfoSection form={form} />
 
-          {step === 2 && (
-            <AcademicInfoStep
-              form={form}
-              uploadedImageUrl={uploadedImageUrl}
-              setUploadedImageUrl={setUploadedImageUrl}
-            />
-          )}
-
-          {step === 3 && <ReviewStep form={form} uploadedImageUrl={uploadedImageUrl} />}
-
-          <FormNavigation
-            step={step}
-            totalSteps={TOTAL_STEPS}
-            onBack={handleBack}
-            onNext={handleNext}
-            loading={isLoading}
+          <AcademicInfoSection
+            form={form}
+            uploadedImageUrl={uploadedImageUrl}
+            setUploadedImageUrl={setUploadedImageUrl}
+            isUploading={isUploading}
+            setIsUploading={setIsUploading}
           />
+
+          <SubmitButton isLoading={isLoading} isUploading={isUploading} />
         </form>
       </Form>
-    </RegistrationFormLayout>
+    </FormLayout>
   );
 }
