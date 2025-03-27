@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { bebas, inter, montserrat } from './fonts';
 import { Toaster } from 'sonner';
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: 'Smarak 2025',
@@ -17,6 +18,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${bebas.variable} ${inter.variable} ${montserrat.variable}  antialiased`}>
         <Toaster position="top-right" />
+        <Analytics />
         <>{children}</>
       </body>
     </html>
