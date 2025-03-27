@@ -1,10 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Form } from '@/components/ui/form';
 import { RegistrationFormLayout } from '@/components/register/RegistrationFormLayout';
 import { PersonalInfoStep } from '@/components/register/PersonalInfoStep';
@@ -15,7 +14,11 @@ import { registrationSchema, type RegistrationFormValues } from '@/config/regist
 import { useApi } from '@/hooks/use-api';
 
 export default function RegisterPage() {
-  // const router = useRouter();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const email = searchParams.get('email') || '';
+  const name = searchParams.get('name') || '';
+
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>('');
   const TOTAL_STEPS = 3;
@@ -24,8 +27,8 @@ export default function RegisterPage() {
   const form = useForm<RegistrationFormValues>({
     resolver: zodResolver(registrationSchema),
     defaultValues: {
-      name: '',
-      email: '',
+      name: name,
+      email: email,
       phone: '',
       gender: 'other',
       age: 18,
@@ -36,9 +39,24 @@ export default function RegisterPage() {
     },
   });
 
+  // Set the form values when query params change
+  useEffect(() => {
+    if (email) {
+      form.setValue('email', email);
+    }
+    if (name) {
+      form.setValue('name', name);
+    }
+  }, [email, name, form]);
+
   async function onSubmit(data: RegistrationFormValues) {
     if (step === TOTAL_STEPS) {
-      await makeRequest('POST', '/register', data);
+      // Register the user
+      const result = await makeRequest('POST', '/api/register', {
+        ...data,
+        idCardImage: uploadedImageUrl || data.idCardImage,
+      });
+      console.log(result);
     } else {
       handleNext();
     }
