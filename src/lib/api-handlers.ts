@@ -44,17 +44,13 @@ export const handleError = (
   if (error instanceof AxiosError) {
     statusCode = error.response?.status || 500;
 
-    // Extract error message from response data
     const responseData = error.response?.data;
 
     if (responseData) {
-      // Check if the error contains a Prisma error message
       if (typeof responseData.message === 'string') {
         const message = responseData.message;
 
-        // Parse Prisma error messages
         if (message.includes('Unique constraint failed on the fields')) {
-          // Extract field name from error message
           const fieldMatch = message.match(/\(`([^`]+)`\)/);
           const field = fieldMatch ? fieldMatch[1] : 'field';
           errorMessage = `This ${field} is already in use. Please try another one.`;
@@ -63,11 +59,9 @@ export const handleError = (
         } else if (message.includes('Record to update not found')) {
           errorMessage = 'The record you are trying to update does not exist';
         } else {
-          // Use the server's error message
           errorMessage = message;
         }
       } else {
-        // If no message field, try other common error message fields
         errorMessage =
           responseData.message ||
           responseData.error ||

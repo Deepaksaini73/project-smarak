@@ -1,12 +1,10 @@
 'use client';
 
 import { signIn } from 'next-auth/react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import Link from 'next/link';
 
 export default function SignIn() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/profile';
   const [error, setError] = useState<string | null>(null);
@@ -25,24 +23,13 @@ export default function SignIn() {
       <div className="w-full max-w-md space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-            Sign in to your account
+            Sign in to Smarak
           </h2>
         </div>
 
         {error && (
           <div className="rounded-md bg-red-50 p-4">
             <div className="text-sm text-red-700">{error}</div>
-          </div>
-        )}
-
-        {searchParams.get('error') === 'AccessDenied' && (
-          <div className="rounded-md bg-yellow-50 p-4">
-            <div className="text-sm text-yellow-700">
-              You need to register first.{' '}
-              <Link href="/register" className="font-medium underline">
-                Register here
-              </Link>
-            </div>
           </div>
         )}
 
@@ -53,15 +40,6 @@ export default function SignIn() {
           >
             Sign in with Google
           </button>
-
-          <div className="text-center">
-            <p className="mt-2 text-sm text-gray-600">
-              Don&apos;t have an account?{' '}
-              <Link href="/register" className="font-medium text-blue-600 hover:text-blue-500">
-                Register here
-              </Link>
-            </p>
-          </div>
         </div>
       </div>
     </div>

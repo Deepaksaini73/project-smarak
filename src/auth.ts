@@ -28,8 +28,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async jwt({ token, user, account, trigger }) {
       if (user) {
-        token.email = user.email;
-        token.name = user.name;
+        token.email = user.email ?? undefined;
+        token.name = user.name ?? undefined;
         token.picture = user.image;
 
         const existingUser = await prisma.user.findUnique({

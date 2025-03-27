@@ -7,11 +7,6 @@ export const middleware = async (request: {
 }) => {
   const session = await auth();
   const { pathname } = request.nextUrl;
-  console.log('Middleware pathname:', pathname);
-  console.log(
-    'Middleware session:',
-    session?.user ? `User: ${session.user.email}, Role: ${session.user.role}` : 'No session'
-  );
 
   if (pathname.startsWith('/admin')) {
     if (!session || !session.user) {
