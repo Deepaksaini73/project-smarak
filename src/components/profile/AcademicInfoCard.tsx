@@ -35,16 +35,16 @@ export function AcademicInfoCard({ user }: AcademicInfoCardProps) {
           </div>
         </div>
         <div className="flex items-start">
-          <Image
-            width={16}
-            height={16}
-            src="/placeholder.svg"
-            alt="ID Card"
-            className="h-4 w-4 text-gray-400 mt-0.5 mr-2"
-          />
           <div>
-            <p className="text-sm text-gray-500">ID Card</p>
-            <p>{user?.idCardImage ? 'Uploaded' : 'Not uploaded'}</p>
+            <p className="text-sm text-gray-500 mb-5">ID Card</p>
+            <Image
+              src={user?.idCardImage || '/images/default-id-card.png'}
+              alt="ID Card"
+              width={500}
+              height={500}
+              className="rounded-md"
+              style={{ width: '500px', height: 'auto' }}
+            />
           </div>
         </div>
       </div>

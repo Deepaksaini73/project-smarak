@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { Award, CreditCard } from 'lucide-react';
 import { User } from '../../config/profile/types';
 
@@ -12,11 +11,7 @@ export function ProfileSummary({ user }: ProfileSummaryProps) {
       <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-6 text-white">
         <div className="flex flex-col md:flex-row items-center gap-5">
           <div className="relative w-24 h-24 bg-white rounded-full flex items-center justify-center text-blue-500 text-2xl font-bold overflow-hidden">
-            {user?.idCardImage ? (
-              <Image src={user.idCardImage} alt={user.name} fill className="object-cover" />
-            ) : (
-              user?.name?.charAt(0).toUpperCase() || 'U'
-            )}
+            {user?.name?.charAt(0).toUpperCase() || 'U'}
           </div>
           <div>
             <h2 className="text-2xl font-bold">{user?.name}</h2>

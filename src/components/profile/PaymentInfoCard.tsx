@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CreditCard, Clock } from 'lucide-react';
+import { CreditCard } from 'lucide-react';
 import { User } from '../../config/profile/types';
 
 type PaymentInfoCardProps = {
@@ -31,41 +31,6 @@ export function PaymentInfoCard({ user }: PaymentInfoCardProps) {
           >
             <CreditCard className="h-4 w-4 mr-2" /> Complete Payment
           </Link>
-        )}
-      </div>
-
-      {/* Transaction History */}
-      <div>
-        <h4 className="font-medium mb-3 flex items-center">
-          <Clock className="h-4 w-4 mr-1" /> Transaction History
-        </h4>
-        {user?.transactions && user.transactions.length > 0 ? (
-          <div className="space-y-2 max-h-48 overflow-y-auto">
-            {user.transactions.map(transaction => (
-              <div key={transaction.id} className="text-sm bg-gray-50 p-3 rounded">
-                <div className="flex justify-between">
-                  <span className="font-medium">₹{transaction.amount}</span>
-                  <span
-                    className={`${
-                      transaction.status === 'success'
-                        ? 'text-green-600'
-                        : transaction.status === 'pending'
-                          ? 'text-yellow-600'
-                          : 'text-red-600'
-                    }`}
-                  >
-                    {transaction.status.charAt(0).toUpperCase() + transaction.status.slice(1)}
-                  </span>
-                </div>
-                <div className="text-gray-500 text-xs mt-1 flex items-center">
-                  <Clock className="h-3 w-3 mr-1" />
-                  {new Date(transaction.createdAt).toLocaleString()}
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-sm text-gray-500">No transactions found</p>
         )}
       </div>
     </div>

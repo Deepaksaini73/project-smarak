@@ -24,6 +24,8 @@ export default function RegisterPage() {
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>('');
   const [isUploading, setIsUploading] = useState(false);
   const { makeRequest, isLoading } = useApi();
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const [isRegistered, setIsRegistered] = useState(false);
 
   const form = useForm<RegistrationFormValues>({
     resolver: zodResolver(registrationSchema),
@@ -49,6 +51,29 @@ export default function RegisterPage() {
     }
   }, [email, name, form]);
 
+  const checkRegistrationStatus = async () => {
+    try {
+      const result = await makeRequest('GET', '/user/me');
+      if (result.status === 'success') {
+        setIsRegistered(true);
+      }
+    } catch (error) {
+      console.error('Error checking registration status:', error);
+    } finally {
+      setIsLoadingUser(false);
+    }
+  };
+
+  useEffect(() => {
+    checkRegistrationStatus();
+  }, []);
+
+  useEffect(() => {
+    if (isRegistered && !isLoadingUser) {
+      router.push('/profile');
+    }
+  }, [isRegistered, isLoadingUser, router]);
+
   async function onSubmit(data: RegistrationFormValues) {
     const result = await makeRequest('POST', '/user/register', {
       ...data,
@@ -59,6 +84,14 @@ export default function RegisterPage() {
       toast.success('Registration successful!');
       router.push('/profile');
     }
+  }
+
+  if (isLoadingUser || isRegistered) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="loader">Loading...</div>
+      </div>
+    );
   }
 
   return (
