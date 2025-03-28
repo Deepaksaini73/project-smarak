@@ -12,7 +12,8 @@
     "format:check": "prettier --check .",
     "prepare": "husky",
     "migrate": "prisma migrate dev",
-    "studio": "prisma studio"
+    "studio": "prisma studio",
+    "drop": "prisma migrate reset --force"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
