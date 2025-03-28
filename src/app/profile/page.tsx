@@ -6,12 +6,16 @@ import { LoadingState } from '../../components/profile/LoadingState';
 import { ErrorState } from '../../components/profile/ErrorState';
 import { NotRegisteredState } from '../../components/profile/NotRegisteredState';
 import { ProfileContent } from '../../components/profile/ProfileContent';
+import { usePayment } from '@/hooks/usePayment';
 
 export default function Profile() {
   const { isLoading, makeRequest } = useApi();
   const [isRegistered, setIsRegistered] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { paymentStatus, hasPaid } = usePayment();
+  // Using console.warn instead of console.log
+  console.warn('Payment status:', paymentStatus, 'Has paid:', hasPaid);
 
   useEffect(() => {
     const fetchData = async () => {

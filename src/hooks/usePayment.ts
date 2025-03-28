@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { useApi } from '@/hooks/use-api';
-import { useRouter } from 'next/navigation';
 
 export function usePayment() {
   const { isLoading, makeRequest } = useApi();
@@ -10,8 +9,8 @@ export function usePayment() {
   const regularPrice = 749;
   const [screenshotUrl, setScreenshotUrl] = useState('');
   const [isInitialLoading, setIsInitialLoading] = useState(true);
-  const router = useRouter();
-
+  const [hasPaid, setHasPaid] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState('pending');
   const initiatePayment = async () => {
     try {
       if (!user) {
@@ -30,7 +29,6 @@ export function usePayment() {
       });
       if (response.status === 'error') return;
 
-      // Check payment status immediately after submission
       await checkPaymentStatus();
     } catch (error) {
       toast.error('Payment initiation failed');
@@ -75,12 +73,12 @@ export function usePayment() {
         toast.error('Failed to fetch payment status');
         return false;
       }
+      setPaymentStatus(response.data.data.status);
 
       if (response.data.data.hasPaid) {
-        toast.success('Payment initiated. Redirecting to profile...');
-        router.push('/profile');
         return true;
       }
+
       return false;
     } catch (error) {
       console.error('Error checking payment status:', error);
@@ -94,6 +92,7 @@ export function usePayment() {
       setIsInitialLoading(true);
       try {
         const isPaid = await checkPaymentStatus();
+        setHasPaid(isPaid);
         if (isPaid) return;
 
         const [userData, amountData] = await Promise.all([getMe(), getPaymentAmount()]);
@@ -119,5 +118,7 @@ export function usePayment() {
     screenshotUrl,
     setScreenshotUrl,
     initiatePayment,
+    hasPaid,
+    paymentStatus,
   };
 }

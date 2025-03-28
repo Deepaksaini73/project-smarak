@@ -26,12 +26,12 @@ export async function GET() {
       },
     });
 
-    const hasPaid = paymentStatus?.status === 'verified' || 'pending' ? true : false;
-
+    const status = paymentStatus?.status;
+    const hasPaid = status === 'pending' || status === 'verified' ? true : false;
     return NextResponse.json(
       {
         status: 'success',
-        data: { hasPaid },
+        data: { hasPaid, status },
         message: 'Payment status fetched successfully!',
       },
       { status: 200 }

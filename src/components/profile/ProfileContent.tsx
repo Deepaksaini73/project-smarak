@@ -14,7 +14,7 @@ export function ProfileContent({ user }: ProfileContentProps) {
       <ProfileSummary user={user} />
       <PersonalInfoCard user={user} />
       <AcademicInfoCard user={user} />
-      <PaymentInfoCard user={user} />
+      <PaymentInfoCard />
     </div>
   );
 }
