@@ -13,7 +13,8 @@
     "prepare": "husky",
     "migrate": "prisma migrate dev",
     "studio": "prisma studio",
-    "drop": "prisma migrate reset --force"
+    "drop": "prisma migrate reset --force",
+    "generate": "prisma generate"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

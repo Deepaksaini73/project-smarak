@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { useApi } from '@/hooks/use-api';
+import { useRouter } from 'next/navigation';
 
 export function usePayment() {
   const { isLoading, makeRequest } = useApi();
+  const router = useRouter();
   const [user, setUser] = useState({});
   const [paymentAmount, setPaymentAmount] = useState<number>(599);
   const regularPrice = 749;
@@ -30,7 +32,10 @@ export function usePayment() {
       });
       if (response.status === 'error') return;
 
-      await checkPaymentStatus();
+      const isInitiated = await checkPaymentStatus();
+      if (isInitiated) {
+        router.push('/profile');
+      }
     } catch (error) {
       toast.error('Payment initiation failed');
       console.error(error);
