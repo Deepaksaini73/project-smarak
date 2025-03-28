@@ -9,7 +9,7 @@ export async function GET() {
       },
     });
 
-    const paymentAmount = paymentCount > 100 ? 699 : 599;
+    const paymentAmount = paymentCount > 100 ? 749 : 599;
 
     return NextResponse.json(
       {
