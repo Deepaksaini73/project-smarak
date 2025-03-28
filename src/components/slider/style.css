@@ -1,0 +1,19 @@
+@layer base {
+  body {
+    background-color: #fefbed;
+  }
+}
+.shadow-hand {
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.slick-slide > div {
+  margin: 0 20px;
+}
+
+@media (max-width: 500px) {
+  .slick-prev,
+  .slick-next {
+    display: none !important;
+  }
+}
