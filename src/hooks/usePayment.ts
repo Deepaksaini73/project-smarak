@@ -11,6 +11,7 @@ export function usePayment() {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [hasPaid, setHasPaid] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState('pending');
+  const [notes, setNotes] = useState('');
   const initiatePayment = async () => {
     try {
       if (!user) {
@@ -74,7 +75,7 @@ export function usePayment() {
         return false;
       }
       setPaymentStatus(response.data.data.status);
-
+      setNotes(response.data.data.notes);
       if (response.data.data.hasPaid) {
         return true;
       }
@@ -120,5 +121,6 @@ export function usePayment() {
     initiatePayment,
     hasPaid,
     paymentStatus,
+    notes,
   };
 }

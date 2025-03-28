@@ -34,25 +34,33 @@ export async function POST(req: NextRequest) {
     }
 
     const existingPayment = await prisma.transaction.findFirst({
-      where: { userId: user.id, status: 'pending' },
+      where: { userId: user.id },
     });
 
-    if (existingPayment) {
+    if (existingPayment && existingPayment.status !== 'rejected') {
       return NextResponse.json(
         {
           status: 'error',
           data: null,
-          message: 'Payment already initiated!',
+          message: 'You already have made the payment',
         },
         { status: 400 }
       );
     }
 
-    const payment = await prisma.transaction.create({
-      data: {
+    const payment = await prisma.transaction.upsert({
+      where: { id: existingPayment?.id || '' },
+      create: {
         userId: user.id,
         amount,
         paymentScreenshot,
+      },
+      update: {
+        userId: user.id,
+        amount,
+        paymentScreenshot,
+        status: 'pending',
+        notes: '',
       },
     });
 

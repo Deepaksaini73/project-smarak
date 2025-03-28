@@ -33,7 +33,7 @@ export default function Page() {
       } else if (paymentStatus === 'rejected') {
         toast.error('Payment rejected');
       }
-      router.push('/profile');
+      if (paymentStatus !== 'rejected') router.push('/profile');
     }
   }, [isLoading]);
 

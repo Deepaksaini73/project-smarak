@@ -23,15 +23,17 @@ export async function GET() {
       },
       select: {
         status: true,
+        notes: true,
       },
     });
 
     const status = paymentStatus?.status;
+    const notes = paymentStatus?.notes;
     const hasPaid = status === 'pending' || status === 'verified' ? true : false;
     return NextResponse.json(
       {
         status: 'success',
-        data: { hasPaid, status },
+        data: { hasPaid, status, notes },
         message: 'Payment status fetched successfully!',
       },
       { status: 200 }

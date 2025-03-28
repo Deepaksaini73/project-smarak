@@ -1,9 +1,15 @@
-import { usePayment } from '@/hooks/usePayment';
 import { CheckCircle, Clock, XCircle, AlertCircle } from 'lucide-react';
+import Link from 'next/link';
 
-export function PaymentInfoCard() {
-  const { paymentStatus, hasPaid } = usePayment();
-
+export function PaymentInfoCard({
+  paymentStatus,
+  hasPaid,
+  notes,
+}: {
+  paymentStatus: string;
+  hasPaid: boolean;
+  notes: string;
+}) {
   const renderPaymentStatus = () => {
     switch (paymentStatus) {
       case 'verified':
@@ -69,6 +75,12 @@ export function PaymentInfoCard() {
         {paymentStatus === 'rejected' && (
           <div className="mt-4 bg-red-50 border border-red-200 rounded-md p-4 text-sm">
             <p className="font-semibold text-red-800">Your payment verification was rejected.</p>
+            <p className="text-red-700 mt-1 font-semibold">
+              Noted issues include:
+              <ul className="list-disc list-inside">
+                <li>{notes}</li>
+              </ul>
+            </p>
             <p className="text-red-700 mt-1">
               Please contact support for more information and next steps.
             </p>
@@ -77,9 +89,12 @@ export function PaymentInfoCard() {
 
         {!hasPaid && (
           <div className="mt-4">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+            <Link
+              href={'/payment'}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
+            >
               Make Payment
-            </button>
+            </Link>
           </div>
         )}
       </div>

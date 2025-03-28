@@ -21,8 +21,13 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   hasPaid      Boolean  @default(false)
-  role        String   @default("user")
+  role        Role      @default(user)
   transactions Transaction[]
+}
+
+enum Role {
+  user
+  admin
 }
 
 model Transaction {
@@ -31,7 +36,15 @@ model Transaction {
   userId       String
   amount       Float
   paymentScreenshot String
-  status       String   @default("pending")
+  status       status   @default(pending) 
+  notes       String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+
+enum status {
+  pending
+  verified
+  rejected
 }
