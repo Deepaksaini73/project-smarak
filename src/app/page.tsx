@@ -6,6 +6,7 @@ import Footer from '@/components/Footer/Footer';
 import Slider from '@/components/slider/Slider';
 import Homee from '@/components/Home/Home';
 import Hero from '@/components/hero/hero';
+import Main from '@/components/AboutUs/main';
 
 export default function Home() {
   return (
@@ -16,8 +17,10 @@ export default function Home() {
     <>
       <Navbar />
       <Hero />
-      <Homee />
-      <Slider />
+      {/* <Homee />
+      <Slider /> */}
+      <Main />
+
       <Footer />
     </>
   );

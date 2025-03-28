@@ -104,11 +104,11 @@ function App() {
   }, []);
 
   return (
-    <div className="w-full max-w-5xl mx-auto relative">
+    <div className="w-full mt-10 max-w-5xl mx-auto relative">
       {/* Events banner */}
-      <div className="flex justify-center mb-5">
-        <div className="bg-yellow-400 text-gray-900 font-bold text-xl px-6 py-2 rounded-[5px] rounded-tl-[18px] rounded-br-[18px] shadow-md z-10">
-          EVENTS
+      <div className="flex justify-center mb-12">
+        <div className="bg-[#FFD700] text-[#333] font-bold text-3xl px-8 py-3 rounded-tl-[30px] rounded-br-[30px] rounded-xl shadow-md z-10">
+          CLUB ACTIVITIES
         </div>
       </div>
 

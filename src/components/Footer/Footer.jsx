@@ -8,7 +8,7 @@ import Card from '@/components/Footer/Card';
 
 export default function Footer() {
   return (
-    <footer className="text-black mt-30">
+    <footer className="text-black">
       <div className="max-w-6xl mx-auto px-6">
         {/* Top Section */}
         <div className="flex flex-col gap-15 lg:flex-row justify-between items-center border-b-2 pb-6 md:px-5">
