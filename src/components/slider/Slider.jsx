@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import nitlogo from '../../../assets/nit-rourkela-logo.png';
 import smallicon from '../../../assets/small icon.png';
 import defaultimage from '../../../assets/default.png';
+import bgDot from '../../../assets/bg-dot.png';
 import Image from 'next/image';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
@@ -21,7 +22,7 @@ const CustomPrevArrow = props => {
         ...style,
         display: 'block',
         left: '35px', // Adjust for smaller screens
-        zIndex: 10,
+        zIndex: 20,
         fontSize: '30px',
         color: 'black',
       }}
@@ -42,7 +43,7 @@ const CustomNextArrow = props => {
         ...style,
         display: 'block',
         right: '35px',
-        zIndex: 10,
+        zIndex: 20,
         fontSize: '30px',
         color: 'black',
       }}
@@ -81,51 +82,41 @@ function App() {
   };
 
   return (
-    <div className=" w-full max-w-5xl mx-auto">
-      <div className="mt-10 mb-10">
+    <div className="w-full max-w-5xl mx-auto relative">
+      <div className="mt-10 mb-10 relative">
+        {/* Background Image - right side (third card) */}
+        <div className="md:block hidden absolute -top-30 -right-60 h-60 w-1/3 z-0">
+          <Image src={bgDot} alt="Background Pattern" fill className="object-cover opacity-100" />
+        </div>
+        <div className="md:block hidden absolute top-30 -right-60 h-70 w-1/3 z-0">
+          <Image src={bgDot} alt="Background Pattern" fill className="object-cover opacity-100" />
+        </div>
+
         <Slider {...settings}>
           {data.map(d => (
             <div
               key={d.name}
-              className="bg-white h-[450px] text-black rounded-2xl shadow-xl shadow-hand cursor-poi"
+              className="bg-white h-full text-black rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
             >
-              <div className="h-[200px] flex justify-center items-center rounded-t-xl">
-                <Image
-                  src={d.img}
-                  alt={d.name}
-                  className="w-full h-full rounded-t-xl transition-transform duration-300 ease-in-out hover:scale-108 rounded-xl"
-                  width={100}
-                  height={100}
-                />
-              </div>
+              <div className="flex flex-col h-full">
+                <div className="h-[180px] overflow-hidden group">
+                  <Image
+                    src={d.img}
+                    alt={d.name}
+                    className="w-full h-full object-cover transition-all duration-500 ease-in-out group-hover:scale-110"
+                    width={100}
+                    height={100}
+                  />
+                </div>
 
-              <div className="flex flex-col items-center justify-center gap-4 p-4">
-                <p className="text-xl font-semibold">{d.name}</p>
-                <p className="text-center text-sm">{d.review}</p>
-              </div>
+                <div className="p-4 flex flex-col items-start justify-start flex-grow">
+                  <p className="text-lg font-medium mb-1">{d.name}</p>
+                  <p className="text-left text-sm text-gray-600 mb-4">{d.review}</p>
 
-              <div className="flex justify-center -space-x-2 p-4">
-                <Image
-                  src={smallicon}
-                  alt="Avatar 1"
-                  width={30}
-                  height={30}
-                  className="w-8 h-8 rounded-full border border-white"
-                />
-                <Image
-                  src={smallicon}
-                  alt="Avatar 2"
-                  width={30}
-                  height={30}
-                  className="w-8 h-8 rounded-full border border-white"
-                />
-                <Image
-                  src={smallicon}
-                  alt="Avatar 3"
-                  width={30}
-                  height={30}
-                  className="w-8 h-8 rounded-full border border-white"
-                />
+                  <button className="mt-auto py-2 px-4 bg-[#554400] hover:bg-[#554400]  text-white font-medium rounded-md transition-colors duration-300 text-sm">
+                    Register Now
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -139,28 +130,32 @@ const data = [
   {
     name: 'Morgan',
     img: defaultimage,
-    review: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    review:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.......',
   },
   {
     name: 'Anderson',
     img: defaultimage,
-    review: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    review:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.......',
   },
   {
     name: 'Ebayo',
     img: defaultimage,
     review:
-      'Lorem ipsig met, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.......',
   },
   {
     name: 'Ruie',
     img: defaultimage,
-    review: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    review:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.......',
   },
   {
     name: 'Miams',
     img: defaultimage,
-    review: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    review:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.......',
   },
 ];
 

@@ -3,12 +3,84 @@
     background-color: #fefbed;
   }
 }
-.shadow-hand {
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
-}
 
 .slick-slide > div {
-  margin: 0 20px;
+  margin: 0 10px;
+  padding: 15px 5px;
+}
+
+/* Make the slider cards have a consistent width-to-height ratio */
+.slick-slide > div > div {
+  aspect-ratio: 1 / 1.2;
+  display: flex !important;
+  flex-direction: column;
+  height: 100%;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, box-shadow;
+}
+
+/* Enhanced shadow for cards with hover effects */
+.shadow-lg {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12) !important;
+}
+
+.shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Additional card hover effects */
+.slick-slide > div > div:hover {
+  cursor: pointer;
+}
+
+/* Responsive arrow positioning */
+.custom-arrow-left,
+.custom-arrow-right {
+  transition: all 0.3s ease;
+}
+
+.custom-arrow-left {
+  left: -40px !important;
+}
+
+.custom-arrow-right {
+  right: -40px !important;
+}
+
+/* Responsive styling for arrows */
+@media (max-width: 1200px) {
+  .custom-arrow-left {
+    left: -30px !important;
+  }
+
+  .custom-arrow-right {
+    right: -30px !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .custom-arrow-left {
+    left: -20px !important;
+  }
+
+  .custom-arrow-right {
+    right: -20px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-arrow-left {
+    left: -15px !important;
+  }
+
+  .custom-arrow-right {
+    right: -15px !important;
+  }
+
+  .slick-slide > div {
+    margin: 0 5px;
+  }
 }
 
 @media (max-width: 500px) {
@@ -16,4 +88,13 @@
   .slick-next {
     display: none !important;
   }
+}
+
+/* Image hover effects */
+.group {
+  cursor: pointer;
+}
+
+.group:hover .transition-all {
+  will-change: transform;
 }

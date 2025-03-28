@@ -89,43 +89,37 @@ export default function Navbar() {
       <div className="bg-[#FEFBED] sticky shadow-md top-0 z-20 flex items-center w-full md:justify-between backdrop-blur-sm md:px-16 px-4 py-4 text-white">
         <Link
           href="/"
-          className="md:border-none md:pr-0 md:mr-0 pr-4 mr-4 border-r-2 border-white cursor-pointer"
+          className="md:border-none md:pr-0 md:mr-0 cursor-pointer" // Removed pr-4 and mr-4
         >
-          <Image className="w-18" src={cestLogo} alt="cest-smarak" priority />
+          <Image className="w-16 absolute left-4 top-2" src={cestLogo} alt="cest-smarak" priority />
         </Link>
         <div className="flex gap-10 text-[22px] font-bold items-center font-semibold text-[#574900]">
           <Link
-            className="hover:text-[#574900] hover:text-xl hidden md:block text-lg transition-all"
+            className="hover:text-[#574900] hover:underline hidden md:block text-lg transition-all"
             href="/"
           >
             Home
           </Link>
           <Link
-            className="hover:text-[#574900] hover:text-xl hidden md:block text-lg transition-all"
+            className="hover:text-[#574900] hover:underline hidden md:block text-lg transition-all"
             href="/team"
           >
             Team
           </Link>
           <Link
-            className="hover:text-[#574900] hover:text-xl hidden md:block text-lg transition-all"
-            href="/gate-portal"
-          >
-            Gate Portal
-          </Link>
-          <Link
-            className="hover:text-[#574900] hover:text-xl hidden md:block text-lg transition-all"
+            className="hover:text-[#574900] hover:underline hidden md:block text-lg transition-all"
             href="/gallery"
           >
             Gallery
           </Link>
           <Link
-            className="hover:text-[#574900] hover:text-xl hidden md:block text-lg transition-all"
+            className="hover:text-[#574900] hover:underline hidden md:block text-lg transition-all"
             href="/about"
           >
             About us
           </Link>
           <Link
-            className="hover:text-[#574900] hover:text-xl hidden md:block text-lg transition-all"
+            className="hover:text-[#574900] hover:underline hidden md:block text-lg transition-all"
             href="/contact"
           >
             Contact Us

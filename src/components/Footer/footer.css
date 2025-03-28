@@ -6,13 +6,22 @@
 .card-box .img-box {
   position: relative;
   cursor: pointer;
+  border-radius: 12px;
+  border-bottom-right-radius: 45px;
+  border-top-left-radius: 45px;
 }
 .card-box .img-box img:hover {
   scale: 1.03;
+  border-radius: 12px;
+  border-bottom-right-radius: 45px;
+  border-top-left-radius: 45px;
 }
 .card-box .img-box img {
   width: 100%;
   height: 100%;
+  border-radius: 12px;
+  border-bottom-right-radius: 45px;
+  border-top-left-radius: 45px;
 }
 .card-box .img-box .img-name {
   position: absolute;
