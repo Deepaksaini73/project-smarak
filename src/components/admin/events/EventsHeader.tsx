@@ -29,6 +29,12 @@ export function EventsHeader({
   isTeamEventFilter,
   setIsTeamEventFilter,
 }: EventsHeaderProps) {
+  // Convert boolean/null to readable string values
+  const getParticipationTypeValue = () => {
+    if (isTeamEventFilter === null) return 'all';
+    return isTeamEventFilter ? 'team' : 'single';
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
@@ -51,8 +57,8 @@ export function EventsHeader({
         </div>
 
         <Select
-          value={eventTypeFilter || ''}
-          onValueChange={value => setEventTypeFilter(value || null)}
+          value={eventTypeFilter || 'all'}
+          onValueChange={value => setEventTypeFilter(value === 'all' ? null : value)}
         >
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Event Type" />
@@ -66,16 +72,24 @@ export function EventsHeader({
         </Select>
 
         <Select
-          value={isTeamEventFilter === null ? '' : String(isTeamEventFilter)}
-          onValueChange={value => setIsTeamEventFilter(value === '' ? null : value === 'true')}
+          value={getParticipationTypeValue()}
+          onValueChange={value => {
+            if (value === 'all') {
+              setIsTeamEventFilter(null);
+            } else if (value === 'team') {
+              setIsTeamEventFilter(true);
+            } else if (value === 'single') {
+              setIsTeamEventFilter(false);
+            }
+          }}
         >
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Participation Type" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Events</SelectItem>
-            <SelectItem value="true">Team Events</SelectItem>
-            <SelectItem value="false">Individual Events</SelectItem>
+            <SelectItem value="team">Team Events</SelectItem>
+            <SelectItem value="single">Individual Events</SelectItem>
           </SelectContent>
         </Select>
       </div>

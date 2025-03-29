@@ -13,12 +13,12 @@ import { Loader2 } from 'lucide-react';
 export default function EventsPage() {
   const { makeRequest } = useApi();
   const [isLoading, setIsLoading] = useState(true);
-  const [events, setEvents] = useState<Event[]>([]);
+  const [allEvents, setAllEvents] = useState<Event[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [eventTypeFilter, setEventTypeFilter] = useState<string | null>(null);
   const [isTeamEventFilter, setIsTeamEventFilter] = useState<boolean | null>(null);
 
-  // Dialog states
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [isDetailsDialogOpen, setIsDetailsDialogOpen] = useState(false);
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
@@ -28,22 +28,42 @@ export default function EventsPage() {
 
   const fetchEvents = async () => {
     setIsLoading(true);
-
-    let url = '/admin/events';
-    const params = new URLSearchParams();
-
-    if (searchQuery) params.append('search', searchQuery);
-    if (eventTypeFilter) params.append('eventType', eventTypeFilter);
-    if (isTeamEventFilter !== null) params.append('isTeamEvent', String(isTeamEventFilter));
-
-    if (params.toString()) url += `?${params.toString()}`;
-
-    const response = await makeRequest('GET', url, undefined, 'Failed to fetch events', false);
+    const response = await makeRequest(
+      'GET',
+      '/admin/events',
+      undefined,
+      'Failed to fetch events',
+      false
+    );
     if (response.status === 'success') {
-      setEvents(response.data.data?.events || []);
+      const events = response.data.data?.events || [];
+      setAllEvents(events);
+      setFilteredEvents(events);
+    }
+    setIsLoading(false);
+  };
+
+  const filterEvents = () => {
+    let results = [...allEvents];
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      results = results.filter(
+        event =>
+          event.name.toLowerCase().includes(query) ||
+          (event.description && event.description.toLowerCase().includes(query))
+      );
     }
 
-    setIsLoading(false);
+    if (eventTypeFilter && eventTypeFilter !== 'all') {
+      results = results.filter(event => event.eventType === eventTypeFilter);
+    }
+
+    if (isTeamEventFilter !== null) {
+      results = results.filter(event => event.isTeamEvent === isTeamEventFilter);
+    }
+
+    setFilteredEvents(results);
   };
 
   const deleteEvent = async (eventId: string) => {
@@ -56,7 +76,7 @@ export default function EventsPage() {
     );
 
     if (response.status === 'success') {
-      setEvents(prevEvents => prevEvents.filter(event => event.id !== eventId));
+      setAllEvents(prevEvents => prevEvents.filter(event => event.id !== eventId));
       setIsDeleteDialogOpen(false);
       setSelectedEvent(null);
     }
@@ -86,16 +106,20 @@ export default function EventsPage() {
 
   const handleEventSaved = (newEvent: Event, isNew: boolean) => {
     if (isNew) {
-      setEvents(prev => [...prev, newEvent]);
+      setAllEvents(prev => [...prev, newEvent]);
     } else {
-      setEvents(prev => prev.map(event => (event.id === newEvent.id ? newEvent : event)));
+      setAllEvents(prev => prev.map(event => (event.id === newEvent.id ? newEvent : event)));
     }
     setIsFormDialogOpen(false);
   };
 
   useEffect(() => {
     fetchEvents();
-  }, [searchQuery, eventTypeFilter, isTeamEventFilter]);
+  }, []);
+
+  useEffect(() => {
+    filterEvents();
+  }, [searchQuery, eventTypeFilter, isTeamEventFilter, allEvents]);
 
   return (
     <div className="container mx-auto py-8">
@@ -115,14 +139,13 @@ export default function EventsPage() {
         </div>
       ) : (
         <EventsTable
-          events={events}
+          events={filteredEvents}
           onView={handleViewDetails}
           onEdit={handleEditEvent}
           onDelete={handleDeleteClick}
         />
       )}
 
-      {/* Dialogs */}
       <EventFormDialog
         isOpen={isFormDialogOpen}
         onClose={() => setIsFormDialogOpen(false)}

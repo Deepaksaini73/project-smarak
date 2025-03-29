@@ -34,22 +34,8 @@ export function EventsTable({ events, onView, onEdit, onDelete }: EventsTablePro
     return format(new Date(date), 'MMM d, yyyy HH:mm');
   };
 
-  const getEventStatusBadge = (event: Event) => {
-    const now = new Date();
-    const start = new Date(event.startTime);
-    const end = new Date(event.endTime);
-
-    if (now < start) {
-      return <Badge variant="outline">Upcoming</Badge>;
-    } else if (now >= start && now <= end) {
-      return <Badge variant="default">Ongoing</Badge>;
-    } else {
-      return <Badge variant="secondary">Completed</Badge>;
-    }
-  };
-
   return (
-    <Card className="border overflow-hidden px-2 mt-4">
+    <Card className="border overflow-hidden px-2 mt-4 py-0">
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
@@ -59,7 +45,6 @@ export function EventsTable({ events, onView, onEdit, onDelete }: EventsTablePro
               <TableHead>Date & Time</TableHead>
               <TableHead>Venue</TableHead>
               <TableHead>Registrations</TableHead>
-              <TableHead>Status</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -99,7 +84,6 @@ export function EventsTable({ events, onView, onEdit, onDelete }: EventsTablePro
                   {event._count?.registrations || 0}
                   {event._count?.registrations === 1 ? ' registration' : ' registrations'}
                 </TableCell>
-                <TableCell>{getEventStatusBadge(event)}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
                     <Button
