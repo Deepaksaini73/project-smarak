@@ -53,7 +53,7 @@ export default function RegisterPage() {
 
   const checkRegistrationStatus = async () => {
     try {
-      const result = await makeRequest('GET', '/user/me');
+      const result = await makeRequest('GET', '/user');
       if (result.status === 'success') {
         setIsRegistered(true);
       }
