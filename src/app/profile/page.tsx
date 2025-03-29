@@ -1,50 +1,92 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import { useApi } from '@/hooks/use-api';
-import { User } from '../../config/profile/types';
-import { LoadingState } from '../../components/profile/LoadingState';
-import { ErrorState } from '../../components/profile/ErrorState';
-import { NotRegisteredState } from '../../components/profile/NotRegisteredState';
-import { ProfileContent } from '../../components/profile/ProfileContent';
 
-export default function Profile() {
-  const { isLoading, makeRequest } = useApi();
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
-  const [error, setError] = useState<string | null>(null);
+import React, { useState, useEffect } from 'react';
+import { useApi } from '@/hooks/use-api';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Loader2 } from 'lucide-react';
+import { ProfileContent } from '@/components/profile/ProfileContent';
+import { EventsContent } from '@/components/profile/EventsContent';
+import { Registration } from '@/types/registration';
+
+export default function ProfilePage() {
+  const { makeRequest } = useApi();
+  const [activeTab, setActiveTab] = useState('personal');
+  const [isLoadingProfile, setIsLoadingProfile] = useState(true);
+  const [isLoadingRegistrations, setIsLoadingRegistrations] = useState(true);
+  const [userProfile, setUserProfile] = useState(null);
+  const [registrations, setRegistrations] = useState<Registration[]>([]);
+
+  const fetchUserProfile = async () => {
+    setIsLoadingProfile(true);
+    try {
+      const response = await makeRequest(
+        'GET',
+        '/user',
+        undefined,
+        'Failed to fetch profile',
+        false
+      );
+
+      if (response.status === 'success') {
+        setUserProfile(response.data.data.user);
+      }
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+    } finally {
+      setIsLoadingProfile(false);
+    }
+  };
+
+  const fetchUserRegistrations = async () => {
+    setIsLoadingRegistrations(true);
+    try {
+      const response = await makeRequest(
+        'GET',
+        '/user/registrations',
+        undefined,
+        'Failed to fetch your registrations',
+        false
+      );
+
+      if (response.status === 'success') {
+        setRegistrations(response.data.data.registrations || []);
+      }
+    } catch (error) {
+      console.error('Error fetching registrations:', error);
+    } finally {
+      setIsLoadingRegistrations(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await makeRequest('GET', '/user/me');
-        if (response.data) {
-          setUser(response.data.data.user);
-          setIsRegistered(true);
-        } else {
-          setIsRegistered(false);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setError('Failed to load profile data');
-      }
-    };
-
-    fetchData();
+    fetchUserProfile();
+    fetchUserRegistrations();
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto p-4 md:p-6">
-      <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center">User Profile</h1>
+    <div className="container mx-auto py-8">
+      <h1 className="text-3xl font-bold mb-8">My Profile</h1>
 
-      {isLoading ? (
-        <LoadingState />
-      ) : error ? (
-        <ErrorState error={error} />
-      ) : !isRegistered ? (
-        <NotRegisteredState />
-      ) : user ? (
-        <ProfileContent user={user} />
-      ) : null}
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        <TabsList className="grid grid-cols-3 w-full max-w-md">
+          <TabsTrigger value="personal">Personal Info</TabsTrigger>
+          <TabsTrigger value="events">My Events</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="personal">
+          {isLoadingProfile ? (
+            <div className="flex justify-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+          ) : (
+            <ProfileContent user={userProfile!} />
+          )}
+        </TabsContent>
+
+        <TabsContent value="events">
+          <EventsContent registrations={registrations} isLoading={isLoadingRegistrations} />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

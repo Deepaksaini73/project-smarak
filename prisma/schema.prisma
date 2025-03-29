@@ -94,10 +94,11 @@ model Registration {
   id                String     @id @default(uuid())
   eventId           String
   event             Events     @relation(fields: [eventId], references: [id])
-  userId            String?    // Nullable for team events
+  userId            String?    // For the team leader or individual participant
   user              User?      @relation(fields: [userId], references: [id])
   isTeam            Boolean    @default(false)
   teamName          String?    
+  teamCode          String?    @unique // For team members to join
   teamMembers       Participant[]
   status            status     @default(pending)
   createdAt         DateTime   @default(now())

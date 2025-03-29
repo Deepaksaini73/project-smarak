@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Eye, Pencil, Trash2, Users, User } from 'lucide-react';
 import { Event } from '@/config/events/types';
 import { Card } from '@/components/ui/card';
-import { format } from 'date-fns'; // Import format from date-fns
+import { format } from 'date-fns';
 
 interface EventsTableProps {
   events: Event[];
