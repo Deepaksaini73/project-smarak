@@ -26,14 +26,10 @@ export function EventsTable({ events, onView, onEdit, onDelete }: EventsTablePro
     return (
       <div className="text-center py-12 bg-muted/30 rounded-lg">
         <h3 className="text-lg font-medium">No events found</h3>
-        <p className="text-muted-foreground mt-1">
-          Try adjusting your filters or create a new event.
-        </p>
       </div>
     );
   }
 
-  // Format date helper function
   const formatEventDate = (date: string | Date) => {
     return format(new Date(date), 'MMM d, yyyy HH:mm');
   };
@@ -53,7 +49,7 @@ export function EventsTable({ events, onView, onEdit, onDelete }: EventsTablePro
   };
 
   return (
-    <Card className="border overflow-hidden">
+    <Card className="border overflow-hidden px-2 mt-4">
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
@@ -89,7 +85,7 @@ export function EventsTable({ events, onView, onEdit, onDelete }: EventsTablePro
                   </div>
                 </TableCell>
                 <TableCell>
-                  <Badge variant="outline">{event.eventType || event.type}</Badge>
+                  <Badge variant="outline">{event.eventType}</Badge>
                 </TableCell>
                 <TableCell>
                   <div className="flex flex-col text-sm">
@@ -98,7 +94,7 @@ export function EventsTable({ events, onView, onEdit, onDelete }: EventsTablePro
                     <span>{formatEventDate(event.endTime)}</span>
                   </div>
                 </TableCell>
-                <TableCell>{event.venue || event.location}</TableCell>
+                <TableCell>{event.venue}</TableCell>
                 <TableCell>
                   {event._count?.registrations || 0}
                   {event._count?.registrations === 1 ? ' registration' : ' registrations'}

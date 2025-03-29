@@ -16,23 +16,26 @@ export interface Event {
   id: string;
   name: string;
   description: string;
-  type: string; // Mapped from eventType in schema
-  location: string; // Mapped from venue in schema
+  eventType: string;
+  venue: string;
   startTime: string | Date;
   endTime: string | Date;
+  duration: number;
   isTeamEvent: boolean;
-  minTeamSize?: number; // Mapped from minParticipants in schema
-  maxTeamSize?: number; // Mapped from maxParticipants in schema
+  minParticipants?: number;
+  maxParticipants?: number;
   rounds?: Round[];
 
-  // Optional properties
   materialsProvided?: string[];
-  isCodes?: string[]; // Relevant IS codes
+  isCodes?: string[];
   status?: 'upcoming' | 'ongoing' | 'completed';
 
-  // Timestamps
   createdAt?: string | Date;
   updatedAt?: string | Date;
+
+  _count?: {
+    registrations: number;
+  };
 }
 
 /**

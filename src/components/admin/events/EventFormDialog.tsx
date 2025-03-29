@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -20,22 +20,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { CalendarIcon } from 'lucide-react';
-import { Calendar } from '@/components/ui/calendar';
-import { cn } from '@/lib/utils';
+import { PlusCircle, X } from 'lucide-react';
 import { format } from 'date-fns';
 
 const eventFormSchema = z.object({
   name: z.string().min(3, { message: 'Event name must be at least 3 characters long' }),
   description: z.string().min(10, { message: 'Description must be at least 10 characters long' }),
-  location: z.string().min(1, { message: 'Location is required' }),
-  type: z.string().min(1, { message: 'Event type is required' }),
+  venue: z.string().min(1, { message: 'Venue is required' }),
+  eventType: z.string().min(1, { message: 'Event type is required' }),
+  duration: z.number().min(1, { message: 'Duration must be at least 1 minute' }).default(60),
+  materialsProvided: z.array(z.string()).default([]),
+  isCodes: z.array(z.string()).default([]),
   startTime: z.date(),
   endTime: z.date(),
   isTeamEvent: z.boolean().default(false),
-  minTeamSize: z.number().nullable(),
-  maxTeamSize: z.number().nullable(),
+  minParticipants: z.number().nullable(),
+  maxParticipants: z.number().nullable(),
   rounds: z
     .array(
       z.object({
@@ -72,14 +72,21 @@ export function EventFormDialog({
   const defaultValues: EventFormValues = {
     name: event?.name || '',
     description: event?.description || '',
-    location: event?.location || '',
-    type: event?.type || '',
+    venue: event?.venue || '',
+    eventType: event?.eventType || '',
+    duration: event?.duration || 60,
+    materialsProvided: event?.materialsProvided || [],
+    isCodes: event?.isCodes || [],
     startTime: event?.startTime ? new Date(event.startTime) : new Date(),
     endTime: event?.endTime ? new Date(event.endTime) : new Date(),
     isTeamEvent: event?.isTeamEvent || false,
-    minTeamSize: event?.minTeamSize || null,
-    maxTeamSize: event?.maxTeamSize || null,
-    rounds: event?.rounds || [],
+    minParticipants: event?.minParticipants || null,
+    maxParticipants: event?.maxParticipants || null,
+    rounds:
+      event?.rounds?.map(round => ({
+        ...round,
+        description: round.description || '',
+      })) || [],
   };
 
   const form = useForm<EventFormValues>({
@@ -87,23 +94,61 @@ export function EventFormDialog({
     defaultValues,
   });
 
+  useEffect(() => {
+    if (event) {
+      form.reset({
+        name: event.name || '',
+        description: event.description || '',
+        venue: event.venue || '',
+        eventType: event.eventType || '',
+        duration: event.duration || 60,
+        materialsProvided: event.materialsProvided || [],
+        isCodes: event.isCodes || [],
+        startTime: event.startTime ? new Date(event.startTime) : new Date(),
+        endTime: event.endTime ? new Date(event.endTime) : new Date(),
+        isTeamEvent: event.isTeamEvent || false,
+        minParticipants: event.minParticipants || null,
+        maxParticipants: event.maxParticipants || null,
+        rounds:
+          event.rounds?.map(round => ({
+            ...round,
+            description: round.description || '',
+          })) || [],
+      });
+    } else {
+      form.reset({
+        name: '',
+        description: '',
+        venue: '',
+        eventType: '',
+        duration: 60,
+        materialsProvided: [],
+        isCodes: [],
+        startTime: new Date(),
+        endTime: new Date(),
+        isTeamEvent: false,
+        minParticipants: null,
+        maxParticipants: null,
+        rounds: [],
+      });
+    }
+  }, [event, form]);
+
   const isTeamEvent = form.watch('isTeamEvent');
 
   const onSubmit = async (data: EventFormValues) => {
     try {
       const method = isCreating ? 'POST' : 'PUT';
-      const endpoint = isCreating ? '/admin/events' : `/admin/events/${event?.id}`;
-
+      const endpoint = isCreating ? '/admin/events/create' : `/admin/events/${event?.id}`;
       const response = await makeRequest(
         method,
         endpoint,
-        data,
+        isCreating ? [data] : data,
         isCreating ? 'Failed to create event' : 'Failed to update event',
         true
       );
-
       if (response.status === 'success') {
-        onSave(response.data.event, isCreating);
+        onSave(isCreating ? response.data.data.events[0] : response.data.data.event, isCreating);
         toast.success(isCreating ? 'Event created successfully' : 'Event updated successfully');
       }
     } catch (error) {
@@ -121,45 +166,48 @@ export function EventFormDialog({
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Event Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter event name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {/* Basic Info Section */}
+              <div className="md:col-span-2">
+                <h3 className="text-lg font-medium mb-4">Basic Information</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Event Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter event name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <FormField
-                control={form.control}
-                name="type"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Event Type</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select event type" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="technical">Technical</SelectItem>
-                        <SelectItem value="cultural">Cultural</SelectItem>
-                        <SelectItem value="sports">Sports</SelectItem>
-                        <SelectItem value="workshop">Workshop</SelectItem>
-                        <SelectItem value="seminar">Seminar</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  <FormField
+                    control={form.control}
+                    name="eventType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Event Type</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select event type" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="WORKSHOP">Workshop</SelectItem>
+                            <SelectItem value="SEMINAR">Seminar</SelectItem>
+                            <SelectItem value="COMPETITION">Competition</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
 
               <FormField
                 control={form.control}
@@ -175,172 +223,37 @@ export function EventFormDialog({
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="location"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Location</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Event location" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="isTeamEvent"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
-                    <div className="space-y-0.5">
-                      <FormLabel>Team Event</FormLabel>
-                    </div>
-                    <FormControl>
-                      <Switch checked={field.value} onCheckedChange={field.onChange} />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="startTime"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Start Date & Time</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant="outline"
-                            className={cn(
-                              'w-full pl-3 text-left font-normal',
-                              !field.value && 'text-muted-foreground'
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, 'PPP HH:mm')
-                            ) : (
-                              <span>Select date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={date => {
-                            if (date) {
-                              const currentDate = field.value || new Date();
-                              const newDate = new Date(date);
-                              newDate.setHours(currentDate.getHours(), currentDate.getMinutes());
-                              field.onChange(newDate);
-                            }
-                          }}
-                          initialFocus
-                        />
-                        <div className="p-3 border-t border-border">
-                          <Input
-                            type="time"
-                            value={field.value ? format(field.value, 'HH:mm') : ''}
-                            onChange={e => {
-                              if (e.target.value) {
-                                const [hours, minutes] = e.target.value.split(':').map(Number);
-                                const newDate = new Date(field.value || new Date());
-                                newDate.setHours(hours, minutes);
-                                field.onChange(newDate);
-                              }
-                            }}
-                          />
-                        </div>
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="endTime"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>End Date & Time</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant="outline"
-                            className={cn(
-                              'w-full pl-3 text-left font-normal',
-                              !field.value && 'text-muted-foreground'
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, 'PPP HH:mm')
-                            ) : (
-                              <span>Select date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={date => {
-                            if (date) {
-                              const currentDate = field.value || new Date();
-                              const newDate = new Date(date);
-                              newDate.setHours(currentDate.getHours(), currentDate.getMinutes());
-                              field.onChange(newDate);
-                            }
-                          }}
-                          initialFocus
-                        />
-                        <div className="p-3 border-t border-border">
-                          <Input
-                            type="time"
-                            value={field.value ? format(field.value, 'HH:mm') : ''}
-                            onChange={e => {
-                              if (e.target.value) {
-                                const [hours, minutes] = e.target.value.split(':').map(Number);
-                                const newDate = new Date(field.value || new Date());
-                                newDate.setHours(hours, minutes);
-                                field.onChange(newDate);
-                              }
-                            }}
-                          />
-                        </div>
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {isTeamEvent && (
-                <>
+              {/* Schedule Section */}
+              <div className="md:col-span-2 mt-4">
+                <h3 className="text-lg font-medium mb-4">Schedule & Location</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
-                    name="minTeamSize"
+                    name="venue"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Min Team Size</FormLabel>
+                        <FormLabel>Venue</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Event venue" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="duration"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Duration (minutes)</FormLabel>
                         <FormControl>
                           <Input
                             type="number"
                             min={1}
-                            placeholder="Minimum team members"
-                            value={field.value || ''}
-                            onChange={e =>
-                              field.onChange(e.target.value ? Number(e.target.value) : null)
-                            }
+                            placeholder="Event duration in minutes"
+                            value={field.value}
+                            onChange={e => field.onChange(Number(e.target.value))}
                           />
                         </FormControl>
                         <FormMessage />
@@ -350,32 +263,293 @@ export function EventFormDialog({
 
                   <FormField
                     control={form.control}
-                    name="maxTeamSize"
+                    name="startTime"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Max Team Size</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="number"
-                            min={1}
-                            placeholder="Maximum team members"
-                            value={field.value || ''}
-                            onChange={e =>
-                              field.onChange(e.target.value ? Number(e.target.value) : null)
-                            }
-                          />
-                        </FormControl>
+                        <FormLabel>Start Date & Time</FormLabel>
+                        <div className="grid grid-cols-2 gap-2">
+                          <FormControl>
+                            <Input
+                              type="date"
+                              value={field.value ? format(field.value, 'yyyy-MM-dd') : ''}
+                              onChange={e => {
+                                if (e.target.value) {
+                                  const [year, month, day] = e.target.value.split('-').map(Number);
+                                  const newDate = new Date(field.value || new Date());
+                                  newDate.setFullYear(year, month - 1, day);
+                                  field.onChange(newDate);
+                                }
+                              }}
+                            />
+                          </FormControl>
+                          <FormControl>
+                            <Input
+                              type="time"
+                              value={field.value ? format(field.value, 'HH:mm') : ''}
+                              onChange={e => {
+                                if (e.target.value) {
+                                  const [hours, minutes] = e.target.value.split(':').map(Number);
+                                  const newDate = new Date(field.value || new Date());
+                                  newDate.setHours(hours, minutes);
+                                  field.onChange(newDate);
+                                }
+                              }}
+                            />
+                          </FormControl>
+                        </div>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                </>
-              )}
+
+                  <FormField
+                    control={form.control}
+                    name="endTime"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>End Date & Time</FormLabel>
+                        <div className="grid grid-cols-2 gap-2">
+                          <FormControl>
+                            <Input
+                              type="date"
+                              value={field.value ? format(field.value, 'yyyy-MM-dd') : ''}
+                              onChange={e => {
+                                if (e.target.value) {
+                                  const [year, month, day] = e.target.value.split('-').map(Number);
+                                  const newDate = new Date(field.value || new Date());
+                                  newDate.setFullYear(year, month - 1, day);
+                                  field.onChange(newDate);
+                                }
+                              }}
+                            />
+                          </FormControl>
+                          <FormControl>
+                            <Input
+                              type="time"
+                              value={field.value ? format(field.value, 'HH:mm') : ''}
+                              onChange={e => {
+                                if (e.target.value) {
+                                  const [hours, minutes] = e.target.value.split(':').map(Number);
+                                  const newDate = new Date(field.value || new Date());
+                                  newDate.setHours(hours, minutes);
+                                  field.onChange(newDate);
+                                }
+                              }}
+                            />
+                          </FormControl>
+                        </div>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+
+              {/* Team Settings Section */}
+              <div className="md:col-span-2 mt-4">
+                <h3 className="text-lg font-medium mb-4">Team Settings</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="isTeamEvent"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
+                        <div className="space-y-0.5">
+                          <FormLabel>Team Event</FormLabel>
+                        </div>
+                        <FormControl>
+                          <Switch checked={field.value} onCheckedChange={field.onChange} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+
+                  {isTeamEvent && (
+                    <>
+                      <FormField
+                        control={form.control}
+                        name="minParticipants"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Min Team Size</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                min={1}
+                                placeholder="Minimum team members"
+                                value={field.value || ''}
+                                onChange={e =>
+                                  field.onChange(e.target.value ? Number(e.target.value) : null)
+                                }
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="maxParticipants"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Max Team Size</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                min={1}
+                                placeholder="Maximum team members"
+                                value={field.value || ''}
+                                onChange={e =>
+                                  field.onChange(e.target.value ? Number(e.target.value) : null)
+                                }
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* Materials Section */}
+              <div className="md:col-span-2 mt-4">
+                <h3 className="text-lg font-medium mb-4">Resources & Materials</h3>
+                <div className="space-y-6">
+                  <FormField
+                    control={form.control}
+                    name="materialsProvided"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Materials Provided</FormLabel>
+                        <div className="space-y-2">
+                          <div className="flex flex-wrap gap-2">
+                            {field.value.map((item, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center gap-1 bg-muted rounded-md px-2 py-1"
+                              >
+                                <span>{item}</span>
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-5 w-5 p-0"
+                                  onClick={() => {
+                                    const newItems = [...field.value];
+                                    newItems.splice(index, 1);
+                                    field.onChange(newItems);
+                                  }}
+                                >
+                                  <X className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="flex gap-2">
+                            <Input
+                              placeholder="Add material"
+                              onKeyDown={e => {
+                                if (e.key === 'Enter' && e.currentTarget.value) {
+                                  e.preventDefault();
+                                  field.onChange([...field.value, e.currentTarget.value]);
+                                  e.currentTarget.value = '';
+                                }
+                              }}
+                            />
+                            <Button
+                              type="button"
+                              size="sm"
+                              variant="outline"
+                              onClick={() => {
+                                const input = document.activeElement as HTMLInputElement;
+                                if (input && input.value) {
+                                  field.onChange([...field.value, input.value]);
+                                  input.value = '';
+                                }
+                              }}
+                            >
+                              <PlusCircle className="h-4 w-4 mr-1" /> Add
+                            </Button>
+                          </div>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="isCodes"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>IS Codes</FormLabel>
+                        <div className="space-y-2">
+                          <div className="flex flex-wrap gap-2">
+                            {field.value.map((code, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center gap-1 bg-muted rounded-md px-2 py-1"
+                              >
+                                <span>{code}</span>
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-5 w-5 p-0"
+                                  onClick={() => {
+                                    const newCodes = [...field.value];
+                                    newCodes.splice(index, 1);
+                                    field.onChange(newCodes);
+                                  }}
+                                >
+                                  <X className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="flex gap-2">
+                            <Input
+                              placeholder="Add IS code (e.g., IS 456:2000)"
+                              onKeyDown={e => {
+                                if (e.key === 'Enter' && e.currentTarget.value) {
+                                  e.preventDefault();
+                                  field.onChange([...field.value, e.currentTarget.value]);
+                                  e.currentTarget.value = '';
+                                }
+                              }}
+                            />
+                            <Button
+                              type="button"
+                              size="sm"
+                              variant="outline"
+                              onClick={() => {
+                                const input = document.activeElement as HTMLInputElement;
+                                if (input && input.value) {
+                                  field.onChange([...field.value, input.value]);
+                                  input.value = '';
+                                }
+                              }}
+                            >
+                              <PlusCircle className="h-4 w-4 mr-1" /> Add
+                            </Button>
+                          </div>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
             </div>
 
-            <RoundFormSection control={form.control} />
+            {/* Rounds Section */}
+            <div className="mt-6">
+              <h3 className="text-lg font-medium mb-4">Event Rounds</h3>
+              <RoundFormSection control={form.control} />
+            </div>
 
-            <div className="flex justify-end space-x-3">
+            <div className="flex justify-end space-x-3 mt-8">
               <Button variant="outline" type="button" onClick={onClose}>
                 Cancel
               </Button>

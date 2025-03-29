@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { format } from 'date-fns';
-import { UsersRound, MapPin, Calendar } from 'lucide-react';
+import { UsersRound, MapPin, Calendar, Clock, FileText } from 'lucide-react';
 
 interface EventDetailsDialogProps {
   event: Event | null;
@@ -25,14 +25,14 @@ export function EventDetailsDialog({ event, isOpen, onClose }: EventDetailsDialo
 
         <div className="space-y-6">
           <div className="flex flex-wrap gap-2">
-            <Badge variant="secondary">{event.type}</Badge>
+            <Badge variant="secondary">{event.eventType}</Badge>
             {event.isTeamEvent ? (
               <Badge variant="outline" className="flex items-center gap-1">
                 <UsersRound className="h-3 w-3" />
                 Team Event
-                {event.minTeamSize && event.maxTeamSize && (
+                {event.minParticipants && event.maxParticipants && (
                   <span className="ml-1">
-                    ({event.minTeamSize}-{event.maxTeamSize} members)
+                    ({event.minParticipants}-{event.maxParticipants} members)
                   </span>
                 )}
               </Badge>
@@ -64,14 +64,53 @@ export function EventDetailsDialog({ event, isOpen, onClose }: EventDetailsDialo
               </div>
             </div>
 
-            <div className="flex items-center gap-2 md:col-span-2">
+            <div className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-muted-foreground" />
+              <div>
+                <p className="text-sm font-medium">Duration</p>
+                <p className="text-sm text-muted-foreground">{event.duration} minutes</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
               <MapPin className="h-4 w-4 text-muted-foreground" />
               <div>
-                <p className="text-sm font-medium">Location</p>
-                <p className="text-sm text-muted-foreground">{event.location}</p>
+                <p className="text-sm font-medium">Venue</p>
+                <p className="text-sm text-muted-foreground">{event.venue}</p>
               </div>
             </div>
           </div>
+
+          {event.materialsProvided && event.materialsProvided.length > 0 && (
+            <div>
+              <div className="flex items-center mb-3">
+                <h3 className="text-lg font-semibold">Materials Provided</h3>
+                <Separator className="flex-1 ml-3" />
+              </div>
+              <ul className="list-disc pl-5 text-sm text-muted-foreground">
+                {event.materialsProvided.map((material, index) => (
+                  <li key={index}>{material}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {event.isCodes && event.isCodes.length > 0 && (
+            <div>
+              <div className="flex items-center mb-3">
+                <h3 className="text-lg font-semibold">IS Codes</h3>
+                <Separator className="flex-1 ml-3" />
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {event.isCodes.map((code, index) => (
+                  <Badge key={index} variant="outline" className="flex items-center gap-1">
+                    <FileText className="h-3 w-3" />
+                    {code}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
 
           {event.rounds && event.rounds.length > 0 && (
             <div>
@@ -115,6 +154,14 @@ export function EventDetailsDialog({ event, isOpen, onClose }: EventDetailsDialo
                   </Card>
                 ))}
               </div>
+            </div>
+          )}
+
+          {event._count && (
+            <div className="mt-4 pt-4 border-t">
+              <Badge variant="secondary" className="text-sm">
+                Registrations: {event._count.registrations}
+              </Badge>
             </div>
           )}
         </div>
