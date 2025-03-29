@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
 
-    const { teamCode } = body;
+    const { teamCode, eventId } = body;
 
     if (!teamCode) {
       return NextResponse.json(
@@ -82,6 +82,17 @@ export async function POST(req: NextRequest) {
     });
 
     if (!registration) {
+      return NextResponse.json(
+        {
+          status: 'error',
+          data: null,
+          message: 'Invalid team code',
+        },
+        { status: 404 }
+      );
+    }
+
+    if (registration.event.id !== eventId) {
       return NextResponse.json(
         {
           status: 'error',

@@ -127,7 +127,7 @@ export default function EventsPage() {
         const response = await makeRequest(
           'POST',
           '/events/join-team',
-          { teamCode: data.teamCode },
+          { teamCode: data.teamCode, eventId: selectedEvent.id },
           'Failed to join team',
           true
         );
