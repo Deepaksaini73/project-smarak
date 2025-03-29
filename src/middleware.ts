@@ -36,9 +36,24 @@ export const middleware = async (request: {
     return NextResponse.next();
   }
 
+  if (
+    pathname.startsWith('/api/admin') &&
+    session?.user.role !== 'admin' &&
+    pathname !== '/api/admin/events'
+  ) {
+    return NextResponse.json(
+      {
+        status: 'error',
+        data: null,
+        message: 'Unauthorized',
+      },
+      { status: 401 }
+    );
+  }
+
   return NextResponse.next();
 };
 
 export const config = {
-  matcher: ['/admin/:path*', '/profile/:path*', '/signin', '/register'],
+  matcher: ['/admin/:path*', '/profile/:path*', '/signin', '/register', '/api/admin/:path*'],
 };
