@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { useApi } from '@/hooks/use-api';
 import { Event } from '@/config/events/types';
 import { Loader2 } from 'lucide-react';
-import { EventFilters } from '../../components/events/event-filters';
 import { EventCard } from '../../components/events/event-card';
 import { RegistrationDialog } from '../../components/events/registration-dialog';
 import { toast } from 'sonner';
@@ -13,10 +12,6 @@ export default function EventsPage() {
   const { makeRequest } = useApi();
   const [isLoading, setIsLoading] = useState(true);
   const [events, setEvents] = useState<Event[]>([]);
-  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [eventTypeFilter, setEventTypeFilter] = useState<string>('all');
-  const [isTeamEventFilter, setIsTeamEventFilter] = useState<string>('all');
 
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [isRegisterDialogOpen, setIsRegisterDialogOpen] = useState(false);
@@ -40,7 +35,6 @@ export default function EventsPage() {
       if (response.status === 'success') {
         const eventsData = response.data.data?.events || [];
         setEvents(eventsData);
-        setFilteredEvents(eventsData);
       }
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -64,7 +58,6 @@ export default function EventsPage() {
         const eventIds = registrations.map((reg: { eventId: any }) => reg.eventId);
         setRegisteredEventIds(eventIds);
 
-        // Store team codes for registered team events
         const teamCodesMap: Record<string, string> = {};
         registrations.forEach((reg: { eventId: string; teamCode?: string }) => {
           if (reg.teamCode) {
@@ -76,30 +69,6 @@ export default function EventsPage() {
     } catch (error) {
       console.error('Error fetching registrations:', error);
     }
-  };
-
-  const filterEvents = () => {
-    let results = [...events];
-
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      results = results.filter(
-        event =>
-          event.name.toLowerCase().includes(query) ||
-          (event.description && event.description.toLowerCase().includes(query))
-      );
-    }
-
-    if (eventTypeFilter && eventTypeFilter !== 'all') {
-      results = results.filter(event => event.eventType === eventTypeFilter);
-    }
-
-    if (isTeamEventFilter !== 'all') {
-      const isTeam = isTeamEventFilter === 'team';
-      results = results.filter(event => event.isTeamEvent === isTeam);
-    }
-
-    setFilteredEvents(results);
   };
 
   const handleRegister = (event: Event) => {
@@ -136,7 +105,6 @@ export default function EventsPage() {
           setRegistrationComplete(true);
           setRegisteredEventIds(prev => [...prev, selectedEvent.id]);
 
-          // Update team codes if received in response
           if (response.data.data?.teamCode) {
             setTeamCodeToShare(response.data.data.teamCode);
             setUserTeamCodes(prev => ({
@@ -161,7 +129,6 @@ export default function EventsPage() {
           setRegistrationComplete(true);
           setRegisteredEventIds(prev => [...prev, selectedEvent.id]);
 
-          // If team registration, store the team code
           if (data.isTeamRegistration && response.data.data?.teamCode) {
             setTeamCodeToShare(response.data.data.teamCode);
             setUserTeamCodes(prev => ({
@@ -170,7 +137,6 @@ export default function EventsPage() {
             }));
           }
 
-          // Auto-close dialog for individual event registration
           if (!data.isTeamRegistration && !selectedEvent.isTeamEvent) {
             setTimeout(() => {
               setIsRegisterDialogOpen(false);
@@ -194,10 +160,6 @@ export default function EventsPage() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    filterEvents();
-  }, [searchQuery, eventTypeFilter, isTeamEventFilter, events]);
-
   return (
     <div className="container mx-auto py-8">
       <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:justify-between md:items-center mb-8">
@@ -205,15 +167,6 @@ export default function EventsPage() {
           <h1 className="text-3xl font-bold tracking-tight">Events</h1>
           <p className="text-muted-foreground mt-1">Browse and register for upcoming events.</p>
         </div>
-
-        <EventFilters
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          eventTypeFilter={eventTypeFilter}
-          setEventTypeFilter={setEventTypeFilter}
-          isTeamEventFilter={isTeamEventFilter}
-          setIsTeamEventFilter={setIsTeamEventFilter}
-        />
       </div>
 
       {isLoading ? (
@@ -222,8 +175,8 @@ export default function EventsPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredEvents.length > 0 ? (
-            filteredEvents.map(event => (
+          {events.length > 0 ? (
+            events.map(event => (
               <EventCard
                 key={event.id}
                 event={event}
