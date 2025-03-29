@@ -26,7 +26,7 @@ export function Section({
   titleColor = '#554400',
 }: SectionProps) {
   return (
-    <div className={`bg-[${backgroundColor}] px-8 py-8 relative`}>
+    <div className={`bg-[${backgroundColor}] px-8 py-8 relative my-10`}>
       <div className="max-w-7xl mx-auto">
         <div className="inline-block mb-6 py-1">
           <h1 className={`text-5xl font-bold text-[${titleColor}] font-outfit`}>{title}</h1>
@@ -52,7 +52,7 @@ export function Section({
             </>
           ) : (
             <div className="flex items-start justify-between w-full">
-              <div className="flex md:order-1 order-2 md:w-1/3">
+              <div className="flex md:order-1 order-2 ">
                 <ImageCard
                   imgName={image.name}
                   imgSrc={image.src}
