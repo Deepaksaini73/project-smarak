@@ -7,8 +7,8 @@ export const registrationSchema = z.object({
   email: z.string().email({
     message: 'Please enter a valid email address.',
   }),
-  phone: z.string().min(10, {
-    message: 'Phone number must be at least 10 characters.',
+  phone: z.string().regex(/^\d{10}$/, {
+    message: 'Phone number must be exactly 10 numeric characters.',
   }),
   gender: z.enum(['male', 'female', 'other'], {
     required_error: 'Please select a gender.',

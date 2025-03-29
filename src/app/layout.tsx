@@ -3,6 +3,7 @@ import './globals.css';
 import { bebas, inter, montserrat } from './fonts';
 import { Toaster } from 'sonner';
 import { Analytics } from '@vercel/analytics/react';
+import Providers from '@/components/shared/providers';
 
 export const metadata: Metadata = {
   title: 'Smarak 2025',
@@ -19,7 +20,7 @@ export default function RootLayout({
       <body className={`${bebas.variable} ${inter.variable} ${montserrat.variable}  antialiased`}>
         <Toaster position="top-right" />
         <Analytics />
-        <>{children}</>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
