@@ -1,10 +1,7 @@
 'use client';
 
-// import { Routes, Route } from 'react-router-dom';
-import Navbar from '@/components/Navbar/Navbar';
-import Footer from '@/components/Footer/Footer';
-import Slider from '@/components/slider/Slider';
-import Homee from '@/components/Home/Home';
+import Navbar from '@/components/layouts/Navbar/Navbar';
+import Footer from '@/components/layouts/footer/footer';
 import Hero from '@/components/hero/hero';
 import Main from '@/components/AboutUs/main';
 

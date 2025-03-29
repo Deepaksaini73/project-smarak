@@ -2,13 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { RiCloseLine, RiMenu3Line } from 'react-icons/ri';
 import Link from 'next/link';
 import Image from 'next/image';
-import cestLogo from '../../../assets/cest-Logo.png';
+import { navbarContent } from '@/config/layouts';
 
 export default function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false);
   const mobileNavRef = useRef(null);
 
-  // Close modal on outside click
   useEffect(() => {
     const handleClickOutside = event => {
       if (mobileNavRef.current && !mobileNavRef.current.contains(event.target)) {
@@ -91,7 +90,14 @@ export default function Navbar() {
           href="/"
           className="md:border-none md:pr-0 md:mr-0 cursor-pointer" // Removed pr-4 and mr-4
         >
-          <Image className="w-16 absolute left-4 top-2" src={cestLogo} alt="cest-smarak" priority />
+          <Image
+            className="w-16 absolute left-4 top-2"
+            src={navbarContent.images.cest}
+            alt="cest-smarak"
+            priority
+            width={100}
+            height={100}
+          />
         </Link>
         <div className="flex gap-10 text-[22px] font-bold items-center font-semibold text-[#574900]">
           <Link
