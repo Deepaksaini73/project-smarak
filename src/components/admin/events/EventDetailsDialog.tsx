@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { format } from 'date-fns';
 import { UsersRound, MapPin, Calendar, Clock, FileText } from 'lucide-react';
+import Image from 'next/image';
 
 interface EventDetailsDialogProps {
   event: Event | null;
@@ -40,6 +41,16 @@ export function EventDetailsDialog({ event, isOpen, onClose }: EventDetailsDialo
               <Badge variant="outline">Individual Event</Badge>
             )}
           </div>
+
+          {event.image && (
+            <Image
+              src={event.image || '/images/default-event.png'}
+              alt={event.name}
+              width={500}
+              height={300}
+              className="rounded-lg object-cover"
+            />
+          )}
 
           <p className="text-muted-foreground">{event.description}</p>
 

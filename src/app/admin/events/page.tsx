@@ -30,7 +30,7 @@ export default function EventsPage() {
     setIsLoading(true);
     const response = await makeRequest(
       'GET',
-      '/admin/events',
+      '/events',
       undefined,
       'Failed to fetch events',
       false

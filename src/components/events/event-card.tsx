@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import { Event } from '@/config/events/types';
 import { Calendar, Clock, MapPin, Users, Check, Copy } from 'lucide-react';
 import { toast } from 'sonner';
+import Image from 'next/image';
 
 interface EventCardProps {
   event: Event;
@@ -42,20 +43,25 @@ export function EventCard({ event, onRegister, isRegistered, teamCode }: EventCa
     <Card className="overflow-hidden">
       <CardHeader className="p-0">
         <div className="relative h-48 w-full ">
-          {/* {event.image && (
-            <img
+          {event.image && (
+            <Image
               src={event.image}
               alt={event.name}
               className="h-full w-full object-cover opacity-80"
+              width={500}
+              height={200}
             />
-          )} */}
+          )}
           <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
             <h3 className="text-xl font-bold text-white">{event.name}</h3>
             <div className="flex items-center gap-2 mt-1">
-              <Badge variant={event.isTeamEvent ? 'secondary' : 'outline'}>
+              <Badge
+                className="text-white uppercase"
+                variant={event.isTeamEvent ? 'secondary' : 'outline'}
+              >
                 {event.isTeamEvent ? 'Team' : 'Individual'}
               </Badge>
-              <Badge variant="outline" className="text-white">
+              <Badge variant="outline" className="text-white ">
                 {event.eventType}
               </Badge>
             </div>

@@ -22,35 +22,12 @@ import {
 } from '@/components/ui/select';
 import { PlusCircle, X } from 'lucide-react';
 import { format } from 'date-fns';
+import { uploadToCloudinary } from '@/utils/uploadToCloudinary';
+import { Image as ImageIcon, Loader2, Upload } from 'lucide-react';
+import { eventSchema } from '@/config/events/schema';
+import Image from 'next/image';
 
-const eventFormSchema = z.object({
-  name: z.string().min(3, { message: 'Event name must be at least 3 characters long' }),
-  description: z.string().min(10, { message: 'Description must be at least 10 characters long' }),
-  venue: z.string().min(1, { message: 'Venue is required' }),
-  eventType: z.string().min(1, { message: 'Event type is required' }),
-  duration: z.number().min(1, { message: 'Duration must be at least 1 minute' }).default(60),
-  materialsProvided: z.array(z.string()).default([]),
-  isCodes: z.array(z.string()).default([]),
-  startTime: z.date(),
-  endTime: z.date(),
-  isTeamEvent: z.boolean().default(false),
-  minParticipants: z.number().nullable(),
-  maxParticipants: z.number().nullable(),
-  rounds: z
-    .array(
-      z.object({
-        name: z.string().min(1, { message: 'Round name is required' }),
-        description: z.string(),
-        duration: z.number().min(1, { message: 'Duration must be at least 1 minute' }),
-        qualifyCount: z.number().nullable(),
-        criteria: z.string().nullable(),
-      })
-    )
-    .optional()
-    .default([]),
-});
-
-type EventFormValues = z.infer<typeof eventFormSchema>;
+type EventFormValues = z.infer<typeof eventSchema>;
 
 interface EventFormDialogProps {
   isOpen: boolean;
@@ -68,12 +45,15 @@ export function EventFormDialog({
   onSave,
 }: EventFormDialogProps) {
   const { makeRequest, isLoading } = useApi();
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const defaultValues: EventFormValues = {
     name: event?.name || '',
     description: event?.description || '',
     venue: event?.venue || '',
-    eventType: event?.eventType || '',
+    eventType: (event?.eventType as 'COMPETITION' | 'WORKSHOP' | 'SEMINAR') || 'COMPETITION',
     duration: event?.duration || 60,
     materialsProvided: event?.materialsProvided || [],
     isCodes: event?.isCodes || [],
@@ -82,6 +62,7 @@ export function EventFormDialog({
     isTeamEvent: event?.isTeamEvent || false,
     minParticipants: event?.minParticipants || null,
     maxParticipants: event?.maxParticipants || null,
+    image: event?.image || '',
     rounds:
       event?.rounds?.map(round => ({
         ...round,
@@ -90,7 +71,7 @@ export function EventFormDialog({
   };
 
   const form = useForm<EventFormValues>({
-    resolver: zodResolver(eventFormSchema),
+    resolver: zodResolver(eventSchema),
     defaultValues,
   });
 
@@ -100,7 +81,7 @@ export function EventFormDialog({
         name: event.name || '',
         description: event.description || '',
         venue: event.venue || '',
-        eventType: event.eventType || '',
+        eventType: (event.eventType as 'COMPETITION' | 'WORKSHOP' | 'SEMINAR') || 'COMPETITION',
         duration: event.duration || 60,
         materialsProvided: event.materialsProvided || [],
         isCodes: event.isCodes || [],
@@ -109,18 +90,20 @@ export function EventFormDialog({
         isTeamEvent: event.isTeamEvent || false,
         minParticipants: event.minParticipants || null,
         maxParticipants: event.maxParticipants || null,
+        image: event.image || '',
         rounds:
           event.rounds?.map(round => ({
             ...round,
             description: round.description || '',
           })) || [],
       });
+      setImagePreview(event.image || null);
     } else {
       form.reset({
         name: '',
         description: '',
         venue: '',
-        eventType: '',
+        eventType: 'COMPETITION',
         duration: 60,
         materialsProvided: [],
         isCodes: [],
@@ -129,15 +112,48 @@ export function EventFormDialog({
         isTeamEvent: false,
         minParticipants: null,
         maxParticipants: null,
+        image: '',
         rounds: [],
       });
+      setImageFile(null);
+      setImagePreview(null);
     }
   }, [event, form]);
 
-  const isTeamEvent = form.watch('isTeamEvent');
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setImageFile(null);
+    setImagePreview(null);
+    form.setValue('image', '');
+  };
 
   const onSubmit = async (data: EventFormValues) => {
     try {
+      setIsUploading(true);
+
+      // Upload image if there's a new one
+      if (imageFile) {
+        try {
+          const imageUrl = await uploadToCloudinary(imageFile);
+          data.image = imageUrl;
+        } catch (error) {
+          toast.error('Failed to upload image. Please try again.');
+          setIsUploading(false);
+          return;
+        }
+      }
+
       const method = isCreating ? 'POST' : 'PUT';
       const endpoint = isCreating ? '/admin/events/create' : `/admin/events/${event?.id}`;
       const response = await makeRequest(
@@ -147,14 +163,19 @@ export function EventFormDialog({
         isCreating ? 'Failed to create event' : 'Failed to update event',
         true
       );
+
       if (response.status === 'success') {
         onSave(isCreating ? response.data.data.events[0] : response.data.data.event, isCreating);
         toast.success(isCreating ? 'Event created successfully' : 'Event updated successfully');
       }
     } catch (error) {
       console.error('Error saving event:', error);
+    } finally {
+      setIsUploading(false);
     }
   };
+
+  const isTeamEvent = form.watch('isTeamEvent');
 
   return (
     <Dialog open={isOpen} onOpenChange={open => !open && onClose()}>
@@ -208,6 +229,63 @@ export function EventFormDialog({
                   />
                 </div>
               </div>
+
+              {/* Event Image Upload */}
+              <FormField
+                control={form.control}
+                name="image"
+                render={({ field }) => (
+                  <FormItem className="md:col-span-2">
+                    <FormLabel>Event Image</FormLabel>
+                    <FormControl>
+                      <div className="flex flex-col space-y-3">
+                        {imagePreview ? (
+                          <div className="relative max-w-md">
+                            <Image
+                              src={imagePreview}
+                              alt="Event preview"
+                              className="w-full h-auto max-h-48 object-cover rounded-md"
+                              width={400}
+                              height={300}
+                            />
+                            <Button
+                              type="button"
+                              variant="destructive"
+                              size="icon"
+                              className="absolute top-2 right-2 h-8 w-8 rounded-full"
+                              onClick={handleRemoveImage}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        ) : (
+                          <div className="border-2 border-dashed border-gray-300 rounded-md p-6 flex flex-col items-center max-w-md">
+                            <ImageIcon className="h-10 w-10 text-muted-foreground mb-2" />
+                            <p className="text-sm text-muted-foreground mb-4">
+                              Upload an image for your event
+                            </p>
+                            <label htmlFor="event-image" className="cursor-pointer">
+                              <div className="bg-primary text-primary-foreground px-4 py-2 rounded-md flex items-center gap-2 text-sm">
+                                <Upload className="h-4 w-4" />
+                                Choose image
+                              </div>
+                              <input
+                                id="event-image"
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={handleImageChange}
+                              />
+                            </label>
+                          </div>
+                        )}
+                        <Input type="hidden" {...field} />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               <FormField
                 control={form.control}
@@ -553,8 +631,17 @@ export function EventFormDialog({
               <Button variant="outline" type="button" onClick={onClose}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={isLoading}>
-                {isLoading ? 'Saving...' : isCreating ? 'Create Event' : 'Update Event'}
+              <Button type="submit" disabled={isLoading || isUploading}>
+                {isLoading || isUploading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {isUploading ? 'Uploading...' : 'Saving...'}
+                  </>
+                ) : isCreating ? (
+                  'Create Event'
+                ) : (
+                  'Update Event'
+                )}
               </Button>
             </div>
           </form>

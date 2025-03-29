@@ -22,6 +22,7 @@ export const eventSchema = z.object({
   endTime: z.string().or(z.date()),
   venue: z.string(),
   rounds: z.array(roundSchema).optional(),
+  image: z.string().optional(),
 });
 
 export const eventsArraySchema = z.array(eventSchema);

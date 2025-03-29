@@ -80,10 +80,7 @@ export function EventsTable({ events, onView, onEdit, onDelete }: EventsTablePro
                   </div>
                 </TableCell>
                 <TableCell>{event.venue}</TableCell>
-                <TableCell>
-                  {event._count?.registrations || 0}
-                  {event._count?.registrations === 1 ? ' registration' : ' registrations'}
-                </TableCell>
+                <TableCell>{event._count?.registrations || 0}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
                     <Button

@@ -53,22 +53,24 @@ enum status {
 
 model Events {
   id                String             @id @default(uuid())
-  name              String             // e.g., "Gati Sheel", "Vastukala", etc.
+  name              String             
   description       String             @db.Text
   eventType         EventType          // Competition, Workshop, or Seminar
   duration          Int                // in minutes
-  materialsProvided String[]           // Array of materials to be provided
-  isCodes           String[]           // Relevant IS codes
+  materialsProvided String[]          
+  isCodes           String[]           
   rounds            Round[]            // For competitions with multiple rounds
   isTeamEvent       Boolean            @default(false) // Flag to identify team vs individual events
-  maxParticipants   Int?               // Maximum team size or max individual participants
-  minParticipants   Int?               // Minimum team size if applicable
+  maxParticipants   Int?               
+  minParticipants   Int?               
   registrations     Registration[]     // Both team and individual registrations
   startTime         DateTime
   endTime           DateTime
   venue             String
+  image             String?             
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
+
 }
 
 enum EventType {

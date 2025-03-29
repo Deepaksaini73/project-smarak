@@ -1,8 +1,3 @@
-/**
- * Event and Round type definitions based on the Prisma schema
- * These types are used across the application for event-related components
- */
-
 export interface Round {
   id?: string;
   name: string;
@@ -25,6 +20,7 @@ export interface Event {
   minParticipants?: number;
   maxParticipants?: number;
   rounds?: Round[];
+  image?: string;
 
   materialsProvided?: string[];
   isCodes?: string[];
