@@ -24,6 +24,7 @@ export default function EventsPage() {
   const [registrationComplete, setRegistrationComplete] = useState(false);
   const [teamCodeToShare, setTeamCodeToShare] = useState('');
   const [registeredEventIds, setRegisteredEventIds] = useState<string[]>([]);
+  const [userTeamCodes, setUserTeamCodes] = useState<Record<string, string>>({});
 
   const fetchEvents = async () => {
     setIsLoading(true);
@@ -62,6 +63,15 @@ export default function EventsPage() {
         const registrations = response.data.data.registrations || [];
         const eventIds = registrations.map((reg: { eventId: any }) => reg.eventId);
         setRegisteredEventIds(eventIds);
+
+        // Store team codes for registered team events
+        const teamCodesMap: Record<string, string> = {};
+        registrations.forEach((reg: { eventId: string; teamCode?: string }) => {
+          if (reg.teamCode) {
+            teamCodesMap[reg.eventId] = reg.teamCode;
+          }
+        });
+        setUserTeamCodes(teamCodesMap);
       }
     } catch (error) {
       console.error('Error fetching registrations:', error);
@@ -125,6 +135,15 @@ export default function EventsPage() {
         if (response.status === 'success') {
           setRegistrationComplete(true);
           setRegisteredEventIds(prev => [...prev, selectedEvent.id]);
+
+          // Update team codes if received in response
+          if (response.data.data?.teamCode) {
+            setTeamCodeToShare(response.data.data.teamCode);
+            setUserTeamCodes(prev => ({
+              ...prev,
+              [selectedEvent.id]: response.data.data.teamCode,
+            }));
+          }
         }
       } else {
         const response = await makeRequest(
@@ -139,11 +158,24 @@ export default function EventsPage() {
         );
 
         if (response.status === 'success') {
-          if (data.isTeamRegistration && response.data?.teamCode) {
-            setTeamCodeToShare(response.data.teamCode);
-          }
           setRegistrationComplete(true);
           setRegisteredEventIds(prev => [...prev, selectedEvent.id]);
+
+          // If team registration, store the team code
+          if (data.isTeamRegistration && response.data.data?.teamCode) {
+            setTeamCodeToShare(response.data.data.teamCode);
+            setUserTeamCodes(prev => ({
+              ...prev,
+              [selectedEvent.id]: response.data.data.teamCode,
+            }));
+          }
+
+          // Auto-close dialog for individual event registration
+          if (!data.isTeamRegistration && !selectedEvent.isTeamEvent) {
+            setTimeout(() => {
+              setIsRegisterDialogOpen(false);
+            }, 1500);
+          }
         }
       }
     } catch (error) {
@@ -197,6 +229,7 @@ export default function EventsPage() {
                 event={event}
                 onRegister={handleRegister}
                 isRegistered={registeredEventIds.includes(event.id)}
+                teamCode={userTeamCodes[event.id]}
               />
             ))
           ) : (

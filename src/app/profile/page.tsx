@@ -68,7 +68,7 @@ export default function ProfilePage() {
       <h1 className="text-3xl font-bold mb-8">My Profile</h1>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid grid-cols-3 w-full max-w-md">
+        <TabsList className="grid grid-cols-2 w-full max-w-md">
           <TabsTrigger value="personal">Personal Info</TabsTrigger>
           <TabsTrigger value="events">My Events</TabsTrigger>
         </TabsList>

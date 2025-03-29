@@ -1,85 +1,124 @@
 import React from 'react';
-import { Event } from '@/config/events/types';
-import { Calendar, Users, Clock, MapPin, CheckCircle } from 'lucide-react';
-import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { format } from 'date-fns';
+import { Event } from '@/config/events/types';
+import { Calendar, Clock, MapPin, Users, Check, Copy } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface EventCardProps {
   event: Event;
   onRegister: (event: Event) => void;
   isRegistered: boolean;
+  teamCode?: string;
 }
 
-export function EventCard({ event, onRegister, isRegistered }: EventCardProps) {
+export function EventCard({ event, onRegister, isRegistered, teamCode }: EventCardProps) {
   const formatDate = (date: string | Date) => {
     try {
-      return format(new Date(date), 'PPP p');
+      return format(new Date(date), 'PPP');
     } catch (e) {
       return 'Date not available';
     }
   };
 
+  const formatTime = (date: string | Date) => {
+    try {
+      return format(new Date(date), 'p');
+    } catch (e) {
+      return 'Time not available';
+    }
+  };
+
+  const copyTeamCode = () => {
+    if (teamCode) {
+      navigator.clipboard.writeText(teamCode);
+      toast.success('Team code copied to clipboard');
+    }
+  };
+
   return (
-    <Card key={event.id} className="flex flex-col h-full">
-      <CardHeader>
-        <div className="flex justify-between items-start">
-          <div>
-            <CardTitle className="text-xl">{event.name}</CardTitle>
-            <CardDescription className="mt-1">
-              <span className="inline-flex items-center text-sm font-medium rounded-full px-2 py-1 bg-primary/10 text-primary">
-                {event.eventType}
-              </span>
-              <span className="ml-2 inline-flex items-center text-sm font-medium rounded-full px-2 py-1 bg-secondary/10 text-secondary">
+    <Card className="overflow-hidden">
+      <CardHeader className="p-0">
+        <div className="relative h-48 w-full ">
+          {/* {event.image && (
+            <img
+              src={event.image}
+              alt={event.name}
+              className="h-full w-full object-cover opacity-80"
+            />
+          )} */}
+          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
+            <h3 className="text-xl font-bold text-white">{event.name}</h3>
+            <div className="flex items-center gap-2 mt-1">
+              <Badge variant={event.isTeamEvent ? 'secondary' : 'outline'}>
                 {event.isTeamEvent ? 'Team' : 'Individual'}
-              </span>
-            </CardDescription>
+              </Badge>
+              <Badge variant="outline" className="text-white">
+                {event.eventType}
+              </Badge>
+            </div>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="flex-grow">
-        <p className="text-muted-foreground mb-4 line-clamp-3">{event.description}</p>
-        <div className="space-y-2">
-          <div className="flex items-center text-sm">
-            <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
-            <span>{formatDate(event.startTime)}</span>
-          </div>
-          <div className="flex items-center text-sm">
-            <Clock className="h-4 w-4 mr-2 text-muted-foreground" />
-            <span>{event.duration} minutes</span>
-          </div>
-          <div className="flex items-center text-sm">
-            <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
-            <span>{event.venue}</span>
-          </div>
-          {event.isTeamEvent && (
-            <div className="flex items-center text-sm">
-              <Users className="h-4 w-4 mr-2 text-muted-foreground" />
-              <span>
-                {event.minParticipants || 1} - {event.maxParticipants || 'unlimited'} participants
-              </span>
+      <CardContent className="p-4">
+        <div className="space-y-3">
+          <p className="text-sm text-muted-foreground line-clamp-2">{event.description}</p>
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-sm">
+              <Calendar className="h-4 w-4" />
+              <span>{formatDate(event.startTime)}</span>
             </div>
-          )}
+            <div className="flex items-center gap-2 text-sm">
+              <Clock className="h-4 w-4" />
+              <span>{formatTime(event.startTime)}</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <MapPin className="h-4 w-4" />
+              <span>{event.venue}</span>
+            </div>
+            {event.isTeamEvent && (
+              <div className="flex items-center gap-2 text-sm">
+                <Users className="h-4 w-4" />
+                <span>
+                  {event.minParticipants || 1} - {event.maxParticipants || 'unlimited'} participants
+                </span>
+              </div>
+            )}
+          </div>
         </div>
-      </CardContent>
-      <CardFooter>
-        {isRegistered ? (
-          <Button className="w-full" variant="outline" disabled>
-            <CheckCircle className="h-4 w-4 mr-2" />
-            Registered
-          </Button>
-        ) : (
-          <Button className="w-full" onClick={() => onRegister(event)}>
-            Register Now
-          </Button>
+
+        {isRegistered && event.isTeamEvent && teamCode && (
+          <div className="mt-3 p-2 border rounded-md bg-secondary/10">
+            <div className="flex flex-col space-y-1">
+              <p className="text-xs font-medium">Your Team Code:</p>
+              <div className="flex items-center justify-between">
+                <code className="text-xs bg-secondary/30 px-2 py-1 rounded">{teamCode}</code>
+                <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={copyTeamCode}>
+                  <Copy className="h-3.5 w-3.5" />
+                </Button>
+              </div>
+            </div>
+          </div>
         )}
+      </CardContent>
+      <CardFooter className="p-4 pt-0">
+        <Button
+          className="w-full"
+          variant={isRegistered ? 'secondary' : 'default'}
+          onClick={() => onRegister(event)}
+          disabled={isRegistered}
+        >
+          {isRegistered ? (
+            <span className="flex items-center gap-2">
+              <Check className="h-4 w-4" />
+              Registered
+            </span>
+          ) : (
+            'Register Now'
+          )}
+        </Button>
       </CardFooter>
     </Card>
   );
