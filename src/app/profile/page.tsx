@@ -7,13 +7,15 @@ import { Loader2 } from 'lucide-react';
 import { ProfileContent } from '@/components/profile/ProfileContent';
 import { EventsContent } from '@/components/profile/EventsContent';
 import { Registration } from '@/types/registration';
+import { User } from '@/config/profile/types';
+import { NotRegisteredState } from '@/components/profile/NotRegisteredState';
 
 export default function ProfilePage() {
   const { makeRequest } = useApi();
   const [activeTab, setActiveTab] = useState('personal');
   const [isLoadingProfile, setIsLoadingProfile] = useState(true);
   const [isLoadingRegistrations, setIsLoadingRegistrations] = useState(true);
-  const [userProfile, setUserProfile] = useState(null);
+  const [userProfile, setUserProfile] = useState<User | null>(null);
   const [registrations, setRegistrations] = useState<Registration[]>([]);
 
   const fetchUserProfile = async () => {
@@ -65,28 +67,33 @@ export default function ProfilePage() {
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-8">My Profile</h1>
+      {userProfile?.email ? (
+        <>
+          <h1 className="text-3xl font-bold mb-8">My Profile</h1>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+            <TabsList className="grid grid-cols-2 w-full max-w-md">
+              <TabsTrigger value="personal">Personal Info</TabsTrigger>
+              <TabsTrigger value="events">My Events</TabsTrigger>
+            </TabsList>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid grid-cols-2 w-full max-w-md">
-          <TabsTrigger value="personal">Personal Info</TabsTrigger>
-          <TabsTrigger value="events">My Events</TabsTrigger>
-        </TabsList>
+            <TabsContent value="personal">
+              {isLoadingProfile ? (
+                <div className="flex justify-center py-12">
+                  <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                </div>
+              ) : (
+                <ProfileContent user={userProfile!} />
+              )}
+            </TabsContent>
 
-        <TabsContent value="personal">
-          {isLoadingProfile ? (
-            <div className="flex justify-center py-12">
-              <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            </div>
-          ) : (
-            <ProfileContent user={userProfile!} />
-          )}
-        </TabsContent>
-
-        <TabsContent value="events">
-          <EventsContent registrations={registrations} isLoading={isLoadingRegistrations} />
-        </TabsContent>
-      </Tabs>
+            <TabsContent value="events">
+              <EventsContent registrations={registrations} isLoading={isLoadingRegistrations} />
+            </TabsContent>
+          </Tabs>
+        </>
+      ) : (
+        <NotRegisteredState />
+      )}
     </div>
   );
 }

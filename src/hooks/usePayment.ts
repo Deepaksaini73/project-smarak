@@ -44,7 +44,7 @@ export function usePayment() {
 
   const getMe = async () => {
     try {
-      const response = await makeRequest('GET', '/user/me');
+      const response = await makeRequest('GET', '/user');
       if (response.status === 'error') {
         toast.error('Failed to fetch user details');
         return null;
