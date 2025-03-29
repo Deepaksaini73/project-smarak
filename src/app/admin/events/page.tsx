@@ -40,9 +40,8 @@ export default function EventsPage() {
     if (params.toString()) url += `?${params.toString()}`;
 
     const response = await makeRequest('GET', url, undefined, 'Failed to fetch events', false);
-
     if (response.status === 'success') {
-      setEvents(response.data?.events || []);
+      setEvents(response.data.data?.events || []);
     }
 
     setIsLoading(false);
