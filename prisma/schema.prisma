@@ -21,8 +21,11 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   hasPaid      Boolean  @default(false)
-  role        Role      @default(user)
+  role         Role     @default(user)
   transactions Transaction[]
+  participations Participant[]
+
+  Registration Registration[]
 }
 
 enum Role {
@@ -42,9 +45,72 @@ model Transaction {
   updatedAt    DateTime @updatedAt
 }
 
-
 enum status {
   pending
   verified
   rejected
+}
+
+model Events {
+  id                String             @id @default(uuid())
+  name              String             // e.g., "Gati Sheel", "Vastukala", etc.
+  description       String             @db.Text
+  eventType         EventType          // Competition, Workshop, or Seminar
+  duration          Int                // in minutes
+  materialsProvided String[]           // Array of materials to be provided
+  isCodes           String[]           // Relevant IS codes
+  rounds            Round[]            // For competitions with multiple rounds
+  isTeamEvent       Boolean            @default(false) // Flag to identify team vs individual events
+  maxParticipants   Int?               // Maximum team size or max individual participants
+  minParticipants   Int?               // Minimum team size if applicable
+  registrations     Registration[]     // Both team and individual registrations
+  startTime         DateTime
+  endTime           DateTime
+  venue             String
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+}
+
+enum EventType {
+  COMPETITION
+  WORKSHOP
+  SEMINAR
+}
+
+model Round {
+  id           String      @id @default(uuid())
+  eventId      String
+  event        Events      @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  name         String      // e.g., "Prelims", "Mains"
+  description  String      @db.Text
+  duration     Int         // in minutes
+  qualifyCount Int?        // Number of teams/individuals that qualify to next round
+  criteria     String?     @db.Text
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model Registration {
+  id                String     @id @default(uuid())
+  eventId           String
+  event             Events     @relation(fields: [eventId], references: [id])
+  userId            String?    // Nullable for team events
+  user              User?      @relation(fields: [userId], references: [id])
+  isTeam            Boolean    @default(false)
+  teamName          String?    
+  teamMembers       Participant[]
+  status            status     @default(pending)
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+}
+
+model Participant {
+  id              String       @id @default(uuid())
+  userId          String
+  user            User         @relation(fields: [userId], references: [id])
+  registrationId  String
+  registration    Registration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+  isTeamLead      Boolean      @default(false) // Identifies the team leader
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
 }

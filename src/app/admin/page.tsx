@@ -186,10 +186,8 @@ export default function Admin() {
   const handleUpdateTransactionStatus = async () => {
     if (!selectedTransaction) return;
 
-    // Store original state in case we need to revert
     const originalUsers = [...allUsers];
 
-    // Apply optimistic update
     updateUserTransactionStatus(
       selectedTransaction.userId,
       selectedTransaction.transactionId,
@@ -197,11 +195,9 @@ export default function Admin() {
       statusNotes
     );
 
-    // Reset UI state
     setIsStatusModalOpen(false);
     setStatusNotes('');
 
-    // Make API request
     const response = await makeRequest(
       'POST',
       '/admin/transactions/update',
@@ -213,7 +209,6 @@ export default function Admin() {
       `Failed to update transaction status to ${selectedTransaction.targetStatus}`
     );
 
-    // If the API call fails, revert to the original state
     if (response.status !== 'success') {
       setAllUsers(originalUsers);
     }
