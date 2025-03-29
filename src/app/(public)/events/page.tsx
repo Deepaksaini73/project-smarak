@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useApi } from '@/hooks/use-api';
 import { Event } from '@/config/events/types';
 import { Loader2 } from 'lucide-react';
-import { EventCard } from '../../components/events/event-card';
-import { RegistrationDialog } from '../../components/events/registration-dialog';
+import { EventCard } from '../../../components/events/event-card';
+import { RegistrationDialog } from '../../../components/events/registration-dialog';
 import { toast } from 'sonner';
 import {
   AlertDialog,

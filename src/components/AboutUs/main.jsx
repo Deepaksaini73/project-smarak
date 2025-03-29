@@ -8,9 +8,9 @@ function main() {
   return (
     <div>
       <Aboutus />
-      <OurStories />
-      <ClubActivity />
-      <Testinomials />
+      {/* <OurStories /> */}
+      {/* <ClubActivity /> */}
+      {/* <Testinomials /> */}
     </div>
   );
 }

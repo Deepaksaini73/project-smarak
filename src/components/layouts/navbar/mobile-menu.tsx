@@ -1,0 +1,79 @@
+import { navbarContent } from '@/config/layouts';
+import { AnimatePresence, motion } from 'framer-motion';
+import Link from 'next/link';
+import React from 'react';
+import { RiCloseLine } from 'react-icons/ri';
+
+export default function MobileMenu({
+  toggleMenu,
+  setToggleMenu,
+  mobileNavRef,
+  isActive,
+}: {
+  toggleMenu: boolean;
+  setToggleMenu: React.Dispatch<React.SetStateAction<boolean>>;
+  mobileNavRef: React.RefObject<HTMLDivElement>;
+  isActive: (href: string) => boolean;
+}) {
+  return (
+    <AnimatePresence>
+      {toggleMenu && (
+        <motion.div
+          className="fixed inset-0 z-50 flex justify-end"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <motion.div
+            ref={mobileNavRef}
+            className="w-[50%] h-full bg-[#FEFBED]  shadow-lg flex flex-col justify-center items-center"
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          >
+            <div className="absolute top-4 right-4 text-[#574900]">
+              <RiCloseLine onClick={() => setToggleMenu(false)} size={40} />
+            </div>
+            <div className="flex flex-col gap-6 items-center w-full font-quicksand">
+              {navbarContent.links.map((link, index) => (
+                <motion.div
+                  key={index}
+                  className="relative"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link
+                    className="font-bold text-2xl text-[#574900] transition-all"
+                    href={link.href}
+                  >
+                    {link.name}
+                  </Link>
+                  {isActive(link.href) && (
+                    <motion.div
+                      className="h-[2px] bg-orange-500 absolute bottom-[-4px] left-[15%]"
+                      initial={{ width: 0 }}
+                      animate={{ width: '70%' }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
+                </motion.div>
+              ))}
+
+              <Link href={'/sigin'}>
+                <motion.button
+                  className="border bg-[#554400] text-[#fff] font-bold px-6 py-2 rounded-md shadow-md hover:bg-[#443300] hover:text-white transition w-4/5 mt-4 font-quicksand"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Sign in
+                </motion.button>
+              </Link>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}

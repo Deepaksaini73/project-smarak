@@ -1,11 +1,12 @@
 @config "../../tailwind.config.ts";
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
   --breakpoint-xsmd: 370px;
+  --breakpoint-slg: 902px;
 }
 
 @layer base {
@@ -45,29 +46,56 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+    @apply bg-[#fefbed] text-foreground;
+    font-feature-settings: 'ss01', 'ss02', 'cv01', 'cv02', 'cv03';
   }
-  
+  /* Hide scrollbars but maintain scroll functionality */
+  /* For WebKit browsers (Chrome, Safari) */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* For Firefox */
+  html,
+  body {
+    scrollbar-width: none;
+  }
+
+  /* For IE and Edge */
+  html,
+  body {
+    -ms-overflow-style: none;
+  }
+
+  /* Specific class to hide scrollbars on any element */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+
   /* Glass morphism effect */
   .glass {
     @apply backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg;
   }
-  
+
   /* Blueprint texture */
   .blueprint-bg {
     background-color: #1a3263;
-    background-image: 
+    background-image:
       linear-gradient(rgba(26, 50, 99, 0.5) 1px, transparent 1px),
       linear-gradient(90deg, rgba(26, 50, 99, 0.5) 1px, transparent 1px);
     background-size: 20px 20px;
   }
-  
+
   /* Animated underline effect */
   .animated-underline {
     position: relative;
   }
-  
+
   .animated-underline::after {
     content: '';
     position: absolute;
@@ -80,22 +108,38 @@
     transform-origin: bottom right;
     transition: transform 0.3s;
   }
-  
+
   .animated-underline:hover::after {
     transform-origin: bottom left;
     transform: scaleX(1);
   }
-  
+
   /* Animation delays */
-  .delay-100 { animation-delay: 100ms; }
-  .delay-200 { animation-delay: 200ms; }
-  .delay-300 { animation-delay: 300ms; }
-  .delay-400 { animation-delay: 400ms; }
-  .delay-500 { animation-delay: 500ms; }
-  .delay-600 { animation-delay: 600ms; }
-  .delay-700 { animation-delay: 700ms; }
-  .delay-800 { animation-delay: 800ms; }
-  
+  .delay-100 {
+    animation-delay: 100ms;
+  }
+  .delay-200 {
+    animation-delay: 200ms;
+  }
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+  .delay-400 {
+    animation-delay: 400ms;
+  }
+  .delay-500 {
+    animation-delay: 500ms;
+  }
+  .delay-600 {
+    animation-delay: 600ms;
+  }
+  .delay-700 {
+    animation-delay: 700ms;
+  }
+  .delay-800 {
+    animation-delay: 800ms;
+  }
+
   /* Typewriter animation styling */
   .typewriter {
     overflow: hidden;
@@ -103,7 +147,7 @@
     position: relative;
     width: 0;
   }
-  
+
   .typewriter-cursor {
     display: inline-block;
     width: 2px;
@@ -112,19 +156,26 @@
     margin-left: 2px;
     animation: blink 1s infinite;
   }
-  
+
   @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
   }
-  
+
   /* 3D Button Effect */
   .btn-3d {
     transform-style: preserve-3d;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
     position: relative;
   }
-  
+
   .btn-3d::before {
     content: '';
     position: absolute;
@@ -137,22 +188,22 @@
     transform: translate3d(0, 0.5em, -1em);
     transition: transform 0.2s;
   }
-  
+
   .btn-3d:hover {
     transform: translate3d(0, 0.25em, 0);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
-  
+
   .btn-3d:active {
     transform: translate3d(0, 0.5em, 0);
   }
-  
+
   /* Construction pattern */
   .construction-pattern {
     background-image: repeating-linear-gradient(
       45deg,
-      #FFCC00,
-      #FFCC00 10px,
+      #ffcc00,
+      #ffcc00 10px,
       #333333 10px,
       #333333 20px
     );
