@@ -4,18 +4,25 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
 import { Event } from '@/config/events/types';
-import { Calendar, Clock, MapPin, Users, Check, Copy } from 'lucide-react';
+import { Calendar, Clock, MapPin, Users, Check, Copy, LogOut } from 'lucide-react';
 import { toast } from 'sonner';
 import Image from 'next/image';
 
 interface EventCardProps {
   event: Event;
   onRegister: (event: Event) => void;
+  onDeRegister?: (event: Event) => void;
   isRegistered: boolean;
   teamCode?: string;
 }
 
-export function EventCard({ event, onRegister, isRegistered, teamCode }: EventCardProps) {
+export function EventCard({
+  event,
+  onRegister,
+  onDeRegister,
+  isRegistered,
+  teamCode,
+}: EventCardProps) {
   const formatDate = (date: string | Date) => {
     try {
       return format(new Date(date), 'PPP');
@@ -110,21 +117,26 @@ export function EventCard({ event, onRegister, isRegistered, teamCode }: EventCa
         )}
       </CardContent>
       <CardFooter className="p-4 pt-0">
-        <Button
-          className="w-full"
-          variant={isRegistered ? 'secondary' : 'default'}
-          onClick={() => onRegister(event)}
-          disabled={isRegistered}
-        >
-          {isRegistered ? (
-            <span className="flex items-center gap-2">
-              <Check className="h-4 w-4" />
+        {isRegistered ? (
+          <div className="w-full grid grid-cols-2 gap-2">
+            <Button variant="secondary" className="col-span-1" disabled>
+              <Check className="h-4 w-4 mr-1" />
               Registered
-            </span>
-          ) : (
-            'Register Now'
-          )}
-        </Button>
+            </Button>
+            <Button
+              variant="destructive"
+              className="col-span-1"
+              onClick={() => onDeRegister && onDeRegister(event)}
+            >
+              <LogOut className="h-4 w-4 mr-1" />
+              Withdraw
+            </Button>
+          </div>
+        ) : (
+          <Button className="w-full" variant="default" onClick={() => onRegister(event)}>
+            Register Now
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );

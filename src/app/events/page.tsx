@@ -7,6 +7,16 @@ import { Loader2 } from 'lucide-react';
 import { EventCard } from '../../components/events/event-card';
 import { RegistrationDialog } from '../../components/events/registration-dialog';
 import { toast } from 'sonner';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 export default function EventsPage() {
   const { makeRequest } = useApi();
@@ -20,6 +30,11 @@ export default function EventsPage() {
   const [teamCodeToShare, setTeamCodeToShare] = useState('');
   const [registeredEventIds, setRegisteredEventIds] = useState<string[]>([]);
   const [userTeamCodes, setUserTeamCodes] = useState<Record<string, string>>({});
+
+  // De-registration states
+  const [isDeRegisterDialogOpen, setIsDeRegisterDialogOpen] = useState(false);
+  const [isDeRegistering, setIsDeRegistering] = useState(false);
+  const [eventToDeRegister, setEventToDeRegister] = useState<Event | null>(null);
 
   const fetchEvents = async () => {
     setIsLoading(true);
@@ -81,6 +96,47 @@ export default function EventsPage() {
     setIsRegisterDialogOpen(true);
     setRegistrationComplete(false);
     setTeamCodeToShare('');
+  };
+
+  const handleDeRegister = (event: Event) => {
+    setEventToDeRegister(event);
+    setIsDeRegisterDialogOpen(true);
+  };
+
+  const confirmDeRegister = async () => {
+    if (!eventToDeRegister) return;
+
+    setIsDeRegistering(true);
+    try {
+      const response = await makeRequest(
+        'POST',
+        `/events/${eventToDeRegister.id}/de-register`,
+        {},
+        'Failed to withdraw from event',
+        true
+      );
+
+      if (response.status === 'success') {
+        setRegisteredEventIds(prev => prev.filter(id => id !== eventToDeRegister.id));
+
+        // Remove team code if it exists
+        if (userTeamCodes[eventToDeRegister.id]) {
+          setUserTeamCodes(prev => {
+            const newCodes = { ...prev };
+            delete newCodes[eventToDeRegister.id];
+            return newCodes;
+          });
+        }
+
+        toast.success(response.data.message || 'Successfully withdrawn from event');
+      }
+    } catch (error) {
+      console.error('Error de-registering from event:', error);
+    } finally {
+      setIsDeRegistering(false);
+      setIsDeRegisterDialogOpen(false);
+      setEventToDeRegister(null);
+    }
   };
 
   const submitRegistration = async (data: {
@@ -181,6 +237,7 @@ export default function EventsPage() {
                 key={event.id}
                 event={event}
                 onRegister={handleRegister}
+                onDeRegister={handleDeRegister}
                 isRegistered={registeredEventIds.includes(event.id)}
                 teamCode={userTeamCodes[event.id]}
               />
@@ -202,6 +259,36 @@ export default function EventsPage() {
         teamCodeToShare={teamCodeToShare}
         onSubmit={submitRegistration}
       />
+
+      <AlertDialog open={isDeRegisterDialogOpen} onOpenChange={setIsDeRegisterDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Withdraw from event?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {eventToDeRegister?.isTeamEvent
+                ? "If you're a team leader, this will remove your entire team from the event. If you're a team member, only you will be removed."
+                : 'This will cancel your registration for this event.'}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isDeRegistering}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={confirmDeRegister}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              disabled={isDeRegistering}
+            >
+              {isDeRegistering ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Withdrawing...
+                </>
+              ) : (
+                'Withdraw'
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
