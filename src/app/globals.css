@@ -5,8 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --breakpoint-xsmd: 370px;
-  --breakpoint-slg: 902px;
+  --breakpoint-xsmd: 390px;
+  --breakpoint-smd: 550px;
+  --breakpoint-slg: 942px;
 }
 
 @layer base {
