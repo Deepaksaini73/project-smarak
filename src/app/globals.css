@@ -8,6 +8,8 @@
   --breakpoint-xsmd: 390px;
   --breakpoint-smd: 550px;
   --breakpoint-slg: 942px;
+  --breakpoint-xlg: 1150px;
+  --breakpoint-sslg: 890px;
 }
 
 @layer base {
