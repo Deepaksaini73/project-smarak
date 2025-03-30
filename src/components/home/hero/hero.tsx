@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Hero() {
   return (
@@ -59,7 +60,9 @@ export default function Hero() {
             events, we aim to broaden the horizons of our members and enhance their knowledge and
             skills.
           </p>
-          <button className="button-primary">Download Brochure</button>
+          <Link href={'/sigin'} className="button-primary">
+            Register
+          </Link>
         </div>
       </div>
       <Image
