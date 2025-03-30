@@ -76,7 +76,7 @@ export default function Hero() {
             alt="Hero"
             width={1000}
             height={1000}
-            className="h-screen object-fill object-center w-full rounded-l-[138px]"
+            className=" object-fill object-center w-full rounded-l-[138px] h-screen"
           />
         </div>
       </div>
