@@ -9,3 +9,6 @@ export const ERR_DETAILS = [
     message: 'Payment Failed. Please try again later.',
   },
 ];
+
+export const QR_IMAGE =
+  'https://res.cloudinary.com/da0htbmcg/image/upload/v1743345850/QR_code_for_mobile_English_Wikipedia_jja5qr.svg';

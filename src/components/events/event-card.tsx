@@ -47,7 +47,7 @@ export function EventCard({
   };
 
   return (
-    <Card className="overflow-hidden border border-[#FFD700]/20 shadow-sm hover:shadow-md transition-shadow font-outfit group">
+    <Card className="overflow-hidden border border-[#FFD700]/20 shadow-sm hover:shadow-md transition-shadow font-outfit group bg-[#fefbed] !py-0">
       <CardHeader className="p-0">
         <div className="relative h-48 w-full overflow-hidden">
           {event.image ? (
@@ -112,10 +112,9 @@ export function EventCard({
         </div>
 
         {isRegistered && event.isTeamEvent && teamCode && (
-          <div className="mt-4 p-3 border-2 border-[#FFD700]/30 rounded-md bg-white">
+          <div className="mt-4 p-3 border-2 border-[#FFD700]/30 rounded-md bg-[#fefbed]">
             <div className="flex flex-col space-y-2">
               <p className="text-xs font-medium text-[#554400] flex items-center">
-                <div className="h-2 w-2 rounded-full bg-[#FFD700] mr-2"></div>
                 Your Team Code:
               </p>
               <div className="flex items-center justify-between">

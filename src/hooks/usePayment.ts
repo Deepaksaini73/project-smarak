@@ -46,7 +46,7 @@ export function usePayment() {
     try {
       const response = await makeRequest('GET', '/user');
       if (response.status === 'error') {
-        toast.error('Failed to fetch user details');
+        console.error('Error fetching user');
         return null;
       }
       return response.data.data.user;
@@ -76,7 +76,7 @@ export function usePayment() {
     try {
       const response = await makeRequest('GET', '/payment/status');
       if (response.status === 'error') {
-        toast.error('Failed to fetch payment status');
+        console.error('Failed to fetch payment status');
         return false;
       }
       setPaymentStatus(response.data.data.status);

@@ -66,7 +66,7 @@ export default function ProfilePage() {
   }, []);
 
   return (
-    <div className="container mx-auto py-8 px-8 relative my-10 max-w-7xl">
+    <div className="container mx-auto py-8 px-8 relative my-10 max-w-7xl min-h-screen">
       {userProfile?.email ? (
         <>
           <div className="inline-block mb-6 py-1">

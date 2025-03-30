@@ -10,14 +10,14 @@ export function PaymentDetails({ paymentAmount, regularPrice }: PaymentDetailsPr
   return (
     <div className="space-y-4">
       <div className="flex items-center">
-        <h2 className="text-lg font-semibold">Payment Details</h2>
+        <h2 className="text-lg font-semibold font-outfit">Payment Details</h2>
         <Separator className="flex-1 ml-3" />
       </div>
 
       <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center font-sans">
           <div>
-            <h3 className="font-medium">Early Bird Offer</h3>
+            <h3 className="font-medium ">Early Bird Offer</h3>
             <p className="text-sm text-gray-600">Limited time discount</p>
           </div>
           <div className="text-right">

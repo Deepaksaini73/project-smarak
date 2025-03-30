@@ -32,8 +32,8 @@ export const EventsContent: React.FC<EventsContentProps> = ({ registrations, isL
 
   if (registrations.length === 0) {
     return (
-      <div className="text-center py-16 border-2 border-dashed border-[#FFD700]/50 rounded-lg bg-[#fefbed] px-4">
-        <div className="flex justify-center mb-4">
+      <div className="text-center py-16 border-2 border-dashed border-[#FFD700]/50 rounded-lg bg-[#fefbed] px-4 flex flex-col items-center">
+        <div className="flex justify-center items-center mb-4">
           <Ticket className="h-12 w-12 text-[#FFD700]" />
         </div>
         <h3 className="mt-4 text-xl font-semibold font-outfit text-[#554400]">

@@ -49,6 +49,7 @@ export default function EventsPage() {
 
       if (response.status === 'success') {
         const eventsData = response.data.data?.events || [];
+        console.log('Fetched events:', eventsData);
         setEvents(eventsData);
       }
     } catch (error) {
@@ -239,49 +240,28 @@ export default function EventsPage() {
         </div>
       ) : (
         <div className="space-y-10">
-          {registeredEventIds.length > 0 && (
-            <div className="mb-12">
-              <h2 className="text-2xl font-semibold font-outfit text-[#554400] mb-6 flex items-center">
-                <CalendarDays className="h-5 w-5 mr-2 text-[#8D0000]" />
-                Your Registered Events
-                <div className="h-0.5 flex-grow bg-[#FFD700]/30 ml-4 rounded-full"></div>
-              </h2>
+          {/* Flagship Events Section */}
+          <div className="mb-12">
+            <h2 className="text-2xl font-semibold font-outfit text-[#554400] mb-6 flex items-center">
+              <CalendarDays className="h-5 w-5 mr-2 text-[#8D0000]" />
+              Flagship Events
+              <div className="h-0.5 flex-grow bg-[#FFD700]/30 ml-4 rounded-full"></div>
+            </h2>
 
+            {events.filter(event => event.eventType === 'COMPETITION').length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {events
-                  .filter(event => registeredEventIds.includes(event.id))
+                  .filter(event => event.eventType === 'COMPETITION')
                   .map(event => (
                     <EventCard
                       key={event.id}
                       event={event}
                       onRegister={handleRegister}
                       onDeRegister={handleDeRegister}
-                      isRegistered={true}
+                      isRegistered={registeredEventIds.includes(event.id)}
                       teamCode={userTeamCodes[event.id]}
                     />
                   ))}
-              </div>
-            </div>
-          )}
-
-          <div>
-            <h2 className="text-2xl font-semibold font-outfit text-[#554400] mb-6 flex items-center">
-              All Events
-              <div className="h-0.5 flex-grow bg-[#FFD700]/30 ml-4 rounded-full"></div>
-            </h2>
-
-            {events.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {events.map(event => (
-                  <EventCard
-                    key={event.id}
-                    event={event}
-                    onRegister={handleRegister}
-                    onDeRegister={handleDeRegister}
-                    isRegistered={registeredEventIds.includes(event.id)}
-                    teamCode={userTeamCodes[event.id]}
-                  />
-                ))}
               </div>
             ) : (
               <div className="text-center py-16 border-2 border-dashed border-[#FFD700]/50 rounded-lg bg-[#fefbed] px-4">
@@ -289,10 +269,49 @@ export default function EventsPage() {
                   <SearchX className="h-12 w-12 text-[#FFD700]" />
                 </div>
                 <h3 className="mt-4 text-xl font-semibold font-outfit text-[#554400]">
-                  No events available
+                  No competitions available
                 </h3>
                 <p className="mt-3 text-gray-600 font-outfit">
-                  Check back later for upcoming events and activities.
+                  Check back later for upcoming competitions.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Workshops & Seminars Section */}
+          <div>
+            <h2 className="text-2xl font-semibold font-outfit text-[#554400] mb-6 flex items-center">
+              <CalendarDays className="h-5 w-5 mr-2 text-[#8D0000]" />
+              Workshops & Seminars
+              <div className="h-0.5 flex-grow bg-[#FFD700]/30 ml-4 rounded-full"></div>
+            </h2>
+
+            {events.filter(event => event.eventType === 'WORKSHOP' || event.eventType === 'SEMINAR')
+              .length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {events
+                  .filter(event => event.eventType === 'WORKSHOP' || event.eventType === 'SEMINAR')
+                  .map(event => (
+                    <EventCard
+                      key={event.id}
+                      event={event}
+                      onRegister={handleRegister}
+                      onDeRegister={handleDeRegister}
+                      isRegistered={registeredEventIds.includes(event.id)}
+                      teamCode={userTeamCodes[event.id]}
+                    />
+                  ))}
+              </div>
+            ) : (
+              <div className="text-center py-16 border-2 border-dashed border-[#FFD700]/50 rounded-lg bg-[#fefbed] px-4">
+                <div className="flex justify-center mb-4">
+                  <SearchX className="h-12 w-12 text-[#FFD700]" />
+                </div>
+                <h3 className="mt-4 text-xl font-semibold font-outfit text-[#554400]">
+                  No workshops or seminars available
+                </h3>
+                <p className="mt-3 text-gray-600 font-outfit">
+                  Check back later for upcoming learning opportunities.
                 </p>
               </div>
             )}
