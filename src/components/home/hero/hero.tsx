@@ -11,13 +11,7 @@ export default function Hero() {
         height={100}
         className="absolute top-2 left-0"
       />
-      {/* <Image
-        src={'/images/dots.png'}
-        alt="dots"
-        width={100}
-        height={100}
-        className="absolute -bottom-1 left-[820px] "
-      /> */}
+
       <div className="flex sslg:flex-row flex-row-reverse items-center justify-between  w-full my-36">
         <div
           id="social"

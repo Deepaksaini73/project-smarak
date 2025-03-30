@@ -27,7 +27,7 @@ export default function MobileMenu({
         >
           <motion.div
             ref={mobileNavRef}
-            className="w-full h-full bg-[#FEFBED]  shadow-lg flex flex-col justify-center items-center"
+            className="w-full h-[100dvh] bg-[#FEFBED]  shadow-lg flex flex-col justify-center items-center"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}

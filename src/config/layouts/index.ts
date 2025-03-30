@@ -22,7 +22,6 @@ export const footerContent = {
 export const navbarContent = {
   logo: 'https://res.cloudinary.com/da0htbmcg/image/upload/v1743262555/smarak25/assets/ectvrytu4gnkcssickn2.png',
   links: [
-    { name: 'Home', href: '/' },
     { name: 'About Us', href: '/#about' },
     { name: 'Team', href: '/team' },
     { name: 'Events', href: '/events' },
