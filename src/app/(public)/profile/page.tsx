@@ -67,7 +67,12 @@ export default function ProfilePage() {
 
   return (
     <div className="container mx-auto py-8 px-8 relative my-10 max-w-7xl min-h-screen">
-      {userProfile?.email ? (
+      {isLoadingProfile ? (
+        <div className="flex flex-col items-center justify-center h-[60vh]">
+          <Loader2 className="h-12 w-12 animate-spin text-[#554400]" />
+          <p className="mt-4 text-[#554400] font-outfit">Loading profile...</p>
+        </div>
+      ) : userProfile?.email ? (
         <>
           <div className="inline-block mb-6 py-1">
             <h1 className="text-5xl font-bold text-[#554400] font-outfit">My Profile</h1>
