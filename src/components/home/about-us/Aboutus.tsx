@@ -1,7 +1,7 @@
 'use client';
 
 import { aboutUs } from '@/config/about';
-import { Section } from '../shared/section';
+import { Section } from '../../shared/section';
 
 export default function AboutUs() {
   return (
