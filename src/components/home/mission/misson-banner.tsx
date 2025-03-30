@@ -25,15 +25,14 @@ const MissionBanner: React.FC<MissionBannerProps> = ({
         <div
           className="absolute top-3 left-0 h-36 z-0"
           style={{
-            width: 'calc(100% - 70px)',
+            width: 'calc(100% - 50px)',
             backgroundColor: shadowColor,
-            borderRadius: '0px 0px 0px 40px',
-            clipPath: 'polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 70%, 0% 100%)',
-            transform: 'translateX(-8px) translateY(8px)',
+            // borderRadius: '0px 0px 0px 40px',
+            clipPath: 'polygon(-10% -100%, 100% 0%, 100% 5%, 100% 72%, 10% 100%)',
+            transform: 'translateX(-10px) translateY(8px)',
           }}
         ></div>
 
-        {/* Yellow banner */}
         <div
           className="relative h-32 z-10 top-0"
           style={{
@@ -42,10 +41,9 @@ const MissionBanner: React.FC<MissionBannerProps> = ({
             clipPath: 'polygon(5% 50%, 0% 0%, 100% 5%, 100% 100%, 10% 100%)',
           }}
         >
-          {/* Content container */}
-          <div className="h-full flex flex-col justify-center p-6">
-            <h2 className="text-xl font-bold mb-1">{title}</h2>
-            <p className="text-gray-800">{description}</p>
+          <div className="h-full flex flex-col justify-center p-6 ml-10">
+            <h2 className="text-xl font-bold mb-1 font-outfit">{title}</h2>
+            <p className="text-gray-800 font-quicksand">{description}</p>
           </div>
         </div>
 
