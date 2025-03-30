@@ -5,7 +5,7 @@ import { ImageCard } from '@/components/shared/image-card';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="text-[#463700]">
+    <footer className="text-[#463700]" id="contact">
       <div className="max-w-[84rem] mx-auto px-4 py-2">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-6 md:px-5">
           <ImageCard

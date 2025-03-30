@@ -1,211 +1,88 @@
-'use client';
-import CountdownTimer from './countdown';
-import React from 'react';
-import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
-import { Loader } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-interface HeroProps {
-  className?: string;
-}
-
-const Hero: React.FC<HeroProps> = ({ className }) => {
-  const targetDate = new Date();
-  targetDate.setMonth(3);
-  targetDate.setDate(12);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2,
-        when: 'beforeChildren',
-      },
-    },
-  };
-
-  const titleVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: 'easeOut',
-        delay: 0.8,
-      },
-    },
-  };
-
-  const headingVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (index: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        delay: 1.2 + index * 0.3,
-        ease: 'easeOut',
-      },
-    }),
-  };
-
-  const clipRevealVariants = {
-    hidden: {
-      opacity: 0,
-      clipPath: 'inset(0 100% 0 0)',
-    },
-    visible: {
-      opacity: 1,
-      clipPath: 'inset(0 0% 0 0)',
-      transition: {
-        duration: 0.8,
-        ease: 'easeOut',
-      },
-    },
-  };
-
+export default function Hero() {
   return (
-    <div
-      className={cn(
-        'min-h-screen w-full relative flex flex-col items-center justify-center text-white px-6 overflow-hidden',
-        className
-      )}
-    >
-      <div className="absolute inset-0 blueprint-bg opacity-10 z-0"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-construction-grey/90 to-black/90 z-0"></div>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
-        className="absolute top-0 left-0 w-24 h-24 construction-pattern"
+    <div className="min-h-screen bg-[#FFD700] flex sslg:flex-row flex-col  items-center justify-center sslg:justify-between w-full relative">
+      <Image
+        src={'/images/dots.png'}
+        alt="dots"
+        width={100}
+        height={100}
+        className="absolute top-2 left-0"
       />
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="absolute bottom-0 right-0 w-24 h-24 construction-pattern"
-      />
-
-      <motion.div
-        initial="hidden"
-        animate={['visible', 'animate']}
-        variants={{
-          hidden: { opacity: 0, scale: 0.8 },
-          visible: {
-            opacity: 0.2,
-            scale: 1,
-            transition: {
-              duration: 0.8,
-              ease: 'easeOut',
-            },
-          },
-          animate: {
-            rotate: 360,
-            transition: {
-              duration: 30,
-              repeat: Infinity,
-              ease: 'linear',
-            },
-          },
-        }}
-        className="absolute -left-16 top-1/4 w-40 h-40 border-8 border-dashed rounded-full border-construction-yellow/20"
-      />
-
-      <motion.div
-        initial="hidden"
-        animate={['visible', 'animate']}
-        variants={{
-          hidden: { opacity: 0, scale: 0.8 },
-          visible: {
-            opacity: 0.2,
-            scale: 1,
-            transition: {
-              duration: 0.8,
-              ease: 'easeOut',
-            },
-          },
-          animate: {
-            rotate: -360,
-            transition: {
-              duration: 30,
-              repeat: Infinity,
-              ease: 'linear',
-            },
-          },
-        }}
-        className="absolute -right-20 bottom-1/4 w-48 h-48 border-8 border-dashed rounded-full border-construction-orange/20"
-      />
-
-      <div className="container max-w-6xl md:max-w-5xl mx-auto z-10 pt-10 pb-20">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="relative flex flex-col items-center"
+      {/* <Image
+        src={'/images/dots.png'}
+        alt="dots"
+        width={100}
+        height={100}
+        className="absolute -bottom-1 left-[820px] "
+      /> */}
+      <div className="flex sslg:flex-row flex-row-reverse items-center justify-between  w-full my-36">
+        <div
+          id="social"
+          className="hidden smd:flex sslg:hidden xlg:flex items-center flex-col justify-between min-h-[50dvh] -mr-20 sslg:-ml-20"
         >
-          <div className="flex justify-center mb-6">
-            <motion.h1
-              variants={clipRevealVariants}
-              initial="hidden"
-              animate="visible"
-              className="text-xl md:text-2xl lg:text-3xl font-bebas tracking-wider text-center text-white leading-tight mb-2"
-            >
-              Get Ready for the Ultimate Civil Engineering Event of the Year!
-            </motion.h1>
+          <div className="flex flex-col items-center justify-center gap-5">
+            <Image src={'/images/ig.png'} alt="Instagram" width={30} height={30} className="mx-2" />
+            <Image src={'/images/yt.png'} alt="Youtube" width={30} height={30} className="mx-2" />
+            <Image src={'/images/fb.png'} alt="Facebook" width={15} height={15} className="mx-2" />
           </div>
-
-          <motion.div
-            variants={titleVariants}
-            className="relative mb-10 flex flex-col items-center"
+          <div className="mt-10 !h-full">
+            <h3
+              className="font-opensans rotate-[270deg] font-bold text-4xl text-[#574900] !h-full"
+              style={{ letterSpacing: '0.375rem', whiteSpace: 'nowrap' }}
+            >
+              FOLLOW US:{' '}
+            </h3>
+          </div>
+        </div>
+        <div id="middle" className="flex flex-col items-start px-5 smd:pl-10 xlg:-ml-10">
+          <h1
+            className="font-outfit font-semibold text-5xl text-[#312900] tracking-wide"
+            style={{ lineHeight: '55px' }}
           >
-            <div className="relative text-7xl sm:text-8xl md:text-9xl font-bebas tracking-[0.05em] text-construction-yellow text-center drop-shadow-lg">
-              SMARAK
-              <motion.span
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{
-                  duration: 0.4,
-                  delay: 1.2,
-                  ease: 'easeOut',
-                }}
-                className="absolute -top-5 -right-16 text-sm md:text-base font-montserrat font-medium text-construction-orange bg-black/70 px-2.5 py-1.5 rounded-md border border-construction-orange/30"
-              >
-                2025
-              </motion.span>
-            </div>
-            <div className="text-sm md:text-base uppercase tracking-[0.15em] font-medium text-construction-white/80 mt-2 text-center">
-              NIT Rourkela
-            </div>
-          </motion.div>
-
-          <motion.div variants={headingVariants} custom={0} className="mb-10 w-full">
-            <CountdownTimer targetDate={targetDate} />
-          </motion.div>
-
-          <motion.div
-            variants={headingVariants}
-            custom={1}
-            className="flex items-center justify-center gap-2 py-3 px-2 md:px-6 bg-construction-orange/20 border border-construction-orange/30 rounded-md"
+            SMARAK & its <br /> Tagline for Events
+          </h1>
+          <p className="text-[#8D0000] font-outfit font-semibold text-lg mt-2">
+            “Taking Pride, Getting Fascinated”
+          </p>
+          <p
+            className="font-outfit font-semibold text-[22px] text-[#463700] my-10 smd:my-20 max-w-[530px] w-full"
+            style={{
+              lineHeight: '112.33%',
+              letterSpacing: '0.00733333px',
+            }}
           >
-            <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1.5 }}>
-              <Loader className="text-construction-yellow" />
-            </motion.div>
-            <span className="text-sm text-center md:text-md font-montserrat text-construction-yellow">
-              Website Under Construction - Coming Soon
-            </span>
-          </motion.div>
-        </motion.div>
+            At CEST, we are dedicated to fostering a thriving community of civil engineering
+            enthusiasts. Our club serves as a platform for students to explore, learn, and excel in
+            various aspects of civil engineering. Through a range of activities, workshops, and
+            events, we aim to broaden the horizons of our members and enhance their knowledge and
+            skills.
+          </p>
+          <Link href={'/sigin'} className="button-primary">
+            Register
+          </Link>
+        </div>
       </div>
-
-      <div className="absolute inset-0 pointer-events-none z-20">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,204,0,0.1)_0,rgba(0,0,0,0)_70%)]"></div>
+      <Image
+        src={'/images/hero.png'}
+        alt="Hero"
+        width={500}
+        height={500}
+        className="h-full object-fill object-center w-full sslg:hidden block rounded-t-[100px]"
+      />
+      <div id="image" className="h-full hidden sslg:flex justify-end w-full">
+        <div className="w-[95%] xlg:w-[85%] h-full">
+          <Image
+            src={'/images/hero.png'}
+            alt="Hero"
+            width={1000}
+            height={1000}
+            className=" object-fill object-center w-full rounded-l-[138px] h-screen"
+          />
+        </div>
       </div>
     </div>
   );
-};
-
-export default Hero;
+}

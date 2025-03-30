@@ -11,7 +11,7 @@ const LogoutPage: React.FC = () => {
   useEffect(() => {
     async function signOutUser() {
       try {
-        await logout();
+        const res = await logout();
         const redirectTimeout = setTimeout(() => {
           window.location.href = '/';
         }, 2000);

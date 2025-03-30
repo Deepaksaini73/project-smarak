@@ -1,3 +1,5 @@
+import { SliderItem } from '@/components/shared/carousel';
+
 export interface Round {
   id?: string;
   name: string;
@@ -32,6 +34,14 @@ export interface Event {
   _count?: {
     registrations: number;
   };
+}
+
+export interface EventItem extends SliderItem {
+  title: string;
+  image: string | any;
+  description: string;
+  buttonText?: string;
+  buttonLink?: string;
 }
 
 /**

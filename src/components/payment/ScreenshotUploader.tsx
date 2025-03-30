@@ -34,7 +34,7 @@ export function ScreenshotUploader({ screenshotUrl, setScreenshotUrl }: Screensh
 
   return (
     <div className="space-y-2">
-      <label className="block text-sm font-medium">Upload Payment Screenshot</label>
+      <label className="block text-sm font-medium font-outfit">Upload Payment Screenshot</label>
       <div className="flex flex-col gap-3">
         <div className="flex flex-col sm:flex-row items-start gap-4">
           <div className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6 w-full sm:w-auto">
@@ -50,7 +50,7 @@ export function ScreenshotUploader({ screenshotUrl, setScreenshotUrl }: Screensh
               {!screenshotUrl ? (
                 <>
                   <Upload className="h-8 w-8 text-gray-500" />
-                  <p className="text-sm text-gray-500">Upload payment proof</p>
+                  <p className="text-sm text-gray-500 font-outfit">Upload payment proof</p>
                   <Button
                     type="button"
                     variant="outline"

@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Form } from '@/components/ui/form';
+import { Loader2 } from 'lucide-react';
 
 import { registrationSchema, type RegistrationFormValues } from '@/config/register/schema';
 import { useApi } from '@/hooks/use-api';
@@ -89,31 +90,40 @@ export default function RegisterPage() {
   if (isLoadingUser || isRegistered) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <div className="loader">Loading...</div>
+        <div className="flex flex-col items-center">
+          <Loader2 className="h-12 w-12 animate-spin text-[#685c18] mb-4" />
+          <p className="text-lg font-medium text-gray-700 font-outfit">
+            {isRegistered ? 'Redirecting...' : 'Loading your information...'}
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
-    <FormLayout
-      title="Registration Form"
-      description="Please complete all fields to finalize your registration"
-    >
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <PersonalInfoSection form={form} />
+    <div className="min-h-screen py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
+        <FormLayout
+          title="Student Registration Form"
+          description="Please complete all fields to finalize your registration for the event"
+        >
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+              <PersonalInfoSection form={form} />
 
-          <AcademicInfoSection
-            form={form}
-            uploadedImageUrl={uploadedImageUrl}
-            setUploadedImageUrl={setUploadedImageUrl}
-            isUploading={isUploading}
-            setIsUploading={setIsUploading}
-          />
+              <AcademicInfoSection
+                form={form}
+                uploadedImageUrl={uploadedImageUrl}
+                setUploadedImageUrl={setUploadedImageUrl}
+                isUploading={isUploading}
+                setIsUploading={setIsUploading}
+              />
 
-          <SubmitButton isLoading={isLoading} isUploading={isUploading} />
-        </form>
-      </Form>
-    </FormLayout>
+              <SubmitButton isLoading={isLoading} isUploading={isUploading} />
+            </form>
+          </Form>
+        </FormLayout>
+      </div>
+    </div>
   );
 }

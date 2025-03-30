@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApi } from '@/hooks/use-api';
 import { Event } from '@/config/events/types';
-import { Loader2 } from 'lucide-react';
+import { Loader2, CalendarDays, SearchX } from 'lucide-react';
 import { EventCard } from '../../../components/events/event-card';
 import { RegistrationDialog } from '../../../components/events/registration-dialog';
 import { toast } from 'sonner';
@@ -49,6 +49,7 @@ export default function EventsPage() {
 
       if (response.status === 'success') {
         const eventsData = response.data.data?.events || [];
+        console.log('Fetched events:', eventsData);
         setEvents(eventsData);
       }
     } catch (error) {
@@ -217,36 +218,104 @@ export default function EventsPage() {
   }, []);
 
   return (
-    <div className="container mx-auto py-8">
-      <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:justify-between md:items-center mb-8">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Events</h1>
-          <p className="text-muted-foreground mt-1">Browse and register for upcoming events.</p>
+    <div className="container mx-auto py-8 px-8 relative my-10 max-w-7xl">
+      <div className="relative mb-12">
+        <div className="inline-block mb-6 py-1">
+          <h1 className="text-5xl font-bold text-[#554400] font-outfit">Upcoming Events</h1>
         </div>
+
+        <p className="text-lg mt-6 font-outfit text-gray-700 max-w-2xl">
+          Discover and register for exciting events. Join us for competitions, workshops, and more
+          to enhance your skills and expand your network.
+        </p>
+
+        <div className="absolute top-0 right-0 w-20 h-20 bg-[#FFD700]/10 rounded-full -z-10"></div>
+        <div className="absolute bottom-0 left-1/4 w-12 h-12 bg-[#FFD700]/20 rounded-full -z-10"></div>
       </div>
 
       {isLoading ? (
-        <div className="flex justify-center items-center py-12">
-          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <div className="flex flex-col justify-center items-center py-24 bg-[#fefbed]/50 rounded-2xl border border-[#FFD700]/20">
+          <Loader2 className="w-10 h-10 animate-spin text-[#554400] mb-4" />
+          <p className="text-[#554400] font-outfit">Loading exciting events for you...</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {events.length > 0 ? (
-            events.map(event => (
-              <EventCard
-                key={event.id}
-                event={event}
-                onRegister={handleRegister}
-                onDeRegister={handleDeRegister}
-                isRegistered={registeredEventIds.includes(event.id)}
-                teamCode={userTeamCodes[event.id]}
-              />
-            ))
-          ) : (
-            <div className="col-span-full text-center py-12">
-              <p className="text-muted-foreground">No events found. Try adjusting your filters.</p>
-            </div>
-          )}
+        <div className="space-y-10">
+          {/* Flagship Events Section */}
+          <div className="mb-12">
+            <h2 className="text-2xl font-semibold font-outfit text-[#554400] mb-6 flex items-center">
+              <CalendarDays className="h-5 w-5 mr-2 text-[#8D0000]" />
+              Flagship Events
+              <div className="h-0.5 flex-grow bg-[#FFD700]/30 ml-4 rounded-full"></div>
+            </h2>
+
+            {events.filter(event => event.eventType === 'COMPETITION').length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {events
+                  .filter(event => event.eventType === 'COMPETITION')
+                  .map(event => (
+                    <EventCard
+                      key={event.id}
+                      event={event}
+                      onRegister={handleRegister}
+                      onDeRegister={handleDeRegister}
+                      isRegistered={registeredEventIds.includes(event.id)}
+                      teamCode={userTeamCodes[event.id]}
+                    />
+                  ))}
+              </div>
+            ) : (
+              <div className="text-center py-16 border-2 border-dashed border-[#FFD700]/50 rounded-lg bg-[#fefbed] px-4">
+                <div className="flex justify-center mb-4">
+                  <SearchX className="h-12 w-12 text-[#FFD700]" />
+                </div>
+                <h3 className="mt-4 text-xl font-semibold font-outfit text-[#554400]">
+                  No competitions available
+                </h3>
+                <p className="mt-3 text-gray-600 font-outfit">
+                  Check back later for upcoming competitions.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Workshops & Seminars Section */}
+          <div>
+            <h2 className="text-2xl font-semibold font-outfit text-[#554400] mb-6 flex items-center">
+              <CalendarDays className="h-5 w-5 mr-2 text-[#8D0000]" />
+              Workshops & Seminars
+              <div className="h-0.5 flex-grow bg-[#FFD700]/30 ml-4 rounded-full"></div>
+            </h2>
+
+            {events.filter(event => event.eventType === 'WORKSHOP' || event.eventType === 'SEMINAR')
+              .length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {events
+                  .filter(event => event.eventType === 'WORKSHOP' || event.eventType === 'SEMINAR')
+                  .map(event => (
+                    <EventCard
+                      key={event.id}
+                      event={event}
+                      onRegister={handleRegister}
+                      onDeRegister={handleDeRegister}
+                      isRegistered={registeredEventIds.includes(event.id)}
+                      teamCode={userTeamCodes[event.id]}
+                    />
+                  ))}
+              </div>
+            ) : (
+              <div className="text-center py-16 border-2 border-dashed border-[#FFD700]/50 rounded-lg bg-[#fefbed] px-4">
+                <div className="flex justify-center mb-4">
+                  <SearchX className="h-12 w-12 text-[#FFD700]" />
+                </div>
+                <h3 className="mt-4 text-xl font-semibold font-outfit text-[#554400]">
+                  No workshops or seminars available
+                </h3>
+                <p className="mt-3 text-gray-600 font-outfit">
+                  Check back later for upcoming learning opportunities.
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       )}
 
@@ -261,9 +330,9 @@ export default function EventsPage() {
       />
 
       <AlertDialog open={isDeRegisterDialogOpen} onOpenChange={setIsDeRegisterDialogOpen}>
-        <AlertDialogContent>
+        <AlertDialogContent className="font-outfit">
           <AlertDialogHeader>
-            <AlertDialogTitle>Withdraw from event?</AlertDialogTitle>
+            <AlertDialogTitle className="text-[#554400]">Withdraw from event?</AlertDialogTitle>
             <AlertDialogDescription>
               {eventToDeRegister?.isTeamEvent
                 ? "If you're a team leader, this will remove your entire team from the event. If you're a team member, only you will be removed."
@@ -271,10 +340,15 @@ export default function EventsPage() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isDeRegistering}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel
+              disabled={isDeRegistering}
+              className="bg-[#fefbed] text-[#554400] border-[#FFD700]/30 hover:bg-[#fefbed]/80 hover:text-[#554400]"
+            >
+              Cancel
+            </AlertDialogCancel>
             <AlertDialogAction
               onClick={confirmDeRegister}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              className="bg-[#8D0000] text-white hover:bg-[#8D0000]/90"
               disabled={isDeRegistering}
             >
               {isDeRegistering ? (

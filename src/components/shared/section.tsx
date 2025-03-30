@@ -13,7 +13,6 @@ export interface SectionProps {
     width?: number;
   };
   direction?: 'left' | 'right';
-  backgroundColor?: string;
   titleColor?: string;
 }
 
@@ -22,11 +21,10 @@ export function Section({
   content,
   image,
   direction = 'right',
-  backgroundColor = '#fdfbef',
   titleColor = '#554400',
 }: SectionProps) {
   return (
-    <div className={`bg-[${backgroundColor}] px-8 py-8 relative my-10`}>
+    <div className={`px-8 py-8 relative my-10`}>
       <div className="max-w-7xl mx-auto">
         <div className="inline-block mb-6 py-1">
           <h1 className={`text-5xl font-bold text-[${titleColor}] font-outfit`}>{title}</h1>

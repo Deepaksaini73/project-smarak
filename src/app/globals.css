@@ -5,8 +5,11 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --breakpoint-xsmd: 370px;
-  --breakpoint-slg: 902px;
+  --breakpoint-xsmd: 390px;
+  --breakpoint-smd: 550px;
+  --breakpoint-slg: 942px;
+  --breakpoint-xlg: 1150px;
+  --breakpoint-sslg: 890px;
 }
 
 @layer base {
@@ -45,9 +48,18 @@
     @apply border-border;
   }
 
+  .button-primary {
+    @apply px-4 py-2 font-outfit bg-[#574900] text-[#fff] text-xl font-semibold rounded-xl hover:opacity-90 duration-300 transition-all ease-in-out focus:outline-none focus:ring-4 focus:ring-[#574900]/50 focus:ring-offset-0 cursor-pointer;
+  }
+
   body {
     @apply bg-[#fefbed] text-foreground;
     font-feature-settings: 'ss01', 'ss02', 'cv01', 'cv02', 'cv03';
+    background-image: url('/images/bg.png');
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: center top;
+    background-attachment: scroll;
   }
   /* Hide scrollbars but maintain scroll functionality */
   /* For WebKit browsers (Chrome, Safari) */
@@ -59,6 +71,8 @@
   html,
   body {
     scrollbar-width: none;
+    overflow-x: hidden !important;
+    scroll-behavior: smooth;
   }
 
   /* For IE and Edge */

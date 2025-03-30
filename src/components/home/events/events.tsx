@@ -3,72 +3,9 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Carousel, { SliderItem } from '@/components/shared/carousel';
-
-export interface EventItem extends SliderItem {
-  title: string;
-  image: string | any;
-  description: string;
-  buttonText?: string;
-  buttonLink?: string;
-}
-
-const eventsData: EventItem[] = [
-  {
-    id: 'event-1',
-    title: 'Morgan',
-    image: '/path/to/image1.jpg',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus minima nam odit perferendis sit sint id, rem placeat repellat labore ipsum, ut itaque harum cupiditate quia vitae saepe! Quisquam, tempore.',
-    buttonText: 'Register Now',
-    buttonLink: '/register/event-1',
-  },
-  {
-    id: 'event-2',
-    title: 'Anderson',
-    image: '/path/to/image2.jpg',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus minima nam odit perferendis sit sint id, rem placeat repellat labore ipsum, ut itaque harum cupiditate quia vitae saepe! Quisquam, tempore.',
-    buttonText: 'Register Now',
-    buttonLink: '/register/event-2',
-  },
-  {
-    id: 'event-1',
-    title: 'Morgan',
-    image: '/path/to/image1.jpg',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus minima nam odit perferendis sit sint id, rem placeat repellat labore ipsum, ut itaque harum cupiditate quia vitae saepe! Quisquam, tempore.',
-    buttonText: 'Register Now',
-    buttonLink: '/register/event-1',
-  },
-  {
-    id: 'event-2',
-    title: 'Anderson',
-    image: '/path/to/image2.jpg',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus minima nam odit perferendis sit sint id, rem placeat repellat labore ipsum, ut itaque harum cupiditate quia vitae saepe! Quisquam, tempore.',
-    buttonText: 'Register Now',
-    buttonLink: '/register/event-2',
-  },
-  {
-    id: 'event-1',
-    title: 'Morgan',
-    image: '/path/to/image1.jpg',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus minima nam odit perferendis sit sint id, rem placeat repellat labore ipsum, ut itaque harum cupiditate quia vitae saepe! Quisquam, tempore.',
-    buttonText: 'Register Now',
-    buttonLink: '/register/event-1',
-  },
-  {
-    id: 'event-2',
-    title: 'Anderson',
-    image: '/path/to/image2.jpg',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus minima nam odit perferendis sit sint id, rem placeat repellat labore ipsum, ut itaque harum cupiditate quia vitae saepe! Quisquam, tempore.Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus minima nam odit perferendis sit sint id, rem placeat repellat labore ipsum, ut itaque harum cupiditate quia vitae saepe! Quisquam, tempore.',
-    buttonText: 'Register Now',
-    buttonLink: '/register/event-2',
-  },
-];
+import Carousel from '@/components/shared/carousel';
+import { EventItem } from '@/config/events/types';
+import { eventsData } from '@/config/events';
 
 const EventsCarousel: React.FC = () => {
   const renderEventCard = (event: EventItem) => (
@@ -103,9 +40,11 @@ const EventsCarousel: React.FC = () => {
         </div>
 
         <div className="p-4">
-          <h2 className="text-2xl text-olive-700 mb-2 font-semibold font-sans">{title}</h2>
+          <h2 className="text-2xl text-olive-700 mb-2 font-semibold font-outfit">{title}</h2>
 
-          <p className="text-gray-700 mb-4 line-clamp-4 overflow-hidden font-sans">{description}</p>
+          <p className="text-gray-700 mb-4 line-clamp-4 overflow-hidden font-quicksand">
+            {description}
+          </p>
 
           <Link
             href={registerLink}
@@ -121,10 +60,9 @@ const EventsCarousel: React.FC = () => {
   return (
     <Carousel<EventItem>
       title="EVENTS"
-      titleClassName="bg-yellow-400 text-gray-900"
       items={eventsData}
       slidesToShow={3}
-      autoplay={false}
+      autoplay={true}
       autoplaySpeed={3000}
       renderItem={renderEventCard}
       dots={false}

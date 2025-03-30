@@ -47,54 +47,63 @@ export function EventCard({
   };
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden border border-[#FFD700]/20 shadow-sm hover:shadow-md transition-shadow font-outfit group bg-[#fefbed] !py-0">
       <CardHeader className="p-0">
-        <div className="relative h-48 w-full ">
-          {event.image && (
+        <div className="relative h-48 w-full overflow-hidden">
+          {event.image ? (
             <Image
               src={event.image}
               alt={event.name}
-              className="h-full w-full object-cover opacity-80"
+              className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
               width={500}
               height={200}
             />
+          ) : (
+            <div className="h-full w-full bg-gradient-to-br from-[#FFD700]/10 to-[#554400]/10 flex items-center justify-center">
+              <Calendar className="h-16 w-16 text-[#554400]/30" />
+            </div>
           )}
-          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
-            <h3 className="text-xl font-bold text-white">{event.name}</h3>
+
+          <div className="absolute inset-0 bg-gradient-to-t from-[#332900]/90 via-[#332900]/40 to-transparent"></div>
+
+          <div className="absolute bottom-0 left-0 right-0 p-4">
+            <h3 className="text-xl font-bold text-white font-outfit">{event.name}</h3>
             <div className="flex items-center gap-2 mt-1">
               <Badge
-                className="text-white uppercase"
-                variant={event.isTeamEvent ? 'secondary' : 'outline'}
+                className="bg-[#FFD700] text-[#554400] hover:bg-[#FFD700]/90 uppercase"
+                variant={event.isTeamEvent ? 'default' : 'outline'}
               >
                 {event.isTeamEvent ? 'Team' : 'Individual'}
               </Badge>
-              <Badge variant="outline" className="text-white ">
+              <Badge variant="outline" className="text-[#fefbed] border-[#fefbed]/60">
                 {event.eventType}
               </Badge>
             </div>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="p-4">
-        <div className="space-y-3">
-          <p className="text-sm text-muted-foreground line-clamp-2">{event.description}</p>
-          <div className="space-y-2">
+
+      <CardContent className="p-4 pt-5">
+        <div className="space-y-4">
+          <p className="text-sm text-gray-700 line-clamp-2 font-outfit">{event.description}</p>
+
+          <div className="space-y-2.5 bg-[#fefbed] p-3 rounded-md border border-[#FFD700]/20">
             <div className="flex items-center gap-2 text-sm">
-              <Calendar className="h-4 w-4" />
-              <span>{formatDate(event.startTime)}</span>
+              <Calendar className="h-4 w-4 text-[#554400]" />
+              <span className="text-[#554400] font-medium">{formatDate(event.startTime)}</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
-              <Clock className="h-4 w-4" />
-              <span>{formatTime(event.startTime)}</span>
+              <Clock className="h-4 w-4 text-[#554400]" />
+              <span className="text-[#554400]">{formatTime(event.startTime)}</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
-              <MapPin className="h-4 w-4" />
-              <span>{event.venue}</span>
+              <MapPin className="h-4 w-4 text-[#554400]" />
+              <span className="text-gray-700">{event.venue}</span>
             </div>
             {event.isTeamEvent && (
               <div className="flex items-center gap-2 text-sm">
-                <Users className="h-4 w-4" />
-                <span>
+                <Users className="h-4 w-4 text-[#554400]" />
+                <span className="text-gray-700">
                   {event.minParticipants || 1} - {event.maxParticipants || 'unlimited'} participants
                 </span>
               </div>
@@ -103,29 +112,43 @@ export function EventCard({
         </div>
 
         {isRegistered && event.isTeamEvent && teamCode && (
-          <div className="mt-3 p-2 border rounded-md bg-secondary/10">
-            <div className="flex flex-col space-y-1">
-              <p className="text-xs font-medium">Your Team Code:</p>
+          <div className="mt-4 p-3 border-2 border-[#FFD700]/30 rounded-md bg-[#fefbed]">
+            <div className="flex flex-col space-y-2">
+              <p className="text-xs font-medium text-[#554400] flex items-center">
+                Your Team Code:
+              </p>
               <div className="flex items-center justify-between">
-                <code className="text-xs bg-secondary/30 px-2 py-1 rounded">{teamCode}</code>
-                <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={copyTeamCode}>
-                  <Copy className="h-3.5 w-3.5" />
+                <code className="text-xs bg-[#fefbed] px-2 py-1 rounded text-[#8D0000] font-medium">
+                  {teamCode}
+                </code>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-7 border-[#FFD700]/40 text-[#554400] hover:bg-[#fefbed]"
+                  onClick={copyTeamCode}
+                >
+                  <Copy className="h-3.5 w-3.5 mr-1" /> Copy
                 </Button>
               </div>
             </div>
           </div>
         )}
       </CardContent>
+
       <CardFooter className="p-4 pt-0">
         {isRegistered ? (
           <div className="w-full grid grid-cols-2 gap-2">
-            <Button variant="secondary" className="col-span-1" disabled>
-              <Check className="h-4 w-4 mr-1" />
+            <Button
+              variant="outline"
+              className="col-span-1 border-[#FFD700]/30 bg-[#fefbed] text-[#554400] hover:bg-[#fefbed]/80"
+              disabled
+            >
+              <Check className="h-4 w-4 mr-1 text-[#554400]" />
               Registered
             </Button>
             <Button
               variant="destructive"
-              className="col-span-1"
+              className="col-span-1 bg-[#8D0000] hover:bg-[#8D0000]/90"
               onClick={() => onDeRegister && onDeRegister(event)}
             >
               <LogOut className="h-4 w-4 mr-1" />
@@ -133,7 +156,10 @@ export function EventCard({
             </Button>
           </div>
         ) : (
-          <Button className="w-full" variant="default" onClick={() => onRegister(event)}>
+          <Button
+            className="w-full bg-[#554400] hover:bg-[#443700] text-white font-medium"
+            onClick={() => onRegister(event)}
+          >
             Register Now
           </Button>
         )}

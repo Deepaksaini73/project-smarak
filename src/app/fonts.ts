@@ -1,4 +1,4 @@
-import { Bebas_Neue, Inter, Montserrat, Outfit, Quicksand } from 'next/font/google';
+import { Bebas_Neue, Inter, Montserrat, Outfit, Quicksand, Open_Sans } from 'next/font/google';
 
 export const bebas = Bebas_Neue({
   variable: '--font-bebas',
@@ -26,6 +26,12 @@ export const outfit = Outfit({
 
 export const quicksand = Quicksand({
   variable: '--font-quicksand',
+  subsets: ['latin'],
+  weight: ['400', '300', '500', '600', '700'],
+});
+
+export const opensans = Open_Sans({
+  variable: '--font-opensans',
   subsets: ['latin'],
   weight: ['400', '300', '500', '600', '700'],
 });
