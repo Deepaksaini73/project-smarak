@@ -4,12 +4,9 @@ import { bebas, inter, montserrat, outfit, quicksand, opensans } from './fonts';
 import { Toaster } from 'sonner';
 import { Analytics } from '@vercel/analytics/react';
 import Providers from '@/components/shared/providers';
+import { generateMetadata } from '@/config/seo';
 
-export const metadata: Metadata = {
-  title: 'Smarak 2025',
-  description: 'Annual Civil Engineering Fest of NIT Rourkela',
-};
-
+export const metadata: Metadata = generateMetadata();
 export default function RootLayout({
   children,
 }: Readonly<{
