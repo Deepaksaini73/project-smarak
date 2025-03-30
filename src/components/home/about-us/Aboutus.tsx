@@ -5,18 +5,20 @@ import { Section } from '../../shared/section';
 
 export default function AboutUs() {
   return (
-    <Section
-      title="About Us"
-      content={aboutUs.content}
-      image={{
-        name: aboutUs.image.name,
-        src: aboutUs.image.src,
-        height: 350,
-        width: 350,
-      }}
-      direction="right"
-      backgroundColor="#fdfbef"
-      titleColor="#554400"
-    />
+    <>
+      <div id="about"></div>
+      <Section
+        title="About Us"
+        content={aboutUs.content}
+        image={{
+          name: aboutUs.image.name,
+          src: aboutUs.image.src,
+          height: 350,
+          width: 350,
+        }}
+        direction="right"
+        titleColor="#554400"
+      />
+    </>
   );
 }

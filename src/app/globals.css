@@ -72,6 +72,7 @@
   body {
     scrollbar-width: none;
     overflow-x: hidden !important;
+    scroll-behavior: smooth;
   }
 
   /* For IE and Edge */

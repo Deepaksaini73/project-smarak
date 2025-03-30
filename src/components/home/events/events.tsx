@@ -121,10 +121,9 @@ const EventsCarousel: React.FC = () => {
   return (
     <Carousel<EventItem>
       title="EVENTS"
-      titleClassName="bg-yellow-400 text-gray-900"
       items={eventsData}
       slidesToShow={3}
-      autoplay={false}
+      autoplay={true}
       autoplaySpeed={3000}
       renderItem={renderEventCard}
       dots={false}
