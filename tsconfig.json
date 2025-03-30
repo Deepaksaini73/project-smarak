@@ -27,7 +27,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/home/about-us/ClubActivity.jsx"
+    "src/components/AboutUs/ClubActivity.jsx",
+    "src/components/team/teamSection.jsx",
+    "src/components/team/memberCard.jsx"
   ],
   "exclude": ["node_modules"]
 }
