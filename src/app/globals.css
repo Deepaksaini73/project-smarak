@@ -48,6 +48,11 @@
   body {
     @apply bg-[#fefbed] text-foreground;
     font-feature-settings: 'ss01', 'ss02', 'cv01', 'cv02', 'cv03';
+    background-image: url('/images/bg.png');
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: center top;
+    background-attachment: scroll;
   }
   /* Hide scrollbars but maintain scroll functionality */
   /* For WebKit browsers (Chrome, Safari) */

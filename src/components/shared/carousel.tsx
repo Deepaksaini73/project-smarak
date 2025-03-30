@@ -166,7 +166,7 @@ function Carousel<T extends SliderItem>({
     <div className={cn('w-full max-w-5xl mx-auto relative', className)}>
       {title && <Title title={title} titleClassName={titleClassName} />}
 
-      <div className={cn('mt-2 mb-10', contentClassName)}>
+      <div className={cn('my-20', contentClassName)}>
         <Slider {...sliderSettings}>{items.map(item => renderItem(item))}</Slider>
       </div>
     </div>
