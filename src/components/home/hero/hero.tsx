@@ -2,7 +2,21 @@ import Image from 'next/image';
 
 export default function Hero() {
   return (
-    <div className="min-h-screen bg-[#FFD700] flex items-center justify-between w-full">
+    <div className="min-h-screen bg-[#FFD700] flex items-center justify-between w-full relative">
+      <Image
+        src={'/images/dots.png'}
+        alt="dots"
+        width={100}
+        height={100}
+        className="absolute top-2 left-0"
+      />
+      <Image
+        src={'/images/dots.png'}
+        alt="dots"
+        width={100}
+        height={100}
+        className="absolute -bottom-1 left-[820px]"
+      />
       <div className="flex items-center justify-between w-1/2">
         <div id="social" className="flex items-center flex-col justify-between min-h-[50dvh]">
           <div className="flex flex-col items-center justify-center gap-5">
