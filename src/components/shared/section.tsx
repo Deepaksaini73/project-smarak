@@ -30,13 +30,13 @@ export function Section({
       <div className="max-w-7xl mx-auto">
         <div className="inline-block mb-6 py-1">
           <h1 className={`text-5xl font-bold text-[${titleColor}] font-outfit`}>{title}</h1>
-          <div className={`absolute w-38 h-1 bg-[${titleColor}] mt-1`}></div>
+          <div className={`absolute w-28 h-2 bg-[${titleColor}] mt-1`}></div>
         </div>
 
         <div className="flex flex-col md:flex-row gap-8 mt-5">
           {direction === 'right' ? (
-            <>
-              <div className="md:w-1/2">
+            <div className="flex flex-col-reverse md:flex-row items-start justify-between w-full">
+              <div className="md:w-1/2 mt-8 md:mt-0">
                 <div className="text-gray-800 leading-relaxed mb-6 font-outfit text-lg">
                   {content}
                 </div>
@@ -49,10 +49,10 @@ export function Section({
                   width={image.width || 400}
                 />
               </div>
-            </>
+            </div>
           ) : (
-            <div className="flex items-start justify-between w-full">
-              <div className="flex md:order-1 order-2 ">
+            <div className=" flex flex-col md:flex-row items-start justify-between w-full ">
+              <div className="">
                 <ImageCard
                   imgName={image.name}
                   imgSrc={image.src}
@@ -60,7 +60,7 @@ export function Section({
                   width={image.width || 350}
                 />
               </div>
-              <div className="md:w-2/3 md:order-2 order-1 pl-20">
+              <div className="md:w-2/3 md:pl-20 mt-8">
                 <div className="text-gray-800 leading-relaxed mb-6 font-outfit text-lg">
                   {content}
                 </div>

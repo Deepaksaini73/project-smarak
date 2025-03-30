@@ -14,7 +14,7 @@ export default function AboutUs() {
         height: 350,
         width: 350,
       }}
-      direction="left"
+      direction="right"
       backgroundColor="#fdfbef"
       titleColor="#554400"
     />

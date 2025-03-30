@@ -27,7 +27,7 @@ export default function MobileMenu({
         >
           <motion.div
             ref={mobileNavRef}
-            className="w-[50%] h-full bg-[#FEFBED]  shadow-lg flex flex-col justify-center items-center"
+            className="w-full h-full bg-[#FEFBED]  shadow-lg flex flex-col justify-center items-center"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
@@ -40,30 +40,23 @@ export default function MobileMenu({
               {navbarContent.links.map((link, index) => (
                 <motion.div
                   key={index}
-                  className="relative"
+                  className="relative "
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link
                     className="font-bold text-2xl text-[#574900] transition-all"
                     href={link.href}
+                    onClick={() => setToggleMenu(false)}
                   >
                     {link.name}
                   </Link>
-                  {isActive(link.href) && (
-                    <motion.div
-                      className="h-[2px] bg-orange-500 absolute bottom-[-4px] left-[15%]"
-                      initial={{ width: 0 }}
-                      animate={{ width: '70%' }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  )}
                 </motion.div>
               ))}
 
               <Link href={'/sigin'}>
                 <motion.button
-                  className="border bg-[#554400] text-[#fff] font-bold px-6 py-2 rounded-md shadow-md hover:bg-[#443300] hover:text-white transition w-4/5 mt-4 font-quicksand"
+                  className="w-full border bg-[#554400] text-[#fff] font-bold px-6 py-2 rounded-md shadow-md hover:bg-[#443300] hover:text-white transition mt-4 font-quicksand"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
