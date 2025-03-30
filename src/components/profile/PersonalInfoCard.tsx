@@ -7,37 +7,39 @@ type PersonalInfoCardProps = {
 
 export function PersonalInfoCard({ user }: PersonalInfoCardProps) {
   return (
-    <div className="bg-white shadow-md rounded-lg p-6">
-      <h3 className="text-lg font-semibold mb-4 pb-2 border-b flex items-center">
-        <UserIcon className="h-5 w-5 mr-2 text-blue-500" /> Personal Information
+    <div className="bg-[#FEFBED] shadow-md rounded-xl p-6 border border-[#FFD700]/30 h-full transform transition-transform hover:scale-[1.01]">
+      <h3 className="text-xl font-semibold mb-6 pb-3 border-b border-[#FFD700] flex items-center font-outfit text-[#554400]">
+        <UserIcon className="h-5 w-5 mr-3 text-[#554400]" /> Personal Information
       </h3>
-      <div className="space-y-3">
+      <div className="space-y-5">
         <div className="flex items-start">
-          <Phone className="h-4 w-4 text-gray-400 mt-0.5 mr-2" />
+          <Phone className="h-5 w-5 text-[#554400] mt-0.5 mr-3" />
           <div>
-            <p className="text-sm text-gray-500">Phone Number</p>
-            <p>{user?.phone || 'Not provided'}</p>
+            <p className="text-sm text-[#554400]/60 font-medium font-outfit">Phone Number</p>
+            <p className="font-outfit text-[#554400]">{user?.phone || 'Not provided'}</p>
           </div>
         </div>
         <div className="flex items-start">
-          <UserIcon className="h-4 w-4 text-gray-400 mt-0.5 mr-2" />
+          <UserIcon className="h-5 w-5 text-[#554400] mt-0.5 mr-3" />
           <div>
-            <p className="text-sm text-gray-500">Gender</p>
-            <p>{user?.gender || 'Not provided'}</p>
+            <p className="text-sm text-[#554400]/60 font-medium font-outfit">Gender</p>
+            <p className="font-outfit text-[#554400]">{user?.gender || 'Not provided'}</p>
           </div>
         </div>
         <div className="flex items-start">
-          <Calendar className="h-4 w-4 text-gray-400 mt-0.5 mr-2" />
+          <Calendar className="h-5 w-5 text-[#554400] mt-0.5 mr-3" />
           <div>
-            <p className="text-sm text-gray-500">Age</p>
-            <p>{user?.age || 'Not provided'}</p>
+            <p className="text-sm text-[#554400]/60 font-medium font-outfit">Age</p>
+            <p className="font-outfit text-[#554400]">{user?.age || 'Not provided'}</p>
           </div>
         </div>
         <div className="flex items-start">
-          <Clock className="h-4 w-4 text-gray-400 mt-0.5 mr-2" />
+          <Clock className="h-5 w-5 text-[#554400] mt-0.5 mr-3" />
           <div>
-            <p className="text-sm text-gray-500">Member Since</p>
-            <p>{user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'Unknown'}</p>
+            <p className="text-sm text-[#554400]/60 font-medium font-outfit">Member Since</p>
+            <p className="font-outfit text-[#554400]">
+              {user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'Unknown'}
+            </p>
           </div>
         </div>
       </div>

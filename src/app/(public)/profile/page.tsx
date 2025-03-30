@@ -66,27 +66,41 @@ export default function ProfilePage() {
   }, []);
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto py-8 px-8 relative my-10 max-w-7xl">
       {userProfile?.email ? (
         <>
-          <h1 className="text-3xl font-bold mb-8">My Profile</h1>
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="grid grid-cols-2 w-full max-w-md">
-              <TabsTrigger value="personal">Personal Info</TabsTrigger>
-              <TabsTrigger value="events">My Events</TabsTrigger>
+          <div className="inline-block mb-6 py-1">
+            <h1 className="text-5xl font-bold text-[#554400] font-outfit">My Profile</h1>
+            <div className="absolute w-28 h-2 bg-[#554400] mt-1"></div>
+          </div>
+
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 mt-10">
+            <TabsList className="grid grid-cols-2 w-full max-w-md bg-[#fefbed]">
+              <TabsTrigger
+                value="personal"
+                className="font-outfit text-lg data-[state=active]:bg-[#554400] data-[state=active]:text-[#fff]"
+              >
+                Personal Info
+              </TabsTrigger>
+              <TabsTrigger
+                value="events"
+                className="font-outfit text-lg data-[state=active]:bg-[#554400] data-[state=active]:text-[#fff]"
+              >
+                Registered Events
+              </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="personal">
+            <TabsContent value="personal" className="font-outfit text-gray-800">
               {isLoadingProfile ? (
                 <div className="flex justify-center py-12">
-                  <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                  <Loader2 className="h-8 w-8 animate-spin text-[#554400]" />
                 </div>
               ) : (
                 <ProfileContent user={userProfile!} />
               )}
             </TabsContent>
 
-            <TabsContent value="events">
+            <TabsContent value="events" className="font-outfit text-gray-800">
               <EventsContent registrations={registrations} isLoading={isLoadingRegistrations} />
             </TabsContent>
           </Tabs>
