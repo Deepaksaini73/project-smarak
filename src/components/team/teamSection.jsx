@@ -10,7 +10,7 @@ const TeamSection = ({ sectionTitle, members, rowSizes = [3, 2] }) => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-amber-50 p-4 md:p-8 overflow-hidden mt-20">
+    <div className="relative min-h-screen p-4 md:p-8 overflow-hidden mt-20">
       {/* Section Title */}
       <Title title={sectionTitle} />
 

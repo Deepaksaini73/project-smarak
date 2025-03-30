@@ -2,6 +2,7 @@
 
 import React, { ReactNode } from 'react';
 import { ImageCard } from './image-card';
+import { cn } from '@/lib/utils';
 
 export interface SectionProps {
   title: string;
@@ -16,6 +17,23 @@ export interface SectionProps {
   titleColor?: string;
 }
 
+export const HeaderTitle = ({
+  title,
+  titleColor = '#554400',
+  className,
+}: {
+  title: string;
+  titleColor?: string;
+  className?: string;
+}) => {
+  return (
+    <div className="inline-block mb-6 py-1">
+      <h1 className={`text-5xl font-bold text-[${titleColor}] font-outfit`}>{title}</h1>
+      <div className={cn(`absolute w-28 h-2 bg-[${titleColor}] mt-1`, className)}></div>
+    </div>
+  );
+};
+
 export function Section({
   title,
   content,
@@ -26,10 +44,7 @@ export function Section({
   return (
     <div className={`px-8 py-8 relative my-10`}>
       <div className="max-w-7xl mx-auto">
-        <div className="inline-block mb-6 py-1">
-          <h1 className={`text-5xl font-bold text-[${titleColor}] font-outfit`}>{title}</h1>
-          <div className={`absolute w-28 h-2 bg-[${titleColor}] mt-1`}></div>
-        </div>
+        <HeaderTitle title={title} titleColor={titleColor} />
 
         <div className="flex flex-col md:flex-row gap-8 mt-5">
           {direction === 'right' ? (
