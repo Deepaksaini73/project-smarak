@@ -99,7 +99,7 @@ export default function Navbar() {
 
           {session.status === 'authenticated' ? (
             <motion.button
-              className="bg-[#554400] text-[16px] font-bold text-white px-4 py-2 rounded-md shadow-md hover:bg-[#443300] transition font-quicksand"
+              className="button-primary"
               onClick={() => router.push('/profile')}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -108,7 +108,7 @@ export default function Navbar() {
             </motion.button>
           ) : (
             <motion.button
-              className="hidden md:block bg-[#554400] text-[16px] font-bold text-white px-4 py-2 rounded-md shadow-md hover:bg-[#443300] transition font-quicksand"
+              className="button-primary"
               onClick={() => router.push('/signin')}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
