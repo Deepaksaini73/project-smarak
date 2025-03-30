@@ -99,7 +99,6 @@ function Carousel<T extends SliderItem>({
   title,
   titleClassName,
   items,
-  backgroundImage,
   className,
   contentClassName,
   slidesToShow = 3,

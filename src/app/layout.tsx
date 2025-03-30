@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { bebas, inter, montserrat, outfit, quicksand } from './fonts';
+import { bebas, inter, montserrat, outfit, quicksand, opensans } from './fonts';
 import { Toaster } from 'sonner';
 import { Analytics } from '@vercel/analytics/react';
 import Providers from '@/components/shared/providers';
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body
-        className={`${bebas.variable} ${inter.variable} ${montserrat.variable} ${outfit.variable} ${quicksand.variable}  antialiased`}
+        className={`${bebas.variable} ${inter.variable} ${montserrat.variable} ${outfit.variable} ${quicksand.variable} ${opensans.variable} antialiased`}
       >
         <Toaster position="top-right" />
         <Analytics />

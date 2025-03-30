@@ -46,6 +46,10 @@
     @apply border-border;
   }
 
+  .button-primary {
+    @apply px-4 py-2 font-outfit bg-[#574900] text-[#fff] text-xl font-semibold rounded-xl hover:opacity-90 duration-300 transition-all ease-in-out focus:outline-none focus:ring-4 focus:ring-[#574900]/50 focus:ring-offset-0;
+  }
+
   body {
     @apply bg-[#fefbed] text-foreground;
     font-feature-settings: 'ss01', 'ss02', 'cv01', 'cv02', 'cv03';

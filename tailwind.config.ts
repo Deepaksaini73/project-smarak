@@ -77,6 +77,7 @@ export default {
         montserrat: 'var(--font-montserrat)',
         outfit: 'var(--font-outfit)',
         quicksand: 'var(--font-quicksand)',
+        opensans: 'var(--font-opensans)',
       },
       borderRadius: {
         lg: 'var(--radius)',
