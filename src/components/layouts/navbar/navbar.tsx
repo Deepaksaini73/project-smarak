@@ -11,29 +11,10 @@ import { useSession } from 'next-auth/react';
 
 export default function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false);
-  const [visible, setVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const mobileNavRef = useRef<any>(null);
   const router = useRouter();
   const pathname = usePathname();
   const session = useSession();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setVisible(false);
-      } else {
-        setVisible(true);
-      }
-
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -63,13 +44,7 @@ export default function Navbar() {
         mobileNavRef={mobileNavRef}
         isActive={isActive}
       />
-
-      <motion.div
-        className="bg-[#FEFBED] sticky shadow-md top-0 z-20 flex items-center w-full slg:justify-between  slg:px-12 px-4 py-4 text-white"
-        initial={{ y: 0 }}
-        animate={{ y: visible ? 0 : -100 }}
-        transition={{ duration: 0.3 }}
-      >
+      <div className="bg-[#FEFBED] fixed w-full shadow-md top-0 z-50 flex items-center slg:justify-between slg:px-12 px-4 py-4 text-white">
         <Link href="/" className="cursor-pointer">
           <Image
             className="w-16"
@@ -124,7 +99,8 @@ export default function Navbar() {
         >
           <RiMenu3Line size={40} />
         </button>
-      </motion.div>
+      </div>
+      <div className="h-[72px]"></div>
     </>
   );
 }
