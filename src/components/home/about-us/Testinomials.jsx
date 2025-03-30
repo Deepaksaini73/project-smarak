@@ -143,14 +143,14 @@ function Testimonials() {
                       className="absolute top-0 left-0 text-[#333] font-bold text-4xl"
                       style={{ lineHeight: '1' }}
                     >
-                      "
+                      &apos;
                     </div>
                     <p className="text-[#333] mb-6 pl-4">{item.quote}</p>
                     <div
                       className="absolute bottom-0 right-0 text-[#333] font-bold text-4xl"
                       style={{ lineHeight: '1' }}
                     >
-                      "
+                      &apos;
                     </div>
                   </div>
                 </div>

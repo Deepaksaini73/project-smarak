@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { nanoid } from 'nanoid';
 import { auth } from '@/auth';
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await auth();
 

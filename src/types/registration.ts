@@ -1,4 +1,5 @@
 export interface Registration {
+  user: any;
   id: string;
   eventId: string;
   isTeam: boolean;
@@ -19,6 +20,8 @@ export interface Registration {
     userId: string;
     isTeamLead: boolean;
     user: {
+      institute: string;
+      phone: string;
       id: string;
       name: string;
       email: string;

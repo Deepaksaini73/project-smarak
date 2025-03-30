@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Eye, Trash2 } from 'lucide-react';
-import { Registration } from '../../../app/admin/registrations/types';
+import { Registration } from '@/config/admin/types';
 
 interface RegistrationsTableProps {
   registrations: Registration[];

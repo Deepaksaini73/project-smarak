@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await auth();
 
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
       );
     }
 
-    const { id: eventId } = params;
+    const { id: eventId } = await params;
 
     const registration = await prisma.registration.findFirst({
       where: {

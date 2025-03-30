@@ -10,33 +10,33 @@ type PaymentDetails = {
   status: string;
 };
 
-export const createPaymentRecord = async (details: PaymentDetails) => {
-  try {
-    const payment = await prisma.transaction.create({
-      data: {
-        userId: details.userId,
-        amount: details.amount,
-        transactionId: details.transactionId,
-        merchantTransactionId: details.merchantTransactionId,
-        merchantId: details.merchantId,
-        status: details.status,
-      },
-    });
-    await prisma.user.update({
-      where: {
-        id: details.userId,
-      },
-      data: {
-        hasPaid: true,
-      },
-    });
+// export const createPaymentRecord = async (details: PaymentDetails) => {
+//   try {
+//     const payment = await prisma.transaction.create({
+//       data: {
+//         userId: details.userId,
+//         amount: details.amount,
+//         transactionId: details.transactionId,
+//         merchantTransactionId: details.merchantTransactionId,
+//         merchantId: details.merchantId,
+//         status: details.status as any,
+//       },
+//     });
+//     await prisma.user.update({
+//       where: {
+//         id: details.userId,
+//       },
+//       data: {
+//         hasPaid: true,
+//       },
+//     });
 
-    return payment;
-  } catch (e) {
-    console.error('Error creating payment record:', e);
-    return null;
-  }
-};
+//     return payment;
+//   } catch (e) {
+//     console.error('Error creating payment record:', e);
+//     return null;
+//   }
+// };
 
 export const getUserPaymentStatus = async (email: string) => {
   try {
