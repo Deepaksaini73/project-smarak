@@ -24,6 +24,7 @@ export const navbarContent = {
   links: [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: '/#about' },
+    { name: 'Team', href: '/team' },
     { name: 'Events', href: '/events' },
     { name: 'Sponsors', href: '/sponsors' },
     { name: 'Contact Us', href: '#contact' },
