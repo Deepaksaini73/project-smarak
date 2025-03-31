@@ -18,7 +18,7 @@ export default function Page() {
         }}
       />
       <TeamSection
-        sectionTitle={<span className="text-6xl mb-10  font-bold">Our Team</span>}
+        sectionTitle={<span className="text-6xl mb-10  font-bold">Core Team</span>}
         members={teamHeads.map(member => ({
           ...member,
           name: <span className="font-[Outfit]">{member.name}</span>,
@@ -27,8 +27,8 @@ export default function Page() {
         }))}
         rowSizes={[3, 2]}
       />
-      <TeamSection
-        sectionTitle={<span className="text-6xl font-bold">Our Team</span>}
+      {/* <TeamSection
+        sectionTitle={<span className="text-6xl font-bold"> Team</span>}
         members={teamHeads.map(member => ({
           ...member,
           name: <span className="font-[Outfit]">{member.name}</span>,
@@ -36,7 +36,7 @@ export default function Page() {
           title: <span className="font-[Quicksand]">{member.title}</span>,
         }))}
         rowSizes={[3, 2]}
-      />
+      /> */}
       <MembersGrid />
     </div>
   );

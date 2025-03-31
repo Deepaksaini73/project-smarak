@@ -10,13 +10,9 @@ export const footerContent = {
       'https://res.cloudinary.com/da0htbmcg/image/upload/v1743262555/smarak25/assets/ectvrytu4gnkcssickn2.png',
   },
   map: 'https://maps.app.goo.gl/zxb4Jf4Bu9vQ89va9',
-  about: ` At CEST, we are dedicated to fostering a thriving community of civil engineering
-            enthusiasts. Our club serves as a platform for students to explore, learn, and excel in
-            various aspects of civil engineering. Through a range of activities, workshops, and
-            events, we aim to broaden the horizons of our members and enhance their knowledge and
-            skills.`,
-  email: 'nitrklcest@gmail.com',
-  phone: ['8294360678', '9439735962'],
+  about: ` `,
+  email: 'smaraknitrourkela@gmail.com',
+  phone: ['9905526212', '9078840607'],
 };
 
 export const navbarContent = {

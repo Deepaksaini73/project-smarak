@@ -4,34 +4,34 @@ export const eventsData: EventItem[] = [
   {
     id: 'gati-sheel',
     title: 'Gati Sheel',
-    image: '/path/to/gati-sheel.jpg',
+    image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743421106/gatisheel_bc5b5p.png',
     description:
-      'Design and construct a functional roller coaster track using engineering principles. Teams will be evaluated on marble motion duration and structural creativity. Materials provided include adhesives, cardboard tracks, and PVC pipes. Duration: 180 minutes.',
+      'An interactive physics-based competition where teams design and construct a functional roller coaster track using engineering principles. The objective is to create a track where a marble remains in motion for the longest possible duration while maintaining stability, efficiency, and aesthetic appeal.',
     buttonText: 'Read More',
     buttonLink: '/events',
   },
   {
     id: 'vastukala',
     title: 'Vastukala',
-    image: '/path/to/vastukala.jpg',
+    image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743422393/vastukala_vov32k.png',
     description:
-      'Conceptualize and design an eco-friendly society incorporating energy conservation, waste management, and sustainable urban planning. Teams present paper designs showcasing renewable energy, water conservation and green architecture solutions. Duration: 180 minutes.',
+      'Teams will design and present a sustainable city layout, incorporating smart infrastructure, renewable energy, efficient water and waste management, and optimized transportation. The event encourages innovative urban planning solutions for eco-friendly and efficient cities.',
     buttonText: 'Read More',
     buttonLink: '/events',
   },
   {
     id: 'setu',
     title: 'Setu',
-    image: '/path/to/setu.jpg',
+    image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743426211/setu_qoh6k6.jpg',
     description:
-      'Design and construct a suspension bridge using provided materials like wooden strips, threads, and pins. Bridges will be evaluated on maximum load-bearing capacity and aesthetic appeal. Teams must apply structural engineering principles. Duration: 180 minutes.',
+      'A hands-on civil engineering challenge where teams design and construct a stable, load-bearing arch bridge using sand, bricks, and water. This event mirrors real-world bridge construction, testing participants ability to balance structural stability, efficiency, and aesthetic design under constraints.',
     buttonText: 'Read More',
     buttonLink: '/events',
   },
   {
     id: 'pramanam',
     title: 'Pramanam',
-    image: '/path/to/pramanam.jpg',
+    image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743422392/paramanam_tdoiqx.png',
     description:
       'Team-based quiz competition testing fundamental knowledge across various subjects including general awareness, current affairs, science, and history. Multiple challenging rounds will assess analytical thinking and problem-solving abilities. Duration: 60 minutes.',
     buttonText: 'Read More',
@@ -40,18 +40,18 @@ export const eventsData: EventItem[] = [
   {
     id: 'shilp-setu',
     title: 'Shilp Setu',
-    image: '/path/to/shilp-setu.jpg',
+    image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743422392/silp_setu_wvzy7g.png',
     description:
       'Design and construct a stable, load-bearing arch bridge using materials like sand, bricks, and water. Bridges will be evaluated on strength, load-bearing capacity, and design aesthetics. Encourages innovation in construction techniques. Duration: 180 minutes.',
     buttonText: 'Read More',
     buttonLink: '/events',
   },
   {
-    id: 'workshops',
-    title: 'Workshops & Seminars',
-    image: '/path/to/workshops.jpg',
+    id: 'SAHAYATRI',
+    title: 'SAHAYATRI',
+    image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743422391/sahaytri_xmeuxd.png',
     description:
-      'Enhance your skills with our STAAD Pro & Revit Workshop, BIS Seminar on industrial standards, interactive 3D Printing Workshop demonstrating civil engineering applications, and Professor Seminars on emerging technologies and sustainable construction practices.',
+      'Participants will leverage machine learning to predict and mitigate road accidents by analyzing real-world data on traffic, road geometry, weather, and driver behavior, aiming to enhance road safety with data-driven insights.',
     buttonText: 'Read More',
     buttonLink: '/events',
   },

@@ -1,23 +1,23 @@
 export const missions = [
   {
-    title: 'Technology-Driven Problem Solving',
+    title: 'Eco-Build Responsibly for Tomorrow.',
     description: '',
     imageUrl: 'https://res.cloudinary.com/da0htbmcg/image/upload/v1743364371/sustainble_j4x2zw.png',
   },
   {
-    title: 'Academic-Industry Synergy ',
+    title: '    Foster Collaboration and creativity ',
     description: '',
     imageUrl:
       'https://res.cloudinary.com/da0htbmcg/image/upload/v1743364371/urbanplanning_zfqzle.png',
   },
   {
-    title: 'Innovation for a Sustainable Future',
+    title: 'Innovate for a Sustainable Future',
     description: '',
     imageUrl:
       'https://res.cloudinary.com/da0htbmcg/image/upload/v1743364371/acadindustry_pji9rq.png',
   },
   {
-    title: 'Eco-Integrated Urban Development',
+    title: 'Empower Learning Through Hands-on Experience',
     description: '',
     imageUrl: 'https://res.cloudinary.com/da0htbmcg/image/upload/v1743364370/images_rxmacd.png',
   },

@@ -1,11 +1,7 @@
 export const aboutUs = {
   title: 'About Us',
   content: `
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        The BIS Club at NIT Rourkela is dedicated to promoting awareness and understanding of the Bureau of Indian Standards (BIS) codes. It actively engages in analyzing, updating, and suggesting improvements to existing BIS standards, ensuring alignment with modern engineering practices. The club provides a platform for students to contribute to the evolution of industry norms while fostering technical excellence. Through workshops and discussions, it encourages innovation and adherence to national standards in civil engineering.
         `,
   image: {
     name: 'Glorifying since 12 years',

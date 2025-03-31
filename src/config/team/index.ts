@@ -1,18 +1,18 @@
 export const teamHeads = [
   {
-    name: 'Alice Johnson',
-    position: 'Software Engineer',
+    name: 'Abhishek Kumar Gotam',
+    position: 'Convener',
     title: 'Team Lead',
     imageSrc: '/images/alice.jpg',
   },
   {
-    name: 'Bob Smith',
-    position: 'Product Designer',
+    name: 'Ashwini Mohapatara',
+    position: 'Organizing Seceretary',
     title: 'UX Head',
     imageSrc: '/images/bob.jpg',
   },
   {
-    name: 'Charlie Brown',
+    name: 'Harshik',
     position: 'Data Analyst',
     title: 'Analytics Lead',
     imageSrc: '/images/charlie.jpg',
