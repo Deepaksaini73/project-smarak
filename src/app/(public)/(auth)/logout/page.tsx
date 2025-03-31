@@ -11,7 +11,6 @@ const LogoutPage: React.FC = () => {
   useEffect(() => {
     async function signOutUser() {
       try {
-        const res = await logout();
         const redirectTimeout = setTimeout(() => {
           window.location.href = '/';
         }, 2000);
@@ -30,6 +29,8 @@ const LogoutPage: React.FC = () => {
 
     signOutUser();
   }, []);
+
+  function clearLoginCookies() {}
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-background">

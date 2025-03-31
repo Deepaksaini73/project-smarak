@@ -14,7 +14,7 @@ export default function AboutUs() {
           name: aboutUs.image.name,
           src: aboutUs.image.src,
           height: 350,
-          width: 350,
+          width: 500,
         }}
         direction="right"
         titleColor="#554400"

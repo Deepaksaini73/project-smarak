@@ -7,7 +7,7 @@ export const teamHeads = [
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439099/abhishek_bhaiya_zhax56.jpg',
   },
   {
-    name: 'Ashwini Mohapatara',
+    name: 'Ashwini Kumar Mohapatara',
     position: 'Organizing Seceretary',
     title: 'UX Head',
     imageSrc:
@@ -62,13 +62,7 @@ export const teamHeads = [
     imageSrc:
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743445813/WhatsApp_Image_2025-03-31_at_23.58.06_ccb92f2b_xxgisg.jpg',
   },
-  {
-    name: 'Siddharth',
-    position: 'Content Head',
-    title: 'Analytics Lead',
-    imageSrc:
-      'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743445706/WhatsApp_Image_2025-03-31_at_23.55.53_478108a9_kl1rrk.jpg',
-  },
+
   {
     name: 'Sameer Gupta ',
     position: 'Content Head',
@@ -89,6 +83,34 @@ export const teamHeads = [
     title: 'UX Head',
     imageSrc:
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439103/IMG20231205123219-01_-_Arnav_oehvqn.jpg',
+  },
+  {
+    name: 'Aryan Chaudhari',
+    position: 'Alumini Relations',
+    title: 'UX Head',
+    imageSrc:
+      'https://res.cloudinary.com/da0htbmcg/image/upload/v1743453745/IMG_8616_-_Aryan_Chaudhari_pcag9g.jpg',
+  },
+  {
+    name: 'sanmay Pradhan',
+    position: 'Design Head',
+    title: 'UX Head',
+    imageSrc:
+      'https://res.cloudinary.com/da0htbmcg/image/upload/v1743453843/dummy-profile-pic-300x300_oymyun.png',
+  },
+  {
+    name: 'Bhabesh Beherav',
+    position: 'PR Head',
+    title: 'UX Head',
+    imageSrc:
+      'https://res.cloudinary.com/da0htbmcg/image/upload/v1743453738/IMG-20240108-WA0304_-_Bhabesh_Behera_g0q4s7.jpg',
+  },
+  {
+    name: 'Siddharth',
+    position: 'Content Head',
+    title: 'Analytics Lead',
+    imageSrc:
+      'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743445706/WhatsApp_Image_2025-03-31_at_23.55.53_478108a9_kl1rrk.jpg',
   },
 ];
 
@@ -144,11 +166,11 @@ export const members = [
     name: 'Priyal Todi',
     image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439530/Priyal_Todi_yxuwcg.jpg',
   },
-  {
-    name: 'Kamlesh Choudray',
-    image:
-      'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743448575/Screenshot_2025-04-01_004554_vxzmkv.png',
-  },
+  // {
+  //   name: 'Kamlesh Choudray',
+  //   image:
+  //     'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743448575/Screenshot_2025-04-01_004554_vxzmkv.png',
+  // },
 
   {
     name: 'Sudhanshu',

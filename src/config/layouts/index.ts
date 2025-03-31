@@ -19,11 +19,10 @@ export const navbarContent = {
   logo: 'https://res.cloudinary.com/da0htbmcg/image/upload/v1743262555/smarak25/assets/ectvrytu4gnkcssickn2.png',
   links: [
     { name: 'About Us', href: '/#about' },
-    { name: 'Team', href: '/team' },
     { name: 'Events', href: '/events' },
-    // { name: 'Sponsors', href: '/sponsors' },
     { name: 'Gallery', href: '/#gallery' },
-
+    { name: 'Team', href: '/team' },
+    // { name: 'Sponsors', href: '/sponsors' },
     { name: 'Contact Us', href: '#contact' },
   ],
   images: {
