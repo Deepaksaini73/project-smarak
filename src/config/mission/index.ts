@@ -1,5 +1,3 @@
-import { footerContent } from '../layouts';
-
 export const missions = [
   {
     title: 'Technology-Driven Problem Solving',

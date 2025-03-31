@@ -37,7 +37,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
         {
           status: 'error',
           data: null,
-          message: 'User not found',
+          message: 'Complete your registeration to register for events',
         },
         { status: 404 }
       );

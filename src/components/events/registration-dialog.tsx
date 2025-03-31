@@ -166,12 +166,12 @@ export function RegistrationDialog({
               </div>
 
               <div className="grid grid-cols-1 gap-3 text-sm bg-[#fefbed] p-4 rounded-lg border border-[#FFD700]/20">
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                   <Calendar className="h-4 w-4 mr-2 text-[#554400]" />
                   <p className="font-medium text-[#554400]">
                     {selectedEvent && formatDate(selectedEvent.startTime)}
                   </p>
-                </div>
+                </div> */}
                 <div className="flex items-center">
                   <MapPin className="h-4 w-4 mr-2 text-[#554400]" />
                   <p className="font-medium text-[#554400]">{selectedEvent?.venue}</p>

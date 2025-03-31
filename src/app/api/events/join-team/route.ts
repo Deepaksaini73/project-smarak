@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
         {
           status: 'error',
           data: null,
-          message: 'User not found',
+          message: 'Complete your registration to join teams',
         },
         { status: 404 }
       );

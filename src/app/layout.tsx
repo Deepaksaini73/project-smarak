@@ -17,7 +17,21 @@ export default function RootLayout({
       <body
         className={`${bebas.variable} ${inter.variable} ${montserrat.variable} ${outfit.variable} ${quicksand.variable} ${opensans.variable} antialiased`}
       >
-        <Toaster position="top-right" />
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            style: {
+              background: 'white',
+              color: '#554400',
+              border: '1px solid #e2e8f0',
+              padding: '16px',
+              fontFamily: 'var(--font-outfit)',
+              borderRadius: '8px',
+              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+            },
+            className: 'font-outfit',
+          }}
+        />
         <Analytics />
         <Providers>{children}</Providers>
       </body>

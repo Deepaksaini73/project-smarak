@@ -17,9 +17,9 @@ export const middleware = async (request: {
     }
   }
 
-  // if (pathname.startsWith('/profile') && session?.user.role === 'admin') {
-  //   return NextResponse.redirect(new URL('/admin', request.url));
-  // }
+  if (pathname.startsWith('/profile') && session?.user.role === 'admin') {
+    return NextResponse.redirect(new URL('/admin', request.url));
+  }
 
   if (pathname.startsWith('/profile') && !session) {
     return NextResponse.redirect(new URL('/signin', request.url));

@@ -1,6 +1,9 @@
+'use client';
+
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface MissionBannerProps {
   title?: string;
@@ -24,10 +27,24 @@ const MissionBanner: React.FC<MissionBannerProps> = ({
   const isRightDirection = direction === 'right';
 
   return (
-    <div className="relative w-full max-w-2xl mx-auto my-8 px-4">
-      <div className="relative">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true, margin: '-50px' }}
+      className="relative w-full max-w-2xl mx-auto my-8 px-4"
+    >
+      <motion.div
+        className="relative"
+        whileHover={{ scale: 1.02 }}
+        transition={{ type: 'spring', stiffness: 300 }}
+      >
         {/* Dark shadow part */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, x: isRightDirection ? -15 : 15 }}
+          whileInView={{ opacity: 1, x: isRightDirection ? -10 : 10 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true }}
           className="absolute top-3 z-0"
           style={{
             left: isRightDirection ? '0' : 'auto',
@@ -42,9 +59,13 @@ const MissionBanner: React.FC<MissionBannerProps> = ({
               ? 'translateX(-10px) translateY(8px)'
               : 'translateX(10px) translateY(8px)',
           }}
-        ></div>
+        ></motion.div>
 
-        <div
+        <motion.div
+          initial={{ opacity: 0, x: isRightDirection ? -10 : 10 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
           className="relative h-28 xsmd:h-32 z-10 top-0"
           style={{
             left: isRightDirection ? '0' : 'auto',
@@ -64,12 +85,37 @@ const MissionBanner: React.FC<MissionBannerProps> = ({
               isRightDirection ? '!ml-10 mr-auto text-left' : '!ml-auto !mr-10 text-right'
             )}
           >
-            <h2 className="text-xl font-bold mb-1 font-outfit">{title}</h2>
-            <p className="text-gray-800 font-quicksand xsmd:w-full w-[70%]">{description}</p>
+            <motion.h2
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="text-xl font-bold mb-1 font-outfit"
+            >
+              {title}
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="text-gray-800 font-quicksand xsmd:w-full w-[70%]"
+            >
+              {description}
+            </motion.p>
           </div>
-        </div>
+        </motion.div>
 
-        <div
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, rotate: isRightDirection ? -10 : 10 }}
+          whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+          whileHover={{ scale: 1.05, rotate: isRightDirection ? 5 : -5 }}
+          transition={{
+            type: 'spring',
+            stiffness: 300,
+            damping: 15,
+          }}
+          viewport={{ once: true }}
           className="absolute top-0 h-28 w-28 xsmd:size-32 smd:size-40 rounded-full border-8 z-20 flex items-center justify-center overflow-hidden"
           style={{
             left: !isRightDirection ? '0' : 'auto',
@@ -78,16 +124,22 @@ const MissionBanner: React.FC<MissionBannerProps> = ({
             borderColor: borderColor,
           }}
         >
-          <Image
-            height={100}
-            width={100}
-            src={imageUrl}
-            alt={title}
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </div>
-    </div>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.3 }}
+            className="w-full h-full"
+          >
+            <Image
+              height={100}
+              width={100}
+              src={imageUrl}
+              alt={title}
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 

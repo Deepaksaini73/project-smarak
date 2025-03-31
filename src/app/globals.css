@@ -61,13 +61,11 @@
     background-position: center top;
     background-attachment: scroll;
   }
-  /* Hide scrollbars but maintain scroll functionality */
-  /* For WebKit browsers (Chrome, Safari) */
+
   ::-webkit-scrollbar {
     display: none;
   }
 
-  /* For Firefox */
   html,
   body {
     scrollbar-width: none;
@@ -75,7 +73,6 @@
     scroll-behavior: smooth;
   }
 
-  /* For IE and Edge */
   html,
   body {
     -ms-overflow-style: none;
