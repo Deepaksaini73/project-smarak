@@ -40,7 +40,7 @@ export const eventsData: EventItem[] = [
   {
     id: 'shilp-setu',
     title: 'Shilp Setu',
-    image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743422392/silp_setu_wvzy7g.png',
+    image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743435466/slipshetu_g3sg3n.webp',
     description:
       'Design and construct a stable, load-bearing arch bridge using materials like sand, bricks, and water. Bridges will be evaluated on strength, load-bearing capacity, and design aesthetics. Encourages innovation in construction techniques. Duration: 180 minutes.',
     buttonText: 'Read More',

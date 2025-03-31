@@ -1,7 +1,7 @@
 export const aboutUs = {
   title: 'About Us',
   content: `
-        The BIS Club at NIT Rourkela is dedicated to promoting awareness and understanding of the Bureau of Indian Standards (BIS) codes. It actively engages in analyzing, updating, and suggesting improvements to existing BIS standards, ensuring alignment with modern engineering practices. The club provides a platform for students to contribute to the evolution of industry norms while fostering technical excellence. Through workshops and discussions, it encourages innovation and adherence to national standards in civil engineering.
+        Smarak is brought to life by the combined efforts of the faculty and students of the Civil Engineering Department at NIT Rourkela. With faculty members providing their expertise and guidance, and students infusing fresh ideas and energy, our team ensures a seamless blend of learning, competition, and innovation. Together, we craft an experience that challenges, inspires, and pushes the boundaries of civil engineering.
         `,
   image: {
     name: 'Glorifying since 12 years',

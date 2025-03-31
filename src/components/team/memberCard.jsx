@@ -12,14 +12,14 @@ const MemberCard = ({ name, position, title, imageSrc }) => (
         className="w-full h-full object-cover"
       />
     </div>
-    <div className="bg-yellow-400 text-center py-2 px-2 rounded-lg shadow-md w-44 mx-auto -mt-2">
+    <div className="bg-yellow-400 text-center py-2 px-2 rounded-lg shadow-md w-54 mx-auto -mt-2">
       <p className="font-bold text-lg text-black">{name}</p>
-      <p className="text-base font-bold text-black">{position}</p>
+      {/* <p className="text-base font-bold text-black">{position}</p> */}
       <p
         className="text-base font-bold text-red-700"
         style={{ fontFamily: 'Quicksand, sans-serif' }}
       >
-        {title}
+        {position}
       </p>
     </div>
   </div>

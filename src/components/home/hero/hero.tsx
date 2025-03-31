@@ -226,11 +226,11 @@ export default function Hero() {
               letterSpacing: '0.00733333px',
             }}
           >
-            Smarak is brought to life by the combined efforts of the faculty and students of the
-            Civil Engineering Department at NIT Rourkela. With faculty members providing their
-            expertise and guidance, and students infusing fresh ideas and energy, our team ensures a
-            seamless blend of learning, competition, and innovation. Together, we craft an
-            experience that challenges, inspires, and pushes the boundaries of civil engineering.
+            With a focus on &quot;Fusing Innovation with a Greener Tomorrow,&quot; Smarak challenges
+            participants to think beyond conventional methods and embrace sustainable, future-ready
+            technologies. From hands-on technical competitions and design challenges to insightful
+            seminars and workshops, the fest serves as a hub for learning, creativity,
+            and collaboration.
           </motion.p>
 
           <motion.div

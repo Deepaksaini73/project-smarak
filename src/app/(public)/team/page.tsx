@@ -22,10 +22,10 @@ export default function Page() {
         members={teamHeads.map(member => ({
           ...member,
           name: <span className="font-[Outfit]">{member.name}</span>,
-          position: <span className="font-[Outfit]">{member.position}</span>,
+          position: <span className="font-[Quicksand]">{member.position}</span>,
           title: <span className="font-[Quicksand]">{member.title}</span>,
         }))}
-        rowSizes={[3, 2]}
+        rowSizes={[4, 4, 4, 4]}
       />
       {/* <TeamSection
         sectionTitle={<span className="text-6xl font-bold"> Team</span>}
