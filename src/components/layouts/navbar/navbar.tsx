@@ -48,7 +48,7 @@ export default function Navbar() {
       <div className="bg-[#FEFBED] fixed w-full shadow-md top-0 z-50 flex items-center slg:justify-between slg:px-12 px-4 py-4 text-white">
         <Link href="/" className="cursor-pointer">
           <Image
-            className="w-24 scale-150"
+            className="w-24 scale-150 ml-5"
             src={navbarContent.images.smarak}
             alt="cest-smarak"
             priority
