@@ -32,5 +32,6 @@ export const navbarContent = {
   ],
   images: {
     cest: 'https://res.cloudinary.com/da0htbmcg/image/upload/v1743262553/smarak25/assets/ogfudiy9nyhwoegauxsp.png',
+    smarak: '/images/logo.png',
   },
 };

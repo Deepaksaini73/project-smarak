@@ -8,6 +8,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { navbarContent } from '@/config/layouts';
 import MobileMenu from './mobile-menu';
 import { useSession } from 'next-auth/react';
+import { X } from 'lucide-react';
 
 export default function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -47,12 +48,12 @@ export default function Navbar() {
       <div className="bg-[#FEFBED] fixed w-full shadow-md top-0 z-50 flex items-center slg:justify-between slg:px-12 px-4 py-4 text-white">
         <Link href="/" className="cursor-pointer">
           <Image
-            className="w-16"
-            src={navbarContent.images.cest}
+            className="w-24 scale-150"
+            src={navbarContent.images.smarak}
             alt="cest-smarak"
             priority
-            width={100}
-            height={100}
+            width={500}
+            height={500}
           />
         </Link>
         <div className="hidden slg:flex gap-10 text-[22px] font-bold items-center font-quicksand text-[#574900]">
@@ -95,9 +96,9 @@ export default function Navbar() {
 
         <button
           className="text-[#554400] slg:hidden flex justify-end w-full"
-          onClick={() => setToggleMenu(true)}
+          onClick={() => setToggleMenu(!toggleMenu)}
         >
-          <RiMenu3Line size={40} />
+          {toggleMenu ? <X size={40} /> : <RiMenu3Line size={40} />}
         </button>
       </div>
       <div className="h-[72px]"></div>
