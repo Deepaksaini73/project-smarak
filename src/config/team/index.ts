@@ -144,6 +144,11 @@ export const members = [
     name: 'Priyal Todi',
     image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439530/Priyal_Todi_yxuwcg.jpg',
   },
+  {
+    name: 'Kamlesh Choudray',
+    image:
+      'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743448575/Screenshot_2025-04-01_004554_vxzmkv.png',
+  },
 
   {
     name: 'Sudhanshu',
