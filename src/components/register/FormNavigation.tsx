@@ -10,7 +10,14 @@ interface FormNavigationProps {
   loading?: boolean;
 }
 
-export function FormNavigation({ step, totalSteps, onBack, onNext, loading }: FormNavigationProps) {
+export function FormNavigation({
+  step,
+  totalSteps,
+  onBack,
+  onNext,
+  loading,
+  onSubmit,
+}: FormNavigationProps) {
   const isFirstStep = step === 1;
   const isLastStep = step === totalSteps;
 
@@ -29,7 +36,7 @@ export function FormNavigation({ step, totalSteps, onBack, onNext, loading }: Fo
           Next
         </Button>
       ) : (
-        <Button type="submit" className="cursor-pointer" disabled={loading}>
+        <Button className="cursor-pointer" disabled={loading} onClick={onSubmit}>
           {loading ? 'Loading...' : 'Submit'}
         </Button>
       )}

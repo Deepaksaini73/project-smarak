@@ -22,6 +22,14 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/components/AboutUs/ClubActivity.jsx",
+    "src/components/team/teamSection.jsx",
+    "src/components/team/memberCard.jsx"
+  ],
   "exclude": ["node_modules"]
 }
