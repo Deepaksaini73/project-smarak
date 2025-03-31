@@ -178,7 +178,15 @@ export function RegistrationDialog({
                 </div>
                 <div className="flex items-center">
                   <Clock className="h-4 w-4 mr-2 text-[#554400]" />
-                  <p className="font-medium text-[#554400]">{selectedEvent?.duration} minutes</p>
+                  <p className="font-medium text-[#554400]">
+                    {selectedEvent?.duration && selectedEvent.duration > 660
+                      ? `${Math.floor(selectedEvent.duration / 1440)} day${Math.floor(selectedEvent.duration / 1440) > 1 ? 's' : ''}${
+                          Math.floor((selectedEvent.duration % 1440) / 60) > 0
+                            ? ` ${Math.floor((selectedEvent.duration % 1440) / 60)} hour${Math.floor((selectedEvent.duration % 1440) / 60) > 1 ? 's' : ''}`
+                            : ''
+                        }`
+                      : `${selectedEvent?.duration ?? 0} minute${(selectedEvent?.duration ?? 0) > 1 ? 's' : ''}`}
+                  </p>
                 </div>
                 <div className="flex items-center">
                   <Tag className="h-4 w-4 mr-2 text-[#554400]" />
