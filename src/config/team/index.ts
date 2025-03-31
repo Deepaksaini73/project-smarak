@@ -88,7 +88,7 @@ export const teamHeads = [
     position: 'post production head',
     title: 'UX Head',
     imageSrc:
-      'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743446336/157-1579943_no-profile-picture-round_q45ngc.jpg',
+      'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439103/IMG20231205123219-01_-_Arnav_oehvqn.jpg',
   },
 ];
 

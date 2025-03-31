@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { link } from 'fs';
+import { heroImage } from '@/config/home';
 
 export default function Hero() {
   const socialIconVariants = {
@@ -273,9 +274,7 @@ export default function Hero() {
         className="w-full sslg:hidden block"
       >
         <Image
-          src={
-            'https://res.cloudinary.com/da0htbmcg/image/upload/v1743448569/Group_1000001882_wabepg.png'
-          }
+          src={heroImage}
           alt="Hero"
           width={800}
           height={1200}
@@ -298,9 +297,7 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
         >
           <Image
-            src={
-              'https://res.cloudinary.com/da0htbmcg/image/upload/v1743448569/Group_1000001882_wabepg.png'
-            }
+            src={heroImage}
             alt="Hero"
             width={1920}
             height={1080}
