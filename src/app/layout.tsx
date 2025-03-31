@@ -5,6 +5,7 @@ import { Toaster } from 'sonner';
 import { Analytics } from '@vercel/analytics/react';
 import Providers from '@/components/shared/providers';
 import { generateMetadata } from '@/config/seo';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = generateMetadata();
 export default function RootLayout({
@@ -32,8 +33,9 @@ export default function RootLayout({
             className: 'font-outfit',
           }}
         />
-        <Analytics />
         <Providers>{children}</Providers>
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
