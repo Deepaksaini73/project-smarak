@@ -8,7 +8,7 @@ export default function Page() {
   return (
     <div className="pb-20">
       <Section
-        content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        content="The BIS Club at NIT Rourkela is powered by a team of passionate individuals dedicated to promoting technical excellence and innovation in civil engineering. Our members work tirelessly to ensure that Smarak becomes a platform for learning, collaboration, and sustainable development. From organizing workshops and competitions to engaging with industry experts, our team is committed to reshaping the future of civil engineering. Together, we strive to blend traditional engineering wisdom with modern sustainable practices, making an impact that lasts beyond the event."
         title="Team"
         image={{
           name: aboutUs.image.name,

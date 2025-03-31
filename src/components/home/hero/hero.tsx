@@ -273,11 +273,15 @@ export default function Hero() {
         className="w-full sslg:hidden block"
       >
         <Image
-          src={'/images/hero.png'}
+          src={
+            'https://res.cloudinary.com/da0htbmcg/image/upload/v1743448569/Group_1000001882_wabepg.png'
+          }
           alt="Hero"
-          width={500}
-          height={500}
-          className="h-full object-fill object-center w-full rounded-t-[100px]"
+          width={800}
+          height={1200}
+          quality={100}
+          priority
+          className="h-[450px] object-cover object-center w-full rounded-t-[100px]"
         />
       </motion.div>
 
@@ -294,11 +298,15 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
         >
           <Image
-            src={'/images/hero.png'}
+            src={
+              'https://res.cloudinary.com/da0htbmcg/image/upload/v1743448569/Group_1000001882_wabepg.png'
+            }
             alt="Hero"
-            width={1000}
-            height={1000}
-            className="object-fill object-center w-full rounded-l-[138px] h-screen"
+            width={1920}
+            height={1080}
+            quality={100}
+            className="object-cover w-full rounded-l-[138px] h-screen"
+            priority
           />
         </motion.div>
       </motion.div>

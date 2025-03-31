@@ -5,7 +5,7 @@ export const aboutUs = {
         `,
   image: {
     name: 'Glorifying since 12 years',
-    src: 'https://res.cloudinary.com/da0htbmcg/image/upload/v1743262554/smarak25/assets/ho1olskvk8toapke9xlg.jpg',
+    src: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743446837/IMG_3499_aysuhc.jpg',
     height: 350,
     width: 400,
   },

@@ -49,7 +49,7 @@ export const eventsData: EventItem[] = [
   {
     id: 'SAHAYATRI',
     title: 'SAHAYATRI',
-    image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743422391/sahaytri_xmeuxd.png',
+    image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743445129/sahaytri_wvhsxu.png',
     description:
       'Participants will leverage machine learning to predict and mitigate road accidents by analyzing real-world data on traffic, road geometry, weather, and driver behavior, aiming to enhance road safety with data-driven insights.',
     buttonText: 'Read More',
