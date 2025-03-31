@@ -9,11 +9,15 @@ export default function MobileMenu({
   setToggleMenu,
   mobileNavRef,
   isActive,
+  isLoggedIn,
+  handleLogout,
 }: {
   toggleMenu: boolean;
   setToggleMenu: React.Dispatch<React.SetStateAction<boolean>>;
   mobileNavRef: React.RefObject<HTMLDivElement>;
   isActive: (href: string) => boolean;
+  isLoggedIn: boolean;
+  handleLogout: () => void;
 }) {
   return (
     <AnimatePresence>
@@ -54,15 +58,31 @@ export default function MobileMenu({
                 </motion.div>
               ))}
 
-              <Link href={'/sigin'}>
-                <motion.button
-                  className="w-full border bg-[#554400] text-[#fff] font-bold px-6 py-2 rounded-md shadow-md hover:bg-[#443300] hover:text-white transition mt-4 font-quicksand"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Sign in
-                </motion.button>
-              </Link>
+              {!isLoggedIn ? (
+                <Link href={'/signin'}>
+                  <motion.button
+                    className="w-full border bg-[#554400] text-[#fff] font-bold px-6 py-2 rounded-md shadow-md hover:bg-[#443300] hover:text-white transition mt-4 font-quicksand"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Sign in
+                  </motion.button>
+                </Link>
+              ) : (
+                <>
+                  <Link href={'/profile'} className="button-primary">
+                    Profile
+                  </Link>
+                  <motion.button
+                    className="button-primary"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </motion.button>
+                </>
+              )}
             </div>
           </motion.div>
         </motion.div>

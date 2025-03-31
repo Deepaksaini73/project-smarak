@@ -42,10 +42,16 @@ export const generateMetadata = (): Metadata => {
       siteName: 'Smarak 2025',
       images: [
         {
-          url: '/images/banner.png',
+          url: 'https://www.smaraknitrkl.in/images/banner.jpeg',
           width: 1200,
           height: 630,
           alt: 'Smarak 2025 Banner',
+        },
+        {
+          url: 'https://www.smaraknitrkl.in/images/mai.jpeg',
+          width: 500,
+          height: 500,
+          alt: 'Smarak 2025 Logo',
         },
       ],
       locale: 'en_US',
@@ -56,7 +62,10 @@ export const generateMetadata = (): Metadata => {
       title: 'Smarak 2025 | Annual Civil Engineering Fest of NIT Rourkela',
       description:
         'Join Smarak 2025, the premier civil engineering fest at NIT Rourkela from April 11-13, 2025.',
-      images: ['/images/banner.png'],
+      images: [
+        'https://www.smaraknitrkl.in/images/banner.jpeg',
+        'https://www.smaraknitrkl.in/images/mai.jpeg',
+      ],
       creator: '@smarak_nitr',
     },
     category: 'Education',
@@ -69,33 +78,6 @@ export const generateMetadata = (): Metadata => {
       'event:location': 'NIT Rourkela, Odisha, India',
       'event:organizer': 'BIS Standard Club Civil & CEST Club, NIT Rourkela',
       'event:contact': 'smarak.nitrkl@gmail.com',
-    },
-    icons: {
-      icon: [
-        { url: '/favicon.ico' },
-        { url: '/icon-16x16.png', sizes: '16x16', type: 'image/png' },
-        { url: '/icon-32x32.png', sizes: '32x32', type: 'image/png' },
-        { url: '/icon-192x192.png', sizes: '192x192', type: 'image/png' },
-        { url: '/icon-512x512.png', sizes: '512x512', type: 'image/png' },
-      ],
-      shortcut: '/favicon.ico',
-      apple: [{ url: '/apple-touch-icon.png' }],
-    },
-    manifest: '/manifest.json',
-    themeColor: [
-      { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-      { media: '(prefers-color-scheme: dark)', color: '#121212' },
-    ],
-    appleWebApp: {
-      capable: true,
-      title: 'Smarak 2025',
-      statusBarStyle: 'black-translucent',
-    },
-    applicationName: 'Smarak 2025',
-    viewport: {
-      width: 'device-width',
-      initialScale: 1,
-      maximumScale: 1,
     },
   };
 };

@@ -10,6 +10,7 @@ import { usePayment } from '@/hooks/usePayment';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useApi } from '@/hooks/use-api';
+import { PaymentWillStartSoon } from '@/components/payment/PaymentSoon';
 
 export default function Page() {
   const [userVerified, setUserVerified] = useState(false);
@@ -75,6 +76,12 @@ export default function Page() {
       </div>
     );
   }
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 ">
+      <PaymentWillStartSoon />
+    </div>
+  );
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 ">

@@ -90,11 +90,11 @@ const MissionBanner: React.FC<MissionBannerProps> = ({
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
-              className="text-xl font-bold mb-1 font-outfit"
+              className="text-base xsmd:text-lg xlg:text-xl font-bold mb-1 font-outfit"
             >
               {title}
             </motion.h2>
-            <motion.p
+            {/* <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
@@ -102,7 +102,7 @@ const MissionBanner: React.FC<MissionBannerProps> = ({
               className="text-gray-800 font-quicksand xsmd:w-full w-[70%]"
             >
               {description}
-            </motion.p>
+            </motion.p> */}
           </div>
         </motion.div>
 

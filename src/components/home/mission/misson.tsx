@@ -12,7 +12,6 @@ export default function Mission() {
           <MissionBanner
             key={index}
             title={mission.title}
-            description={mission.description}
             imageUrl={mission.imageUrl}
             direction={index % 2 === 0 ? 'right' : 'left'}
           />

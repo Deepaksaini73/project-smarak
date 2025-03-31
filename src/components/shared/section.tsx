@@ -69,13 +69,13 @@ export function Section({
 
         <div className="flex flex-col md:flex-row gap-8 mt-5">
           {direction === 'right' ? (
-            <div className="flex flex-col-reverse md:flex-row items-start justify-between w-full">
+            <div className="flex flex-col-reverse slg:flex-row items-start justify-between w-full">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="md:w-1/2 mt-8 md:mt-0"
+                className="slg:w-1/2 mt-8 slg:mt-0"
               >
                 <div className="text-gray-800 leading-relaxed mb-6 font-outfit text-lg">
                   {content}
@@ -86,7 +86,7 @@ export function Section({
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
-                className="md:w-1/2 flex justify-center"
+                className="slg:w-1/2 flex justify-center"
               >
                 <motion.div
                   whileHover={{ scale: 1.03 }}

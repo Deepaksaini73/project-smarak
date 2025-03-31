@@ -3,8 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { link } from 'fs';
-import { heroImage } from '@/config/home';
+import { heroImage, socialLinks } from '@/config/home';
 
 export default function Hero() {
   const socialIconVariants = {
@@ -100,29 +99,7 @@ export default function Hero() {
           className="hidden smd:flex sslg:hidden xlg:flex items-center flex-col justify-between min-h-[50dvh] -mr-20 sslg:-ml-20"
         >
           <div className="flex flex-col items-center justify-center gap-5">
-            {[
-              {
-                src: '/images/ig.png',
-                alt: 'Instagram',
-                width: 30,
-                height: 30,
-                link: 'https://www.instagram.com/smarak_nitr/',
-              },
-              {
-                src: '/images/yt.png',
-                alt: 'Youtube',
-                width: 30,
-                height: 30,
-                link: 'https://www.youtube.com/@smaraknitr',
-              },
-              {
-                src: '/images/fb.png',
-                alt: 'Facebook',
-                width: 15,
-                height: 15,
-                link: 'https://www.facebook.com/smarak.nitr/',
-              },
-            ].map((icon, i) => (
+            {socialLinks.map((icon, i) => (
               <motion.div
                 key={i}
                 custom={i}
