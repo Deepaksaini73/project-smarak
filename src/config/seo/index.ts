@@ -42,10 +42,16 @@ export const generateMetadata = (): Metadata => {
       siteName: 'Smarak 2025',
       images: [
         {
-          url: '/images/banner.png',
+          url: 'https://www.smaraknitrkl.in/images/banner.jpeg',
           width: 1200,
           height: 630,
           alt: 'Smarak 2025 Banner',
+        },
+        {
+          url: 'https://www.smaraknitrkl.in/images/mai.jpeg',
+          width: 500,
+          height: 500,
+          alt: 'Smarak 2025 Logo',
         },
       ],
       locale: 'en_US',
@@ -56,7 +62,10 @@ export const generateMetadata = (): Metadata => {
       title: 'Smarak 2025 | Annual Civil Engineering Fest of NIT Rourkela',
       description:
         'Join Smarak 2025, the premier civil engineering fest at NIT Rourkela from April 11-13, 2025.',
-      images: ['/images/banner.png'],
+      images: [
+        'https://www.smaraknitrkl.in/images/banner.jpeg',
+        'https://www.smaraknitrkl.in/images/mai.jpeg',
+      ],
       creator: '@smarak_nitr',
     },
     category: 'Education',
