@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
             whileHover={{ y: -5 }}
             viewport={{ once: true }}
           >
-            <ImageCard imgSrc={footerContent.images.groupimg} imgName="CEST FAM" />
+            <ImageCard imgSrc={footerContent.images.groupimg} imgName="TEAM SMARAK" />
           </motion.div>
 
           <motion.div
@@ -93,9 +93,7 @@ const Footer: React.FC = () => {
             viewport={{ once: true }}
             className="text-sm md:text-md font-outfit text-gray-900"
           >
-            Jindal Colony, Bisra Road <br />
-            National Institute Of Technology, Rourkela <br />
-            Odisha-769008.
+            National Institute of Technology Rourkela <br /> Odisha, India, 769008 <br />
           </motion.p>
         </motion.div>
 

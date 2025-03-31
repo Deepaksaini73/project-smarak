@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { link } from 'fs';
+import { heroImage } from '@/config/home';
 
 export default function Hero() {
   const socialIconVariants = {
@@ -49,9 +50,33 @@ export default function Hero() {
     },
   };
 
+  // Add this near the top where other variants are defined
+  const logoVariants = {
+    initial: {
+      opacity: 0,
+      y: 20,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      },
+    },
+    hover: {
+      scale: 1.02,
+      filter: 'brightness(1.1)',
+      transition: {
+        duration: 0.4,
+        ease: 'easeOut',
+      },
+    },
+  };
+
   // Split heading text into arrays for each line
-  const headingLine1 = 'SMARAK & its'.split('');
-  const headingLine2 = 'Tagline for Events'.split('');
+  const headingLine1 = 'SMARAK'.split('');
+  const headingLine2 = ' '.split('');
 
   return (
     <div className="min-h-screen bg-[#FFD700] flex sslg:flex-row flex-col items-center justify-center sslg:justify-between w-full relative overflow-hidden">
@@ -140,21 +165,25 @@ export default function Hero() {
           >
             {/* First line with staggered letters */}
             <motion.div
-              className="flex flex-wrap"
+              className="flex flex-wrap mb-4"
               initial="initial"
               animate="animate"
-              variants={titleContainerVariants}
+              whileHover="hover"
+              variants={logoVariants}
             >
-              {headingLine1.map((char, index) => (
-                <motion.span
-                  key={`line1-${index}`}
-                  custom={index}
-                  variants={letterVariants}
-                  className={char === ' ' ? 'mr-2' : ''}
-                >
-                  {char}
-                </motion.span>
-              ))}
+              <motion.span
+                className="font-extrabold text-7xl tracking-tight"
+                style={{
+                  background: 'linear-gradient(135deg, #8D0000 0%, #463700 50%, #8D0000 100%)',
+                  backgroundSize: '200% 200%',
+                  animation: 'gradient 8s ease infinite',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  filter: 'drop-shadow(0 0 2px rgba(141, 0, 0, 0.3))',
+                }}
+              >
+                SMARAK
+              </motion.span>
             </motion.div>
 
             {/* Second line with staggered letters */}
@@ -184,7 +213,7 @@ export default function Hero() {
             variants={textVariants}
             className="text-[#8D0000] font-outfit font-semibold text-lg mt-2"
           >
-            &quot;Taking Pride, Getting Fascinated&quot;
+            &quot;Fusing Innovation With a Greener Tomorrow&quot;
           </motion.p>
 
           <motion.p
@@ -198,11 +227,11 @@ export default function Hero() {
               letterSpacing: '0.00733333px',
             }}
           >
-            At CEST, we are dedicated to fostering a thriving community of civil engineering
-            enthusiasts. Our club serves as a platform for students to explore, learn, and excel in
-            various aspects of civil engineering. Through a range of activities, workshops, and
-            events, we aim to broaden the horizons of our members and enhance their knowledge and
-            skills.
+            With a focus on &quot;Fusing Innovation with a Greener Tomorrow,&quot; Smarak challenges
+            participants to think beyond conventional methods and embrace sustainable, future-ready
+            technologies. From hands-on technical competitions and design challenges to insightful
+            seminars and workshops, the fest serves as a hub for learning, creativity,
+            and collaboration.
           </motion.p>
 
           <motion.div
@@ -245,11 +274,13 @@ export default function Hero() {
         className="w-full sslg:hidden block"
       >
         <Image
-          src={'/images/hero.png'}
+          src={heroImage}
           alt="Hero"
-          width={500}
-          height={500}
-          className="h-full object-fill object-center w-full rounded-t-[100px]"
+          width={800}
+          height={1200}
+          quality={100}
+          priority
+          className="h-[450px] object-cover object-center w-full rounded-t-[100px]"
         />
       </motion.div>
 
@@ -266,11 +297,13 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
         >
           <Image
-            src={'/images/hero.png'}
+            src={heroImage}
             alt="Hero"
-            width={1000}
-            height={1000}
-            className="object-fill object-center w-full rounded-l-[138px] h-screen"
+            width={1920}
+            height={1080}
+            quality={100}
+            className="object-cover w-full rounded-l-[138px] h-screen"
+            priority
           />
         </motion.div>
       </motion.div>
