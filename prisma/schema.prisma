@@ -22,9 +22,12 @@ model User {
   updatedAt    DateTime @updatedAt
   hasPaid      Boolean  @default(false)
   role         Role     @default(user)
+  referralCode String   @unique @default(uuid())
+  referredBy   String?
+  referrer     User?    @relation("ReferralRelation", fields: [referredBy], references: [id])
+  referrals    User[]   @relation("ReferralRelation")
   transactions Transaction[]
   participations Participant[]
-
   Registration Registration[]
 }
 

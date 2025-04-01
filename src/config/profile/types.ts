@@ -22,4 +22,5 @@ export type User = {
   hasPaid: boolean;
   role: string;
   transactions?: Transaction[];
+  referralCode?: string;
 };

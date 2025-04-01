@@ -28,6 +28,7 @@ export const registrationSchema = z.object({
   yearOfStudy: z.coerce.number().min(1).max(6, {
     message: 'Year of study must be between 1 and 6.',
   }),
+  referralCode: z.string().optional().nullable(),
 });
 
 export type RegistrationFormValues = z.infer<typeof registrationSchema>;

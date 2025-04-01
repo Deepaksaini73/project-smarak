@@ -23,7 +23,6 @@ export default function Page() {
           ...member,
           name: <span className="font-[Outfit]">{member.name}</span>,
           position: <span className="font-[Quicksand]">{member.position}</span>,
-          title: <span className="font-[Quicksand]">{member.title}</span>,
         }))}
         rowSizes={[4, 4, 4, 4]}
       />

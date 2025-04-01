@@ -138,6 +138,21 @@ export default function Users() {
     }
 
     result.sort((a, b) => {
+      // Special handling for referralsCount
+      if (sortConfig.key === 'referralsCount') {
+        const aCount = a.referrals?.length || 0;
+        const bCount = b.referrals?.length || 0;
+
+        if (aCount < bCount) {
+          return sortConfig.direction === 'asc' ? -1 : 1;
+        }
+        if (aCount > bCount) {
+          return sortConfig.direction === 'asc' ? 1 : -1;
+        }
+        return 0;
+      }
+
+      // Regular sorting for other fields
       const aValue = a[sortConfig.key as keyof User];
       const bValue = b[sortConfig.key as keyof User];
 

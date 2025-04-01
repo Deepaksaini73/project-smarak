@@ -59,7 +59,7 @@ export default function MobileMenu({
               ))}
 
               {!isLoggedIn ? (
-                <Link href={'/signin'}>
+                <Link href={'/signin'} onClick={() => setToggleMenu(false)}>
                   <motion.button
                     className="w-full border bg-[#554400] text-[#fff] font-bold px-6 py-2 rounded-md shadow-md hover:bg-[#443300] hover:text-white transition mt-4 font-quicksand"
                     whileHover={{ scale: 1.05 }}
@@ -70,14 +70,21 @@ export default function MobileMenu({
                 </Link>
               ) : (
                 <>
-                  <Link href={'/profile'} className="button-primary">
+                  <Link
+                    href={'/profile'}
+                    className="button-primary"
+                    onClick={() => setToggleMenu(false)}
+                  >
                     Profile
                   </Link>
                   <motion.button
                     className="button-primary"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={handleLogout}
+                    onClick={() => {
+                      handleLogout();
+                      setToggleMenu(false);
+                    }}
                   >
                     Logout
                   </motion.button>

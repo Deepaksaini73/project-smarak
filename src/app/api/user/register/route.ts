@@ -5,11 +5,27 @@ import { registrationSchema } from '@/config/register/schema';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-
     const validatedData = registrationSchema.parse(body);
 
+    const { referralCode, ...userData } = validatedData;
+
+    let referredById = null;
+
+    if (referralCode) {
+      const referrer = await prisma.user.findUnique({
+        where: { referralCode },
+      });
+
+      if (referrer) {
+        referredById = referrer.id;
+      }
+    }
+
     const user = await prisma.user.create({
-      data: validatedData,
+      data: {
+        ...userData,
+        referredBy: referredById,
+      },
     });
 
     return NextResponse.json(

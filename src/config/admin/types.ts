@@ -7,6 +7,7 @@ export type User = {
   hasPaid: boolean;
   createdAt: string;
   transactions: Transaction[];
+  referrals: any[];
 };
 
 export type Transaction = {

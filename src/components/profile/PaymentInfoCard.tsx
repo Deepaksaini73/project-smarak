@@ -71,8 +71,8 @@ export function PaymentInfoCard({
               Your payment has been received and is being verified.
             </p>
             <p className="text-yellow-700 mt-2 font-outfit">
-              This usually takes 1-2 business days. You&apos;ll be notified once the verification is
-              complete.
+              This would take some days. Please return to this page after few days to check the
+              status of your payment.
             </p>
           </div>
         )}

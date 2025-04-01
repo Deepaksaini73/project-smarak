@@ -11,4 +11,4 @@ export const ERR_DETAILS = [
 ];
 
 export const QR_IMAGE =
-  'https://res.cloudinary.com/da0htbmcg/image/upload/v1743345850/QR_code_for_mobile_English_Wikipedia_jja5qr.svg';
+  'https://res.cloudinary.com/da0htbmcg/image/upload/v1743506713/Screenshot_2025-04-01_165449_azynks.png';
