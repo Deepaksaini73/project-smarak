@@ -82,7 +82,9 @@ const MissionBanner: React.FC<MissionBannerProps> = ({
           <div
             className={cn(
               'h-full flex flex-col justify-center smd:p-6',
-              isRightDirection ? '!ml-10 mr-auto text-left' : '!ml-auto !mr-10 text-right'
+              isRightDirection
+                ? '!ml-5 xssm:!ml-8 smd:!ml-10 !w-[70%] !smd:w-full text-left'
+                : '!ml-auto !mr-5 xssm:!mr-8 smd:!mr-10 !w-[70%] !smd:w-full text-right'
             )}
           >
             <motion.h2
