@@ -1,120 +1,123 @@
 export const teamHeads = [
   {
     name: 'Abhishek Kumar Gotam',
-    position: 'Convener',
-    title: 'Team Lead',
+    position: 'General convenor',
     imageSrc:
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439099/abhishek_bhaiya_zhax56.jpg',
   },
   {
     name: 'Ashwini Kumar Mohapatara',
-    position: 'Organizing Seceretary',
-    title: 'UX Head',
+    position: 'Convenor ',
     imageSrc:
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439103/IMG_20250310_114103404_HDR_PORTRAIT_-_Ashwini_Kumar_Mohapatra_telgyq.jpg',
   },
   {
     name: 'Snigdharani Dalabehara ',
-    position: 'Booking and Permissions Head',
-    title: 'Marketing Head',
+    position: 'Mangement head',
     imageSrc:
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439105/IMG_20250331_033752_-_Snigdha_Rani_qaskac.jpg',
   },
   {
     name: 'Harshik Anupkumar Ardeja ',
     position: 'Sponsorship Head',
-    title: 'Sponsorship Head',
     imageSrc:
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439102/harshik_ardeja_rhhall.jpg',
   },
   {
     name: 'Aryansh deep',
     position: 'Design Head',
-    title: 'UX Head',
     imageSrc:
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439100/IMG_20250331_005855_-_Aryansh_Deep_k9i48a.jpg',
   },
   {
     name: 'Kishan Sahu ',
     position: 'Data Base Head',
-    title: 'Analytics Lead',
     imageSrc:
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439105/kishan_-_Kishan_Sahu_aic3vr.png',
   },
   {
     name: 'Kunal Raj',
     position: 'Design Head',
-    title: 'Marketing Head',
     imageSrc:
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743440636/Kunal_Singh_hcldzb.jpg',
   },
   {
     name: 'Raghuraj Somani',
     position: 'Sponsorship Head',
-    title: 'Team Lead',
     imageSrc:
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439101/IMG-20250330-WA0076_-_Raj_Somani_cve6qc.jpg',
   },
   {
     name: 'Ashray Mohapatra',
     position: 'Booking and Permission Head',
-    title: 'UX Head',
     imageSrc:
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743445813/WhatsApp_Image_2025-03-31_at_23.58.06_ccb92f2b_xxgisg.jpg',
   },
-
   {
     name: 'Sameer Gupta ',
     position: 'Content Head',
-    title: 'Marketing Head',
     imageSrc:
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439101/IMG_20240111_204646_578_-_Sameer_Gupta_mrwbda.jpg',
   },
   {
     name: 'Abhineet Kumar',
     position: 'post production head',
-    title: 'UX Head',
     imageSrc:
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743445843/WhatsApp_Image_2025-03-31_at_23.57.39_3755a539_owtrpu.jpg',
   },
   {
     name: 'Arnav nath ',
     position: 'post production head',
-    title: 'UX Head',
     imageSrc:
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439103/IMG20231205123219-01_-_Arnav_oehvqn.jpg',
   },
   {
     name: 'Aryan Chaudhari',
     position: 'Alumini Relations',
-    title: 'UX Head',
     imageSrc:
       'https://res.cloudinary.com/da0htbmcg/image/upload/v1743453745/IMG_8616_-_Aryan_Chaudhari_pcag9g.jpg',
   },
   {
     name: 'sanmay Pradhan',
     position: 'Design Head',
-    title: 'UX Head',
     imageSrc:
       'https://res.cloudinary.com/da0htbmcg/image/upload/v1743453843/dummy-profile-pic-300x300_oymyun.png',
   },
   {
     name: 'Bhabesh Beherav',
-    position: 'PR Head',
-    title: 'UX Head',
+    position: 'Management head ',
     imageSrc:
       'https://res.cloudinary.com/da0htbmcg/image/upload/v1743453738/IMG-20240108-WA0304_-_Bhabesh_Behera_g0q4s7.jpg',
   },
   {
     name: 'Siddharth',
     position: 'Content Head',
-    title: 'Analytics Lead',
     imageSrc:
       'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743445706/WhatsApp_Image_2025-03-31_at_23.55.53_478108a9_kl1rrk.jpg',
   },
 ];
 
 export const members = [
+  {
+    name: 'Abhisek Pandey',
+    image:
+      'https://res.cloudinary.com/da0htbmcg/image/upload/v1743504356/Screenshot_2025-04-01_161503_xofijb.png',
+  },
+  {
+    name: 'Subhashree Mohapatra',
+    image:
+      'https://res.cloudinary.com/da0htbmcg/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1743503977/edit_image_-_Subhashree_Mohapatra_g1mhns.png',
+  },
+  {
+    name: 'Prince Barik',
+    image:
+      'https://res.cloudinary.com/da0htbmcg/image/upload/v1743504140/WhatsApp_Image_2025-04-01_at_16.10.49_xwivel.jpg',
+  },
+  {
+    name: 'Srianshu Ray',
+    image:
+      'https://res.cloudinary.com/da0htbmcg/image/upload/v1743503091/IMG-20250401-WA0015_ys47tq.jpg',
+  },
   {
     name: 'Aman Kumar',
     image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439531/Aman_Kumar_ihrprs.jpg',
