@@ -101,7 +101,7 @@ export const members = [
   {
     name: 'Abhisek Pandey',
     image:
-      'https://res.cloudinary.com/da0htbmcg/image/upload/v1743504356/Screenshot_2025-04-01_161503_xofijb.png',
+      'https://res.cloudinary.com/da0htbmcg/image/upload/v1743506986/WhatsApp_Image_2025-04-01_at_16.58.51_uqknmd.jpg',
   },
   {
     name: 'Subhashree Mohapatra',

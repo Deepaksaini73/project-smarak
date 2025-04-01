@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { Form } from '@/components/ui/form';
 import { Loader2 } from 'lucide-react';
@@ -14,6 +14,7 @@ import { useApi } from '@/hooks/use-api';
 import { FormLayout } from '@/components/register/FormLayout';
 import { PersonalInfoSection } from '@/components/register/PersonalInfoSection';
 import { AcademicInfoSection } from '@/components/register/AcademicInfoSection';
+import { ReferralCodeSection } from '@/components/register/ReferralCodeSection';
 import { SubmitButton } from '@/components/register/SubmitButton';
 
 export default function RegisterPage() {
@@ -21,6 +22,8 @@ export default function RegisterPage() {
   const email = session.data?.user?.email || '';
   const name = session.data?.user?.name || '';
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const referralCode = searchParams.get('ref');
 
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>('');
   const [isUploading, setIsUploading] = useState(false);
@@ -40,6 +43,7 @@ export default function RegisterPage() {
       idCardImage: '',
       rollNo: '',
       yearOfStudy: 1,
+      referralCode: referralCode || '',
     },
   });
 
@@ -50,7 +54,10 @@ export default function RegisterPage() {
     if (name) {
       form.setValue('name', name);
     }
-  }, [email, name, form]);
+    if (referralCode) {
+      form.setValue('referralCode', referralCode);
+    }
+  }, [email, name, referralCode, form]);
 
   const checkRegistrationStatus = async () => {
     try {
@@ -118,6 +125,8 @@ export default function RegisterPage() {
                 isUploading={isUploading}
                 setIsUploading={setIsUploading}
               />
+
+              <ReferralCodeSection form={form} />
 
               <SubmitButton isLoading={isLoading} isUploading={isUploading} />
             </form>
