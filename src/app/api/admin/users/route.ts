@@ -33,6 +33,11 @@ export async function GET(req: NextRequest) {
           },
           take: 1,
         },
+        referrals: {
+          orderBy: {
+            createdAt: 'desc',
+          },
+        },
       },
       skip,
       take: limit,

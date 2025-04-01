@@ -19,6 +19,9 @@ export async function GET() {
 
     const user = await prisma.user.findUnique({
       where: { email: session.user.email },
+      include: {
+        referrals: true,
+      },
     });
 
     if (!user) {

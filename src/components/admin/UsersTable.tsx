@@ -28,6 +28,7 @@ interface User {
   hasPaid: boolean;
   createdAt: string;
   transactions: Transaction[];
+  referrals: any[]; // Referral array
 }
 
 interface Transaction {
@@ -107,19 +108,25 @@ export function UsersTable({
             <TableHead>Institute</TableHead>
             <TableHead>Payment Status</TableHead>
             <TableHead>Payment Proof</TableHead>
+            <TableHead className="cursor-pointer" onClick={() => handleSort('referralsCount')}>
+              Referrals
+              {sortConfig.key === 'referralsCount' && (
+                <span className="ml-1">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
+              )}
+            </TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {isLoading ? (
             <TableRow>
-              <TableCell colSpan={7} className="text-center py-8">
+              <TableCell colSpan={8} className="text-center py-8">
                 Loading...
               </TableCell>
             </TableRow>
           ) : users.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={7} className="text-center py-8">
+              <TableCell colSpan={8} className="text-center py-8">
                 No users found
               </TableCell>
             </TableRow>
@@ -147,6 +154,7 @@ export function UsersTable({
                     </Button>
                   )}
                 </TableCell>
+                <TableCell>{user.referrals ? user.referrals.length : 0}</TableCell>
                 <TableCell>
                   {user.transactions && user.transactions.length > 0 && (
                     <DropdownMenu>

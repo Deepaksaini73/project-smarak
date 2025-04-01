@@ -52,9 +52,7 @@ export function PaymentInstructions({ paymentAmount }: PaymentInstructionsProps)
             <div className="mt-4 pt-3 border-t border-gray-100">
               <div className="flex items-center">
                 <div className="w-2 h-2 bg-amber-400 rounded-full"></div>
-                <p className="text-xs text-gray-500 ml-2">
-                  Make sure to include correct amount and transaction reference
-                </p>
+                <p className="text-xs text-gray-500 ml-2">Make sure to include correct amount.</p>
               </div>
             </div>
           </div>
