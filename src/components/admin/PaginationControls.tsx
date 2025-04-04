@@ -27,7 +27,13 @@ interface PaginationControlsProps {
 }
 
 export function PaginationControls({ pagination, setPagination }: PaginationControlsProps) {
-  if (pagination.totalPages <= 1) return null;
+  const totalPages = Math.max(1, pagination.totalPages);
+
+  console.log('PaginationControls render', {
+    page: pagination.page,
+    totalPages: pagination.totalPages,
+    total: pagination.total,
+  });
 
   return (
     <Pagination className="mt-4">
@@ -40,12 +46,12 @@ export function PaginationControls({ pagination, setPagination }: PaginationCont
                 page: Math.max(1, prev.page - 1),
               }))
             }
-            className={pagination.page <= 1 ? 'opacity-50 cursor-not-allowed' : ''}
+            className={pagination.page <= 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
           />
         </PaginationItem>
         <PaginationItem>
           <span className="px-4">
-            Page {pagination.page} of {pagination.totalPages}
+            Page {pagination.page} of {totalPages || 1}
           </span>
         </PaginationItem>
         <PaginationItem>
@@ -53,11 +59,11 @@ export function PaginationControls({ pagination, setPagination }: PaginationCont
             onClick={() =>
               setPagination(prev => ({
                 ...prev,
-                page: Math.min(prev.totalPages, prev.page + 1),
+                page: Math.min(totalPages, prev.page + 1),
               }))
             }
             className={
-              pagination.page >= pagination.totalPages ? 'opacity-50 cursor-not-allowed' : ''
+              pagination.page >= totalPages ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
             }
           />
         </PaginationItem>

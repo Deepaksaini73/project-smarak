@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
     const sortBy = searchParams.get('sortBy') || 'createdAt';
     const sortOrder = searchParams.get('sortOrder') || 'desc';
 
-    const skip = (page - 1) * limit;
+    // const skip = (page - 1) * limit;
 
     const whereCondition = search
       ? {
@@ -39,8 +39,6 @@ export async function GET(req: NextRequest) {
           },
         },
       },
-      skip,
-      take: limit,
       orderBy: {
         [sortBy]: sortOrder,
       },
