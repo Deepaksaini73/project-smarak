@@ -59,6 +59,12 @@ const Footer: React.FC = () => {
           <h2 className="text-xl md:text-2xl font-bold mb-2 font-outfit">Contacts</h2>
           <div className="flex flex-col items-center md:items-end">
             <a
+              href={footerContent.whatsapp.link}
+              className="font-semibold cursor-pointer font-outfit text-sm md:text-base hover-link"
+            >
+              {footerContent.whatsapp.title}
+            </a>
+            <a
               className="font-semibold cursor-pointer font-outfit text-sm md:text-base hover-link"
               href={`mailto:${footerContent.email}`}
             >

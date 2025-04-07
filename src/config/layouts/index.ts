@@ -13,6 +13,10 @@ export const footerContent = {
   about: ` `,
   email: 'smaraknitrourkela@gmail.com',
   phone: ['9905526212', '9078840607'],
+  whatsapp: {
+    title: 'Join our WhatsApp Channel',
+    link: 'https://whatsapp.com/channel/0029Vb5bSpkDeON2XYODDa1d',
+  },
 };
 
 export const navbarContent = {

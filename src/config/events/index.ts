@@ -61,8 +61,7 @@ export const SAHAYATRI = {
   id: 'SAHAYATRI',
   link: 'https://unstop.com/hackathons/sahayatri-nit-rourkela-1457525',
   name: 'SAHAYATRI',
-  description:
-    'Participants will leverage machine learning to predict and mitigate road accidents by analyzing real-world data on traffic, road geometry, weather, and driver behavior, aiming to enhance road safety with data-driven insights.',
+  description: `Join us for Sahayatri, a unique machine learning-based hackathon under Smarak – The Civil Fest of NIT Rourkela. Dive into real-world accident data, build intelligent models, and contribute to creating safer, smarter roads through the power of civil engineering and data science. Participation is completely free for NIT Rourkela students, and you'll be competing for a total cash prize of ₹25,000.`,
   eventType: 'Hackathon',
   venue: 'Online',
   startTime: new Date('2023-12-01T10:00:00Z'),
