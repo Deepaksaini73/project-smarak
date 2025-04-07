@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { heroImage, socialLinks } from '@/config/home';
+import { FaWhatsapp } from 'react-icons/fa';
+import { footerContent } from '@/config/layouts';
 
 export default function Hero() {
   const socialIconVariants = {
@@ -25,21 +27,19 @@ export default function Hero() {
     animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
   };
 
-  // New variants for staggered letter animation
   const letterVariants = {
     initial: { opacity: 0, y: 50 },
     animate: (i: number) => ({
       opacity: 1,
       y: 0,
       transition: {
-        delay: 0.1 + i * 0.03, // Stagger each letter with a small delay
+        delay: 0.1 + i * 0.03,
         duration: 0.3,
-        ease: [0.22, 1, 0.36, 1], // Custom easing for bounce effect
+        ease: [0.22, 1, 0.36, 1],
       },
     }),
   };
 
-  // Container variant for the title
   const titleContainerVariants = {
     animate: {
       transition: {
@@ -48,8 +48,6 @@ export default function Hero() {
       },
     },
   };
-
-  // Add this near the top where other variants are defined
   const logoVariants = {
     initial: {
       opacity: 0,
@@ -73,7 +71,6 @@ export default function Hero() {
     },
   };
 
-  // Split heading text into arrays for each line
   const headingLine1 = 'SMARAK'.split('');
   const headingLine2 = ' '.split('');
 
@@ -99,6 +96,16 @@ export default function Hero() {
           className="hidden smd:flex sslg:hidden xlg:flex items-center flex-col justify-between min-h-[50dvh] -mr-20 sslg:-ml-20"
         >
           <div className="flex flex-col items-center justify-center gap-5">
+            <motion.div
+              initial="initial"
+              animate="animate"
+              whileHover="hover"
+              variants={socialIconVariants}
+            >
+              <Link href={footerContent.whatsapp.link} target="_blank">
+                <FaWhatsapp className="text-[#2f2a00] text-4xl" />
+              </Link>
+            </motion.div>
             {socialLinks.map((icon, i) => (
               <motion.div
                 key={i}

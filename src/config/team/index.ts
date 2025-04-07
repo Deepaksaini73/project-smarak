@@ -99,6 +99,26 @@ export const teamHeads = [
 
 export const members = [
   {
+    name: 'Sanjanasree Jogipilli',
+    image:
+      'https://res.cloudinary.com/dpt4bhayi/image/upload/v1744046287/id_pic_-_Sanjanasree_Jogipilli_ms6qrk.jpg',
+  },
+  {
+    name: 'Kriti Priya',
+    image:
+      'https://res.cloudinary.com/da0htbmcg/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1744047170/WhatsApp_Image_2025-04-07_at_22.58.23_g4gkou.jpg',
+  },
+  {
+    name: 'Sakshi Kumari',
+    image:
+      'https://res.cloudinary.com/da0htbmcg/image/upload/v1743453843/dummy-profile-pic-300x300_oymyun.png',
+  },
+  {
+    name: 'Subham Pradhan',
+    image:
+      'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743610908/481969837_1383531549471805_3888336721546998124_n_cdmmha.jpg',
+  },
+  {
     name: 'Abhisek Pandey',
     image:
       'https://res.cloudinary.com/da0htbmcg/image/upload/v1743506986/WhatsApp_Image_2025-04-01_at_16.58.51_uqknmd.jpg',
@@ -133,7 +153,8 @@ export const members = [
   },
   {
     name: 'Deepak Saini',
-    image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439528/Deepak_Saini_hyfjc6.jpg',
+    image:
+      'https://res.cloudinary.com/da0htbmcg/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1744047535/Deepak_Saini_hyfjc6_ee0ynz.jpg',
   },
   {
     name: 'Diptesh Kumar Panda',
@@ -146,7 +167,8 @@ export const members = [
   },
   {
     name: 'Indrayue Roy',
-    image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439529/Indrayue_Roy_br2ni0.jpg',
+    image:
+      'https://res.cloudinary.com/da0htbmcg/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1744047351/Indrayue_Roy_br2ni0_clawlu.jpg',
   },
   {
     name: 'Partha Sarathi Behera',
@@ -168,7 +190,8 @@ export const members = [
   },
   {
     name: 'Rishab Patel',
-    image: 'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439706/Rishabh_Patel_nxokul.jpg',
+    image:
+      'https://res.cloudinary.com/da0htbmcg/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1744047450/Rishabh_Patel_nxokul_wdw1gs.jpg',
   },
   {
     name: 'Ritesh Panda',
@@ -191,7 +214,7 @@ export const members = [
   {
     name: 'Sunny Kr Saurabh',
     image:
-      'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439534/Sunny_Kr_Saurabh_ruo2xh.jpg',
+      'https://res.cloudinary.com/da0htbmcg/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1744047701/Sunny_Kr_Saurabh_ruo2xh_a7vmyl.jpg',
   },
   {
     name: 'Suryansu Panigrahi',
@@ -201,7 +224,7 @@ export const members = [
   {
     name: 'Tanmaya Mohapatra',
     image:
-      'https://res.cloudinary.com/dpt4bhayi/image/upload/v1743439534/Tanmaya_Mohapatra_sfzpa0.jpg',
+      'https://res.cloudinary.com/da0htbmcg/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1744047754/Tanmaya_Mohapatra_sfzpa0_iomtq5.jpg',
   },
   {
     name: 'Tushank Rout',

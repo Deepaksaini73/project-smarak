@@ -17,6 +17,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { SAHAYATRI } from '@/config/events';
 
 export default function EventsPage() {
   const { makeRequest } = useApi();
@@ -217,6 +218,13 @@ export default function EventsPage() {
     fetchData();
   }, []);
 
+  function handleRedirectInNewTab(url: string) {
+    const newTab = window.open(url, '_blank');
+    if (newTab) {
+      newTab.focus();
+    }
+  }
+
   return (
     <div className="container mx-auto py-8 px-8 relative my-10 max-w-7xl">
       <div className="relative mb-12">
@@ -250,6 +258,14 @@ export default function EventsPage() {
 
             {events.filter(event => event.eventType === 'COMPETITION').length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <EventCard
+                  key={SAHAYATRI.id}
+                  event={SAHAYATRI as Event}
+                  onRegister={() => handleRedirectInNewTab(SAHAYATRI.link)}
+                  onDeRegister={() => {}}
+                  isRegistered={false}
+                  teamCode={''}
+                />
                 {events
                   .filter(event => event.eventType === 'COMPETITION')
                   .map(event => (
