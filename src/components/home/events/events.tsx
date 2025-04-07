@@ -15,6 +15,7 @@ const EventsCarousel: React.FC = () => {
       description={event.description}
       imageUrl={event.image}
       registerLink={event.buttonLink || '#'}
+      buttonText={event.buttonText!}
     />
   );
 
@@ -23,9 +24,16 @@ const EventsCarousel: React.FC = () => {
     description: string;
     imageUrl: string | any;
     registerLink: string;
+    buttonText: string;
   }
 
-  const EventCard = ({ title, description, imageUrl, registerLink }: EventCardProps) => {
+  const EventCard = ({
+    title,
+    description,
+    imageUrl,
+    registerLink,
+    buttonText,
+  }: EventCardProps) => {
     return (
       <div className="w-full max-w-sm bg-white rounded-lg shadow-md overflow-hidden flex flex-col justify-between">
         <div className="w-full h-48 overflow-hidden">
@@ -48,9 +56,11 @@ const EventsCarousel: React.FC = () => {
 
           <Link
             href={registerLink}
-            className="py-2 px-4 text-lg bg-[#554400] font-outfit hover:bg-[#453800] text-white font-medium rounded-md transition-colors duration-300"
+            className="py-2 px-4 text-lg bg-[#554400] font-outfit hover:bg-[#453800] text-white font-medium rounded-md transition duration-300"
+            target={/^https?:\/\//.test(registerLink) ? '_blank' : undefined}
+            rel={/^https?:\/\//.test(registerLink) ? 'noopener noreferrer' : undefined}
           >
-            Register
+            {buttonText}
           </Link>
         </div>
       </div>
