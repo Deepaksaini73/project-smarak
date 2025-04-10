@@ -1,4 +1,4 @@
-import { members } from '@/config/team';
+import { members, USER_PLACEHOLDER } from '@/config/team';
 import { HeaderTitle } from '../shared/section';
 import Image from 'next/image';
 export default function MembersGrid() {
@@ -23,7 +23,7 @@ export default function MembersGrid() {
           .map((member, index) => (
             <div key={index} className="relative flex flex-col items-center">
               <Image
-                src={member.image}
+                src={member.image || USER_PLACEHOLDER}
                 alt={member.name}
                 className="w-44 sm:w-40 md:w-44 lg:w-48 aspect-square rounded-full object-cover border-4 border-white shadow-lg"
                 height={500}

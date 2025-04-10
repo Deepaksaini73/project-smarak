@@ -80,8 +80,7 @@ export const teamHeads = [
   {
     name: 'sanmay Pradhan',
     position: 'Design Head',
-    imageSrc:
-      'https://res.cloudinary.com/da0htbmcg/image/upload/v1743453843/dummy-profile-pic-300x300_oymyun.png',
+    imageSrc: '',
   },
   {
     name: 'Bhabesh Beherav',
@@ -97,6 +96,9 @@ export const teamHeads = [
   },
 ];
 
+export const USER_PLACEHOLDER =
+  'https://res.cloudinary.com/da0htbmcg/image/upload/v1743453843/dummy-profile-pic-300x300_oymyun.png';
+
 export const members = [
   {
     name: 'Sanjanasree Jogipilli',
@@ -111,7 +113,7 @@ export const members = [
   {
     name: 'Sakshi Kumari',
     image:
-      'https://res.cloudinary.com/da0htbmcg/image/upload/v1743453843/dummy-profile-pic-300x300_oymyun.png',
+      'https://res.cloudinary.com/da0htbmcg/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1744283095/WhatsApp_Image_2025-04-10_at_16.14.41_esa9pg.jpg',
   },
   {
     name: 'Subham Pradhan',
