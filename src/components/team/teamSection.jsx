@@ -1,6 +1,7 @@
 import React from 'react';
 import MemberCard from './memberCard';
 import Title from '../shared/title';
+import { USER_PLACEHOLDER } from '@/config/team';
 
 const TeamSection = ({ sectionTitle, members, rowSizes = [3, 2] }) => {
   const rowIndices = rowSizes.reduce((acc, size, index) => {
@@ -28,7 +29,7 @@ const TeamSection = ({ sectionTitle, members, rowSizes = [3, 2] }) => {
                   name={member.name}
                   position={member.position}
                   title={member.title}
-                  imageSrc={member.imageSrc}
+                  imageSrc={member.imageSrc || USER_PLACEHOLDER}
                 />
               ))}
             </div>
