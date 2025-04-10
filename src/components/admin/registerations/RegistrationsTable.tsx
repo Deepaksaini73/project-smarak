@@ -25,6 +25,7 @@ export default function RegistrationsTable({
     <Table>
       <TableHeader>
         <TableRow>
+          <TableHead className="w-14">S.No</TableHead>
           <TableHead>Event</TableHead>
           <TableHead>Registration Type</TableHead>
           <TableHead>Name/Team</TableHead>
@@ -35,8 +36,9 @@ export default function RegistrationsTable({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {registrations.map(reg => (
+        {registrations.map((reg, index) => (
           <TableRow key={reg.id}>
+            <TableCell className="font-medium">{index + 1}</TableCell>
             <TableCell>
               <div className="font-medium">{reg.event.name}</div>
               <div className="text-sm text-muted-foreground">{reg.event.eventType}</div>

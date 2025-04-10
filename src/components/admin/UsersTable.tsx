@@ -92,6 +92,7 @@ export function UsersTable({
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead className="w-14">S.No</TableHead>
             <TableHead className="cursor-pointer" onClick={() => handleSort('name')}>
               Name
               {sortConfig.key === 'name' && (
@@ -120,19 +121,20 @@ export function UsersTable({
         <TableBody>
           {isLoading ? (
             <TableRow>
-              <TableCell colSpan={8} className="text-center py-8">
+              <TableCell colSpan={9} className="text-center py-8">
                 Loading...
               </TableCell>
             </TableRow>
           ) : users.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={8} className="text-center py-8">
+              <TableCell colSpan={9} className="text-center py-8">
                 No users found
               </TableCell>
             </TableRow>
           ) : (
-            users.map(user => (
+            users.map((user, index) => (
               <TableRow key={user.id}>
+                <TableCell className="font-medium">{index + 1}</TableCell>
                 <TableCell className="font-medium">{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.phone}</TableCell>

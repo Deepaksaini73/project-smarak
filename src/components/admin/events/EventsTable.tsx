@@ -40,6 +40,7 @@ export function EventsTable({ events, onView, onEdit, onDelete }: EventsTablePro
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead className="w-14">S.No</TableHead>
               <TableHead>Event Name</TableHead>
               <TableHead>Type</TableHead>
               <TableHead>Date & Time</TableHead>
@@ -49,8 +50,9 @@ export function EventsTable({ events, onView, onEdit, onDelete }: EventsTablePro
             </TableRow>
           </TableHeader>
           <TableBody>
-            {events.map(event => (
+            {events.map((event, index) => (
               <TableRow key={event.id}>
+                <TableCell className="font-medium">{index + 1}</TableCell>
                 <TableCell className="font-medium">
                   <div className="flex flex-col">
                     <span>{event.name}</span>
